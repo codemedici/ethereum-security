@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Blockchain.ctb](README.md)
+* [Ethereum](README.md)
 * [Auditing](auditing/README.md)
   * [Example Audits](auditing/example-audits.md)
   * [Formal Verification](auditing/formal-verification.md)
