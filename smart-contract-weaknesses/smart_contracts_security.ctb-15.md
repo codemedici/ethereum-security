@@ -10,21 +10,22 @@
 
 Uninitialized local storage variables can point to unexpected storage locations in the contract, which can lead to intentional or unintentional vulnerabilities.
 
+Local variables within functions default to storage or memory depending on their type. Uninitialized local storage variables may contain the value of other storage variables in the contract; this fact can cause unintentional vulnerabilities, or be exploited deliberately.
+
 Solidity stores variables to storage or memory, depending on the type. Uninitialized storage pointers will, by default, point to the initial storage position \(0\) and can be used to alter the stored value.  
 The EVM stores data either as storage or as memory. Understanding exactly how this is done and the default types for local variables of functions is highly recommended when developing contracts. This is because it is possible to produce vulnerable contracts by inappropriately intializing variables.  
 To read more about storage and memory in the EVM, see the Solidity documentation on [data location](http://bit.ly/2OdUU0l), [layout of state variables in storage](https://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage), and [layout in memory](https://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-in-memory).  
 Note: This section is based on an excellent [post by Stefan Beyer](http://bit.ly/2ERI0pb). Further reading on this topic, inspired by Stefan, can be found in this [Reddit thread](http://bit.ly/2OgxPtG).
 
-### The Vulnerability
-
-Local variables within functions default to storage or memory depending on their type. Uninitialized local storage variables may contain the value of other storage variables in the contract; this fact can cause unintentional vulnerabilities, or be exploited deliberately.
-
 ## Real-world examples
 
-Real-World Examples: OpenAddressLottery and CryptoRoulette Honey Pots  
+Real-World Examples: OpenAddressLottery and CryptoRoulette Honey Pots
+
 A honey pot named [OpenAddressLottery](http://bit.ly/2AAVnWD) was deployed that used this uninitialized storage variable quirk to collect ether from some would-be hackers. The contract is rather involved, so we will leave the analysis to the [Reddit thread](http://bit.ly/2OgxPtG) where the attack is quite clearly explained.
 
-Another honey pot, [CryptoRoulette](http://bit.ly/2OfNGJ2), also utilized this trick to try and collect some ether. If you can’t figure out how the attack works, see “[An Analysis of a Couple Ethereum Honeypot Contracts](http://bit.ly/2OVkSL4)” for an overview of this contract and others.CryptoRoulette
+Another honey pot, [CryptoRoulette](http://bit.ly/2OfNGJ2), also utilized this trick to try and collect some ether. If you can’t figure out how the attack works, see “[An Analysis of a Couple Ethereum Honeypot Contracts](http://bit.ly/2OVkSL4)” for an overview of this contract and others.
+
+### CryptoRoulette
 
 #### crypto\_roulette.sol ^0.4.19
 
@@ -227,7 +228,7 @@ contract CryptoRoulette {
 
 ```
 
-#### NameRegistrar
+### NameRegistrar
 
 [https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc\#nameregistrar\_security](https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc#nameregistrar_security)
 
@@ -264,7 +265,11 @@ To discuss this vulnerability, first we need to understand how storage works in 
 The next piece of the puzzle is that Solidity by default puts complex data types, such as structs, in storage when initializing them as local variables. Therefore, newRecord on line 18 defaults to storage. The vulnerability is caused by the fact that `newRecord` is not initialized. Because it defaults to storage, it is mapped to storage slot\[0\], which currently contains a pointer to unlocked. Notice that on lines 19 and 20 we then set newRecord.name to \_name and newRecord.mappedAddress to \_mappedAddress; this updates the storage locations of slot\[0\] and slot\[1\], which modifies both unlocked and the storage slot associated with registeredNameRecord.
 
 This means that unlocked can be directly modified, simply by the bytes32 \_name parameter of the register function. Therefore, if the last byte of \_name is nonzero, it will modify the last byte of storage slot\[0\] and directly change unlocked to true. Such \_name values will cause the require call on line 25 to succeed, as we have set unlocked to true. Try this in Remix. Note the function will pass if you use a \_name of the form:  
-`0x000000000000000000000000000000000000000000000000000000000000000`**`1`**
+`0x000000000000000000000000000000000000000000000000000000000000000`
+
+### **OpenAddressLottery**
+
+**TODO**
 
 ## Preventative Techniques
 
