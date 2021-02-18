@@ -19,3 +19,9 @@
 
 • [Assembly](https://solidity.readthedocs.io/en/v0.5.11/assembly.html) \(for understanding the EVM, not for writing assembly
 
+### CTFS
+
+* [Capture The Ether](https://capturetheether.com/)
+* [Capture the Coin](https://capturethecoin.org/)
+* [Ethernaut](https://ethernaut.openzeppelin.com/)
+

@@ -39,32 +39,18 @@
     * [Vulnerabilities--Unhandled\_Exception\_HTML](smart-contract-weaknesses/vulnerabilities-unhandled_exception_html.md)
     * [Vulnerabilities--Uninitialized\_Storage\_pointers\_HTML](smart-contract-weaknesses/vulnerabilities-uninitialized_storage_pointers_html.md)
 
----
+## Solidity
 
-* [Best Practices](best-practices/README.md)
-  * [Contract Libraries](best-practices/contract-libraries.md)
-  * [Solidity Recommendations](best-practices/solidity-recommendations/README.md)
-    * [Protocol specific recommendations](best-practices/solidity-recommendations/protocol-specific-recommendations.md)
-    * [Solidity specific recommendations](best-practices/solidity-recommendations/solidity-specific-recommendations.md)
-* [Resources](resources/README.md)
-  * [Security challenges](resources/security-challenges.md)
-* [Tools](tools/README.md)
-  * [Mythril](tools/mythril.md)
-  * [Slither](tools/slither.md)
-* [b9lab](b9lab/README.md)
-  * [Auditing process](b9lab/auditing-process/README.md)
-    * [Audit report](b9lab/auditing-process/audit-report.md)
-    * [Code freeze](b9lab/auditing-process/code-freeze.md)
-    * [Engagement](b9lab/auditing-process/engagement.md)
-    * [Estimating and price qotes](b9lab/auditing-process/estimating-and-price-qotes.md)
-    * [Severity](b9lab/auditing-process/severity.md)
-    * [specifying intended behaviour](b9lab/auditing-process/specifying-intended-behaviour.md)
+* [Best Practices](solidity/best-practices-1.md)
+* [Resources](solidity/resources.md)
 
 ## Smart contract audits
 
+* [Auditing process](smart-contract-audits/auditing-process.md)
+* [What is an Audit?](smart-contract-audits/auditing.md)
+* [Tools](smart-contract-audits/tools-1.md)
 * [Symbolic computation](smart-contract-audits/symbolic-computation.md)
 * [Static Analysis tools](smart-contract-audits/static-analysis-tools.md)
 * [Formal Verification](smart-contract-audits/formal-verification.md)
 * [Example Audits](smart-contract-audits/example-audits.md)
-* [What is an Audit?](smart-contract-audits/auditing.md)
 
