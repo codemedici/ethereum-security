@@ -4,7 +4,8 @@
 
 ## Smart Contract Weaknesses
 
-* [Uninitialized Storage pointers](smart-contract-weaknesses/smart_contracts_security.ctb-15.md)
+* [SWC-100 Function Default Visibility](smart-contract-weaknesses/swc-100-function-default-visibility.md)
+* [SWC-109](smart-contract-weaknesses/smart_contracts_security.ctb-15.md)
 * [Unhandled Exception](smart-contract-weaknesses/smart_contracts_security.ctb-14.md)
 * [Unexpected Ether](smart-contract-weaknesses/smart_contracts_security.ctb-13.md)
 * [Unchecked CALL Return Values](smart-contract-weaknesses/smart_contracts_security.ctb-12.md)
@@ -35,4 +36,8 @@
 * [Static Analysis tools](smart-contract-audits/static-analysis-tools.md)
 * [Formal Verification](smart-contract-audits/formal-verification.md)
 * [Example Audits](smart-contract-audits/example-audits.md)
+
+## rekt
+
+* [Untitled](rekt/untitled.md)
 
