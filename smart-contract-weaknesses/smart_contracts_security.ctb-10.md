@@ -32,3 +32,7 @@ The difference is subtle. Note that 00 has been added to the end of the encoding
 Preventative Techniques  
 All input parameters in external applications should be validated before sending them to the blockchain. It should also be noted that parameter ordering plays an important role here. As padding only occurs at the end, careful ordering of parameters in the smart contract can mitigate some forms of this attack.
 
+### Resources
+
+* [https://vessenes.com/the-erc20-short-address-attack-explained/](https://vessenes.com/the-erc20-short-address-attack-explained/)
+
