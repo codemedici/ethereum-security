@@ -54,7 +54,7 @@ async function main () {
 
 The above script will call the `transferProxyAdminOwnership`  on the admin object of the upgrades plugin, it can be run using hardhat as follows:
 
-```javascript
+```bash
 npx hardhat run --network rinkeby scripts/transfer-ownership.js
 ```
 
@@ -77,7 +77,7 @@ This will validate that the contract is upgradeable and can be safely upgraded, 
 
 Finally, the upgrade proposal can be run like any other script:
 
-```javascript
+```bash
 hardhat run scripts/propose-upgrade.js
 ```
 
@@ -102,8 +102,6 @@ exports.handler = async function(credentials) {
 
     const contract = new ethers.Contract(contractAddr, contractABI, signer);
 }
-
-...
 ```
 
 After the contract's instance is creator using the signer, every time a transaction needs to be signed it will go to Defender Relayer to sign the transaction and broadcast it. Defender will also take care of nonces management so that they are increased whenever transactions are sent from any Defender account. Furthermore it will dynamically calculate the best gas prices for each transaction by checking multiple gas price oracles; the reader might have already noticed in the example above that the signer is generated with the option `{speed: 'fast'}` which will tell Defender to use a competitive gas price. Defender will also broadcast the transaction via multiple network providers for best availability. Finally, once the transaction has been broadcast, Defender will keep monitoring the transaction to make sure it gets mined and if it doesn't it will resend it with increased gas price.
@@ -132,13 +130,17 @@ As an example, let's say we needed to monitor large "whale" deposits to a DeFi c
 
 In sentinel there are two ways to define what triggers an alert. First by monitoring transaction properties, filtering if certain conditions are met, the conditions can be applied on the following transaction parameters: value, gasPrice, gasUsed, to, from, nonce, status \('success' or 'failed'\) or input. For example, the following filter can be applied in order to trigger alerts for transaction with a price greater than 10 gwei and only if they are successful:
 
-`gasPrice > 10e9 and status = 'success'`
+```bash
+gasPrice > 10e9 and status = 'success'
+```
 
 The other way to trigger alerts is by reacting to events through contract conditions, these specify which events and function calls should be monitored, by monitoring specific conditions within events and functions. The Defender UI lets users select from all the available events and access each event's variables programmatically using conditional statements.
 
 For example, let's say that a `deposit` function emits a `Deposited(address from, uint256 value)` event; if the goal was to monitor whale transactions, the conditional statement to check for transfers higher than 1000 ETH would be:
 
-`value > 1000000000000000000000`
+```bash
+value > 1000000000000000000000
+```
 
 Basically, Sentinels allow to set conditions based on arguments of the functions that were called on the contract as well as the arguments of the events that were fired.
 
