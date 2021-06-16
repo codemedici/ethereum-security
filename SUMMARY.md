@@ -40,10 +40,13 @@
 ## DeFi Exploits <a id="rekt"></a>
 
 * [MEV](rekt/mev/README.md)
-  * [Backrunning](rekt/mev/backrunning.md)
-  * [Frontrunning](rekt/mev/untitled.md)
-  * [Sandwiching](rekt/mev/sandwiching.md)
-  * [Time-bandid](rekt/mev/time-bandid.md)
+  * [MEV Mitigation](rekt/mev/mev-mitigation/README.md)
+    * [Flashbots](rekt/mev/mev-mitigation/flashbots.md)
+  * [MEV Exploits](rekt/mev/mev-exploits/README.md)
+    * [Frontrunning](rekt/mev/mev-exploits/untitled.md)
+    * [Backrunning](rekt/mev/mev-exploits/backrunning.md)
+    * [Uncle-bandid](rekt/mev/mev-exploits/time-bandid.md)
+    * [Sandwiching](rekt/mev/mev-exploits/sandwiching.md)
 
 ## Best Practices
 
