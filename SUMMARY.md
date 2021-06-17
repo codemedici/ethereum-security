@@ -39,6 +39,7 @@
 
 ## DeFi Exploits <a id="rekt"></a>
 
+* [Upgradability](rekt/upgradability.md)
 * [MEV](rekt/mev/README.md)
   * [MEV Mitigation](rekt/mev/mev-mitigation/README.md)
     * [Flashbots](rekt/mev/mev-mitigation/flashbots.md)

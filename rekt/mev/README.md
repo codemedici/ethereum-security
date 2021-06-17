@@ -2,9 +2,7 @@
 
 
 
-MEV is a measure of the profit a miner \(or validator, sequencer, etc.\) can make through their ability to arbitrarily include, exclude, or re-order transactions within the blocks they produce.
-
-
+MEV is a measure of the profit a miner \(or validator, sequencer, etc.\) can make through their ability to arbitrarily include, exclude, or re-order transactions within the blocks they produce. For example, rather than letting a trader pay them \(miners\) a transaction fee for the privilege of collecting the arb profit, a miner could simply decide to run this strategy themselves.
 
 Let’s take a look at what kinds of actors are in an advantageous position in the blockspace marketplace and have access to more MEV opportunities.
 
@@ -20,4 +18,9 @@ MEV is commonly misconceived as [Miner Extractable Value](https://arxiv.org/pdf/
 While there are changes in how consensus is reached in eth2, transaction ordering within each eth1 block is the same as it is today, both in the software that orders transactions \(eg. a Ethereum PoW client such as Geth\) and in the p2p network transactions are gossiped through.
 
 This means a technology such as Flashbots’ [MEV-geth](https://docs.flashbots.net/flashbots-core/overview) \(a modified eth1 client software optimized for MEV extraction\) that allows eth1 transaction senders to tip the block proposer \(and transaction orderer\) for their preferred ordering could still exist.
+
+### Resources
+
+* [https://samczsun.com/escaping-the-dark-forest/](https://samczsun.com/escaping-the-dark-forest/)
+* [https://medium.com/@danrobinson/ethereum-is-a-dark-forest-ecc5f0505dff](https://medium.com/@danrobinson/ethereum-is-a-dark-forest-ecc5f0505dff)
 
