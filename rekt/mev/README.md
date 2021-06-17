@@ -2,7 +2,7 @@
 
 
 
-MEV is a measure of the profit a miner \(or validator, sequencer, etc.\) can make through their ability to arbitrarily include, exclude, or re-order transactions within the blocks they produce. For example, rather than letting a trader pay them \(miners\) a transaction fee for the privilege of collecting the arb profit, a miner could simply decide to run this strategy themselves.
+MEV \(Maximal Extractable Value\) is a measure of the profit a miner \(or validator, sequencer, etc.\) can make through their ability to arbitrarily include, exclude, or re-order transactions within the blocks they produce. For example, rather than letting a trader pay them \(miners\) a transaction fee for the privilege of collecting the arb profit, a miner could simply decide to run this strategy themselves.
 
 Let’s take a look at what kinds of actors are in an advantageous position in the blockspace marketplace and have access to more MEV opportunities.
 
@@ -15,12 +15,24 @@ MEV is commonly misconceived as [Miner Extractable Value](https://arxiv.org/pdf/
 
 ### MEV in ETH 2.0
 
-While there are changes in how consensus is reached in eth2, transaction ordering within each eth1 block is the same as it is today, both in the software that orders transactions \(eg. a Ethereum PoW client such as Geth\) and in the p2p network transactions are gossiped through.
+Since the transaction ordering process in eth2 will be the same as that of PoW Ethereum, it is reasonable to think that MEV opportunities will still exist [as we know them today](https://medium.com/flashbots/quantifying-mev-introducing-mev-explore-v0-5ccbee0f6d02). The difference lies in who has ultimate control over the ordering, namely validators rather than miners, who have been selected to propose a beacon block which will contain a fresh eth1 block they queried from the eth1 client.
 
 This means a technology such as Flashbots’ [MEV-geth](https://docs.flashbots.net/flashbots-core/overview) \(a modified eth1 client software optimized for MEV extraction\) that allows eth1 transaction senders to tip the block proposer \(and transaction orderer\) for their preferred ordering could still exist.
+
+While there are changes in how consensus is reached in eth2, transaction ordering within each eth1 block is the same as it is today, both in the software that orders transactions \(eg. a Ethereum PoW client such as Geth\) and in the p2p network transactions are gossiped through.
+
+A [study by Flashbots](https://hackmd.io/@flashbots/mev-in-eth2) found that "at the current level of validators \(160k\), we find that MEV can increase validator rewards by 75.3%, or give an APR of 12.86% rather than a non-MEV APR of 7.35% from staking eth". It suggests that MEV extraction will be a lot more desirable in eth2 than it is in eth1, and that there may be a big push from stakers to earn MEV-enabled staking yields, this means more eth holders will be compelled to be validators which in turn means ethereum will be more secure by having a larger set of validators.
+
+The Flashbots study also finds that This shows MEV extraction amplifies the inequality between validators that’s created from block-proposal luck. For example for 100,000 validators, the mean number of blocks proposed per validator per year is 26 yet the unluckiest 1% of validators will have the opportunity to propose at most 15 blocks, and the luckiest 1% at least 39.
+
+> we worry that MEV could amplify oligopolic dynamics in eth2 by enriching the entities with the most 32-eth stakes faster than the ones with less \(rich-get-richer dynamics\). This would make democratizing MEV extraction especially important in eth2 in order to preserve decentralization of consensus voting power.
+
+
 
 ### Resources
 
 * [https://samczsun.com/escaping-the-dark-forest/](https://samczsun.com/escaping-the-dark-forest/)
 * [https://medium.com/@danrobinson/ethereum-is-a-dark-forest-ecc5f0505dff](https://medium.com/@danrobinson/ethereum-is-a-dark-forest-ecc5f0505dff)
+* [https://hackmd.io/@flashbots/mev-in-eth2](https://hackmd.io/@flashbots/mev-in-eth2)
+* [https://pdaian.com/blog/mev-wat-do/](https://pdaian.com/blog/mev-wat-do/)
 
