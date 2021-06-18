@@ -2,7 +2,11 @@
 
 Flashbots is an MEV-focused company that has synthesized live on-chain data to categorize and sort rogue MEV transactions for the community, on their [**MEV Explore page**](https://explore.flashbots.net/)
 
-[Flashbots](https://github.com/flashbots/pm) is a research and development organization formed to mitigate the negative externalities and existential risks posed by MEV, starting with Ethereum. They have built out tooling to quantify MEV and eliminate the information asymmetry in the ecosystem. They are now implementing a proof of concept for permissionless MEV extraction called MEV-Geth, a sealed-bid block space auction mechanism for communicating transaction order preference.
+
+
+> Flashbots is a research and development organization formed to mitigate the negative externalities and existential risks posed by miner-extractable value \(MEV\) to smart-contract blockchains.
+
+ They have built out tooling to quantify MEV and eliminate the information asymmetry in the ecosystem. They are now implementing a proof of concept for permissionless MEV extraction called MEV-Geth, a sealed-bid block space auction mechanism for communicating transaction order preference.
 
 Flashbots’ goal is to make sure MEV incentives do not become opaque and undemocratic. Hopefully, their infrastructure will allow application developers to better understand how to minimize their MEV exposure, and let some pressure off that could otherwise accumulate into really harmful externalities \(e.g., a time-bandit attack\).
 

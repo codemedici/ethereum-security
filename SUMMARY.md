@@ -37,17 +37,17 @@
 * [Formal Verification](smart-contract-audits/formal-verification.md)
 * [Example Audits](smart-contract-audits/example-audits.md)
 
-## DeFi Exploits <a id="rekt"></a>
+## DeFi Exploits <a id="defi"></a>
 
-* [Upgradability](rekt/upgradability.md)
-* [MEV](rekt/mev/README.md)
-  * [MEV Mitigation](rekt/mev/mev-mitigation/README.md)
-    * [Flashbots](rekt/mev/mev-mitigation/flashbots.md)
-  * [MEV Exploits](rekt/mev/mev-exploits/README.md)
-    * [Frontrunning](rekt/mev/mev-exploits/untitled.md)
-    * [Backrunning](rekt/mev/mev-exploits/backrunning.md)
-    * [Uncle-bandid](rekt/mev/mev-exploits/time-bandid.md)
-    * [Sandwiching](rekt/mev/mev-exploits/sandwiching.md)
+* [Upgradability](defi/upgradability.md)
+* [MEV](defi/mev/README.md)
+  * [MEV Mitigation](defi/mev/mev-mitigation/README.md)
+    * [Flashbots](defi/mev/mev-mitigation/flashbots.md)
+  * [MEV Exploits](defi/mev/mev-exploits/README.md)
+    * [Frontrunning](defi/mev/mev-exploits/untitled.md)
+    * [Backrunning](defi/mev/mev-exploits/backrunning.md)
+    * [Uncle-bandid](defi/mev/mev-exploits/time-bandid.md)
+    * [Sandwiching](defi/mev/mev-exploits/sandwiching.md)
 
 ## Best Practices
 
