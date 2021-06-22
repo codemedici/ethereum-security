@@ -1,6 +1,4 @@
-# SWC-109
-
-## Uninitialized Storage pointers
+# Uninitialized Storage pointers
 
 ### Relationships
 
