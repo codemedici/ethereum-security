@@ -82,7 +82,7 @@ The business world applies tremendous pressure on this process. Deadline pressur
 
 Always request a commit and stick to that during the audit, while also documenting it in the report. Never try to audit a moving target. The effectiveness of your work will be impaired, as will your reputation.
 
-## specifying intended behaviour
+## Specifying intended behaviour
 
 Specifying Intended Behavior  
 The auditor is tasked with ensuring the application behaves as specified. Where, exactly, is application behavior specified? This will vary greatly from project to project, but ideally there should exist a succinct document outlining the goal of the application, what is allowed and what is prevented. We call this a Statement of Intended Behavior. It should be precise and unambiguous so auditors can compare what the developers want to happen and the code that is intended to make it happen.

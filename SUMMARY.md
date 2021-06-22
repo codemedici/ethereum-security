@@ -54,6 +54,7 @@
 
 ## development
 
+* [DApp Starter Kit](development/dapp-starter-kit.md)
 * [Secure Development Recommendations](development/secure-development-recommendations/README.md)
   * [Solidity specific recommendations](development/secure-development-recommendations/solidity-specific-recommendations.md)
   * [Protocol specific recommendations](development/secure-development-recommendations/protocol-specific-recommendations.md)
