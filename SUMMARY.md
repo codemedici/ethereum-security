@@ -4,6 +4,11 @@
 
 ## Smart Contract Weaknesses
 
+* [Reentrancy](smart-contract-weaknesses/smart_contracts_security.ctb-9/README.md)
+  * [Ethernaut](smart-contract-weaknesses/smart_contracts_security.ctb-9/ethernaut.md)
+  * [Example - EtherStore.sol](smart-contract-weaknesses/smart_contracts_security.ctb-9/example-etherstore.sol.md)
+  * [Preventative Techniques](smart-contract-weaknesses/smart_contracts_security.ctb-9/preventative-techniques/README.md)
+    * [Pitfalls in Reentrancy Solutions](smart-contract-weaknesses/smart_contracts_security.ctb-9/preventative-techniques/pitfalls-in-reentrancy-solutions.md)
 * [Function Default Visibility](smart-contract-weaknesses/swc-100-function-default-visibility.md)
 * [Uninitialized Storage pointers](smart-contract-weaknesses/smart_contracts_security.ctb-15.md)
 * [Unhandled Exception](smart-contract-weaknesses/smart_contracts_security.ctb-14.md)
@@ -11,11 +16,6 @@
 * [Unchecked CALL Return Values](smart-contract-weaknesses/smart_contracts_security.ctb-12.md)
 * [Timestamp Dependence](smart-contract-weaknesses/smart_contracts_security.ctb-11.md)
 * [Short Address/Parameter Attack](smart-contract-weaknesses/smart_contracts_security.ctb-10.md)
-* [Reentrancy](smart-contract-weaknesses/smart_contracts_security.ctb-9/README.md)
-  * [Ethernaut](smart-contract-weaknesses/smart_contracts_security.ctb-9/ethernaut.md)
-  * [Example - EtherStore.sol](smart-contract-weaknesses/smart_contracts_security.ctb-9/example-etherstore.sol.md)
-  * [Preventative Techniques](smart-contract-weaknesses/smart_contracts_security.ctb-9/preventative-techniques.md)
-  * [Pitfalls in Reentrancy Solutions](smart-contract-weaknesses/smart_contracts_security.ctb-9/pitfalls-in-reentrancy-solutions.md)
 * [Integer Under/Overflow](smart-contract-weaknesses/smart_contracts_security.ctb-8.md)
 * [Function Overriding](smart-contract-weaknesses/smart_contracts_security.ctb-7.md)
 * [Floating Point and Precision](smart-contract-weaknesses/smart_contracts_security.ctb-5.md)
