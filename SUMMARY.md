@@ -71,5 +71,6 @@
 ## Blockchain Misc <a id="hyperledger"></a>
 
 * [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
+* [Blockchain for Cybersecurity Infrastructure](hyperledger/blockchain-for-cybersecurity-infrastructure.md)
 * [Bitcoin and Ethereum Wallet Cracking](hyperledger/bitcoin-and-ethereum-wallet-cracking.md)
 
