@@ -68,3 +68,7 @@
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 
+## Hyperledger
+
+* [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
+
