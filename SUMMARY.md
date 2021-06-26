@@ -68,7 +68,8 @@
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 
-## Hyperledger
+## Blockchain Misc <a id="hyperledger"></a>
 
 * [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
+* [Bitcoin and Ethereum Wallet Cracking](hyperledger/bitcoin-and-ethereum-wallet-cracking.md)
 
