@@ -5,6 +5,7 @@
 ## Smart Contract Weaknesses
 
 * [Reentrancy](smart-contract-weaknesses/smart_contracts_security.ctb-9/README.md)
+  * [transferFrom\(\) Reentrancy Attack on ERC-777](smart-contract-weaknesses/smart_contracts_security.ctb-9/transferfrom-reentrancy-attack-on-erc-777.md)
   * [Ethernaut](smart-contract-weaknesses/smart_contracts_security.ctb-9/ethernaut.md)
   * [Example - EtherStore.sol](smart-contract-weaknesses/smart_contracts_security.ctb-9/example-etherstore.sol.md)
   * [Preventative Techniques](smart-contract-weaknesses/smart_contracts_security.ctb-9/preventative-techniques/README.md)
@@ -21,11 +22,12 @@
 * [Floating Point and Precision](smart-contract-weaknesses/smart_contracts_security.ctb-5.md)
 * [External Contract Referencing](smart-contract-weaknesses/smart_contracts_security.ctb-4.md)
 * [Entropy Illusion](smart-contract-weaknesses/smart_contracts_security.ctb-3.md)
+* [Unsafe Functions](smart-contract-weaknesses/unsafe-functions.md)
 * [Design Flaws](smart-contract-weaknesses/smart_contracts_security.ctb-2.md)
 * [Deprecated Code](smart-contract-weaknesses/smart_contracts_security.ctb-1.md)
 * [Denial of Service](smart-contract-weaknesses/smart_contracts_security.ctb.md)
 * [MEV](smart-contract-weaknesses/mev/README.md)
-  * [Unsafe Functions](smart-contract-weaknesses/mev/unsafe-functions.md)
+  * [Access Control](smart-contract-weaknesses/mev/access-control.md)
   * [MEV Mitigation](smart-contract-weaknesses/mev/mev-mitigation/README.md)
     * [Flashbots](smart-contract-weaknesses/mev/mev-mitigation/flashbots.md)
   * [MEV Exploits](smart-contract-weaknesses/mev/mev-exploits/README.md)
