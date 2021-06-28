@@ -18,6 +18,13 @@ A well-known tool for generating good visual representations is **Surya**.
 
 These tools will inspect the source code for known vulnerabilities, much like you do manually. Examples are **Security** and **SmartCheck**.
 
+* Securify - [https://securify.chainsecurity.com](https://securify.chainsecurity.com) - works on bytecode leve
+* Oyente
+* Maian
+* Zeus
+* MadMax
+* MythX Security Tool: [https://mythx.io](https://mythx.io) \(Consensys\)
+
 ### Symbolic Execution \(a.k.a. Dynamic Analysis\)
 
 These tools will run the code \(or application, they can be used in "black box" fashion\), with predefined inputs and check results. **Manticore** and **Mythril** are the most prominent ones.
@@ -127,4 +134,8 @@ Although screening through false positives can get tedious, tools are an effecti
 Use the tools you know and trust, but try a new one every now and then.
 
 You can see the contracts and resulting analyses in this shared repository.
+
+## Formal Verification
+
+* VerX - Presentation slides - [https://polybox.ethz.ch/index.php/s/Qpx3VZxAnmwyBWl](https://polybox.ethz.ch/index.php/s/Qpx3VZxAnmwyBWl)
 
