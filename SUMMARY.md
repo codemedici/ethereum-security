@@ -25,6 +25,7 @@
 * [Deprecated Code](smart-contract-weaknesses/smart_contracts_security.ctb-1.md)
 * [Denial of Service](smart-contract-weaknesses/smart_contracts_security.ctb.md)
 * [MEV](smart-contract-weaknesses/mev/README.md)
+  * [Unsafe Functions](smart-contract-weaknesses/mev/unsafe-functions.md)
   * [MEV Mitigation](smart-contract-weaknesses/mev/mev-mitigation/README.md)
     * [Flashbots](smart-contract-weaknesses/mev/mev-mitigation/flashbots.md)
   * [MEV Exploits](smart-contract-weaknesses/mev/mev-exploits/README.md)
