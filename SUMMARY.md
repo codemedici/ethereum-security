@@ -54,7 +54,14 @@
 ## Operations
 
 * [OZ Defender](operations/oz-defender.md)
-* [Key Management](operations/key-management.md)
+* [Key Management](operations/key-management/README.md)
+  * [DIDs](operations/key-management/dids/README.md)
+    * [DID Protocols](operations/key-management/dids/did-protocols.md)
+    * [ERC-725](operations/key-management/dids/erc-725.md)
+    * [ERC-735](operations/key-management/dids/erc-735.md)
+    * [ERC-780](operations/key-management/dids/erc-780.md)
+    * [ERC-1056](operations/key-management/dids/erc-1056.md)
+    * [ERC-1484](operations/key-management/dids/erc-1484.md)
 
 ## development
 
@@ -77,5 +84,4 @@
 * [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
 * [Blockchain for Cybersecurity Infrastructure](hyperledger/blockchain-for-cybersecurity-infrastructure.md)
 * [Bitcoin and Ethereum Wallet Cracking](hyperledger/bitcoin-and-ethereum-wallet-cracking.md)
-* [DIDs](hyperledger/dids.md)
 
