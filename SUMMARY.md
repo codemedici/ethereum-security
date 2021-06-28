@@ -54,6 +54,7 @@
 ## Operations
 
 * [OZ Defender](operations/oz-defender.md)
+* [Key Management](operations/key-management.md)
 
 ## development
 
