@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Ethereum](README.md)
+* [Ethereum Security](README.md)
 
 ## Smart Contract Weaknesses
 
