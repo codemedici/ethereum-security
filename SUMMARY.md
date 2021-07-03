@@ -49,6 +49,9 @@
 ## best practices
 
 * [General Philosophy](best-practices/general-philosophy.md)
+* [Secure Development Recommendations](best-practices/secure-development-recommendations/README.md)
+  * [Solidity specific recommendations](best-practices/secure-development-recommendations/solidity-specific-recommendations.md)
+  * [Protocol specific recommendations](best-practices/secure-development-recommendations/protocol-specific-recommendations.md)
 * [Upgradability](best-practices/upgradability.md)
 
 ## Operations
@@ -62,13 +65,6 @@
     * [ERC-780](operations/key-management/dids/erc-780.md)
     * [ERC-1056](operations/key-management/dids/erc-1056.md)
     * [ERC-1484](operations/key-management/dids/erc-1484.md)
-
-## development
-
-* [DApp Starter Kit](development/dapp-starter-kit.md)
-* [Secure Development Recommendations](development/secure-development-recommendations/README.md)
-  * [Solidity specific recommendations](development/secure-development-recommendations/solidity-specific-recommendations.md)
-  * [Protocol specific recommendations](development/secure-development-recommendations/protocol-specific-recommendations.md)
 
 ## monitoring
 
