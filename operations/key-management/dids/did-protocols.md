@@ -61,6 +61,10 @@ EthrDID Registry
 
 Smart contract for the resolution and management of decentralized identifiers \(DIDs\)
 
+### uPort SimpleSigner — Private Keys
+
+The uPort SimpleSigner allows trust anchors to privately sign attestations using the JSON Web Token \(JWT\) specification. By using JWTs, instead of saving information on a public blockchain \(ERC725\) user’s private information can be kept confidential… and private.
+
 ## 3Box
 
 3Box\`

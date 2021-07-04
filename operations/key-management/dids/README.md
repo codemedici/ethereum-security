@@ -34,18 +34,7 @@ Because distributed applications use the complimentary private signing key to ge
 
 To verify the source of the signed information, it’s essential anyone can lookup the corresponding public key i.e. via the Ethereum Claims Registry using a decentralized identity resolver.
 
-## uPort SimpleSigner — Private Keys
-
-The uPort SimpleSigner allows trust anchors to privately sign attestations using the JSON Web Token \(JWT\) specification. By using JWTs, instead of saving information on a public blockchain \(ERC725\) user’s private information can be kept confidential… and private.
-
-• ERC725 EIP -ERC Ethereum Identity Standard \(Proxy Account\) ◇ ERC 725 is a proposed standard for blockchain-based identity authored by Fabian Vogelsteller, creator of ERC 20 and Web3.js. ERC 725 describes proxy smart contracts that can be controlled by multiple keys and other smart contracts. ERC 735 is an associated standard to add and remove claims to an ERC 725 identity smart contract. These identity smart contracts can describe humans, groups, objects, and machines. ERC 725 lives on the Ethereum blockchain. ◇ ERC 725 allows for self-sovereign identity. An open, portable standard for identities will enable decentralized reputation, governance, and more. Users will be able to take their identity across different Dapps and platforms that support this standard.
-
-### Universally Discoverable
-
-As defined in the Decentralized Identity specification, the identities must be discoverable using traditional systems protocol specifications like URL or URI.
-
-* Decentralized Identifiers \(DIDs\) - [https://w3c-ccg.github.io/did-spec/](https://w3c-ccg.github.io/did-spec/) - Data Model and Syntaxes for Decentralized Identifiers \(DIDs\)
-* 3Box - [https://github.com/3box/3box](https://github.com/3box/3box) - [https://3box.io/](https://3box.io/) - A Distributed DB for Ethereum users
+## 
 
 ## Self-sovrreign ID vs ID on blockchain
 
