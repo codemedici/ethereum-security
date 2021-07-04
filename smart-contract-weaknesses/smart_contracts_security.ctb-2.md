@@ -62,3 +62,7 @@ The “suicide” in the above function refers to a solidity function which “d
 
 Ironically, the vulnerability devops199 exploited to gain ownership of the library had been reported by Github user “3esmit” \(Ricardo Guilherme Schmidt\) three months prior. It appears the Parity team misunderstood the issue at hand, pushed an ineffectual fix, and closed the issue.
 
+## Selfdestruct\(\)
+
+Resources [https://blog.b9lab.com/selfdestruct-is-a-bug-9c312d1bb2a5](https://blog.b9lab.com/selfdestruct-is-a-bug-9c312d1bb2a5)
+

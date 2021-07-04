@@ -29,7 +29,8 @@ ddeaddeaddeaddeaddeaddeadde00000000000000
 00000000000000000000000000000000056bc75e2d6310000000  
 The difference is subtle. Note that 00 has been added to the end of the encoding, to make up for the short address that was sent. When this gets sent to the smart contract, the address parameters will be read as 0xdeaddeaddeaddeaddeaddeaddeaddeaddeadde00 and the value will be read as 56bc75e2d6310000000 \(notice the two extra 0s\). This value is now 25600 tokens \(the value has been multiplied by 256\). In this example, if the exchange held this many tokens, the user would withdraw 25600 tokens \(while the exchange thinks the user is only withdrawing 100\) to the modified address. Obviously the attacker won’t possess the modified address in this example, but if the attacker were to generate any address that ended in 0s \(which can be easily brute-forced\) and used this generated address, they could steal tokens from the unsuspecting exchange.
 
-Preventative Techniques  
+## Preventative Techniques
+
 All input parameters in external applications should be validated before sending them to the blockchain. It should also be noted that parameter ordering plays an important role here. As padding only occurs at the end, careful ordering of parameters in the smart contract can mitigate some forms of this attack.
 
 ### Resources

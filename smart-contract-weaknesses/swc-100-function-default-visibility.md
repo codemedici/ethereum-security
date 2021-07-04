@@ -1,4 +1,4 @@
-# SWC-100 Function Default Visibility
+# Function Default Visibility
 
 ### Relationships
 

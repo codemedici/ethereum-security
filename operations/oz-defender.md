@@ -17,7 +17,9 @@ Defender is divided into four core components that are tightly integrated with e
 * Autotask
 * Sentinel
 
-## Admin
+![](https://i.imgur.com/6nJ23Pk.png)
+
+### Admin
 
 > Interface for contract administration
 
@@ -27,11 +29,11 @@ OZ recommends using either Gnosis Safe or the legacy Multisig Gnosis wallet, Adm
 
 Besides calling generic functions, Admin comes with a couple of pre-packaged actions, such as pausing contracts with a single click that will create a pause proposal \(the contract must be pausable in the first place\). Similarly, if your contract is upgradeable, there is a shortcut button for creating an upgrade proposal, provided an implementation address of the upgraded contract, defender will take care of packaging the transaction that goes through a Multisig of the proxy administrator and ultimately upgrade the contract.
 
-### Upgrades
+#### Upgrades
 
 Upgrades allow developers to replace the original implementation of a contract while preserving their address and state. Upgrades deserve a paragraph of their own because it is critical that contracts are upgraded securely and with minimal service disruption.
 
-From the users' perspective, an upgradeable smart contract means having to increase their level of trust in external actors, because admins can now "pull the rug" from under their feet at any pint in time. That said, users of the contract probably wouldn't want to be in the situation where a critical bug is found and no one  can pause or upgrade the contract in order to fix it. If the contract was not upgradeable, the developers would have to convince everyone to migrate to the new contract address \(both users and dApps\) and move their balances; this transition would be slow and not everyone will always get the message, putting their funds at risk.
+From the users' perspective, an upgradeable smart contract means having to increase their level of trust in external actors, because admins can now "pull the rug" from under their feet at any pint in time. That said, users of the contract probably wouldn't want to be in the situation where a critical bug is found and no one can pause or upgrade the contract in order to fix it. If the contract was not upgradeable, the developers would have to convince everyone to migrate to the new contract address \(both users and dApps\) and move their balances; this transition would be slow and not everyone will always get the message, putting their funds at risk.
 
 Before beginning, it is worth pointing out the technical distinction between a proxy contract and an implementation contract:
 
@@ -52,9 +54,9 @@ async function main () {
 }
 ```
 
-The above script will call the `transferProxyAdminOwnership`  on the admin object of the upgrades plugin, it can be run using hardhat as follows:
+The above script will call the `transferProxyAdminOwnership` on the admin object of the upgrades plugin, it can be run using hardhat as follows:
 
-```bash
+```javascript
 npx hardhat run --network rinkeby scripts/transfer-ownership.js
 ```
 
@@ -77,13 +79,13 @@ This will validate that the contract is upgradeable and can be safely upgraded, 
 
 Finally, the upgrade proposal can be run like any other script:
 
-```bash
+```javascript
 hardhat run scripts/propose-upgrade.js
 ```
 
 behind the scenes the script can use a private key used for local development, since the upgrade will still need to go through a proposal for all the Multisig signers.
 
-## Relayer
+### Relayer
 
 > Manages private keys and tx delivery
 
@@ -108,7 +110,7 @@ After the contract's instance is creator using the signer, every time a transact
 
 To sum ip, relayer saves developers the trouble of setting up infrastructure for submitting transactions to the network and securely host private keys, additionally the `npm` package takes away the pain of writing the low-level code for building and signing transactions and keeping track of nonces.
 
-## Autotask
+### Autotask
 
 > Executes custom code
 
@@ -120,7 +122,7 @@ The code submitted to Autotask is like the one shown in preceding paragraph abou
 
 Not only can autotasks run custom logic, they can also access external APIs, for that you can define secrets in your autotasks that can be accessed from within your autotask code without having to hardcode them in the autotask's script, as these secrets are managed via the UI and kept in a secure vault and made available at runtime when the tests are run.
 
-## Sentinels
+### Sentinels
 
 > Monitor function call and events
 
@@ -146,7 +148,7 @@ Basically, Sentinels allow to set conditions based on arguments of the functions
 
 After creating a sentinel it is possible to configure what happens when a transaction or an event that matches the predefined conditions is mined, such as sending an email or triggering a Slack webhook. Most importantly, it is possible to trigger Autotasks. Very commonly, Sentinels are also used for monitoring high failure rates, or monitoring for unusual activity that could indicate a hack and therefore immediately pause a contract.
 
-## Advisor
+### Advisor
 
 Advisor is a knowledge-base with security best practices that have been collected throught the years, these best practices are grouped under the categories of development, testing, monitoring and operations, each best practice carries a security rating score and an "effort" rating for implementing such best practice.
 
@@ -154,29 +156,29 @@ It is possible to query this knowledge base for any security related topic, such
 
 Although it won't remove the need for an audit, it can certainly help in guiding developers about best practices they should be aware of. This knowledge-base is being continuously updated.
 
-## Resources
+### Resources
 
 **Defender**
 
-{% embed url="https://defender.openzeppelin.com" %}
+{% embed url="https://defender.openzeppelin.com" caption="" %}
 
 **Community Forum**
 
-{% embed url="https://forum.openzeppelin.com" %}
+{% embed url="https://forum.openzeppelin.com" caption="" %}
 
 **Documentation**
 
-{% embed url="https://docs.openzeppelin.com/defender/" %}
+{% embed url="https://docs.openzeppelin.com/defender/" caption="" %}
 
-#### OZ Upgradeability Workshop
+**OZ Upgradeability Workshop**
 
-{% embed url="https://github.com/OpenZeppelin/workshops/tree/master/05-upgrades-management/code" %}
+{% embed url="https://github.com/OpenZeppelin/workshops/tree/master/05-upgrades-management/code" caption="" %}
 
-#### Writing Upgradeable Contracts
+**Writing Upgradeable Contracts**
 
-{% embed url="https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable" %}
+{% embed url="https://docs.openzeppelin.com/upgrades-plugins/1.x/writing-upgradeable" caption="" %}
 
-#### Use Multiple Signatures for Critical Administrative Tasks
+**Use Multiple Signatures for Critical Administrative Tasks**
 
-{% embed url="https://defender.openzeppelin.com/\#/advisor/docs/use-multiple-signatures-for-critical-administrative-tasks?query=signatures" %}
+{% embed url="https://defender.openzeppelin.com/\#/advisor/docs/use-multiple-signatures-for-critical-administrative-tasks?query=signatures" caption="" %}
 
