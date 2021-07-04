@@ -57,14 +57,7 @@
 ## Operations
 
 * [OZ Defender](operations/oz-defender.md)
-* [Key Management](operations/key-management/README.md)
-  * [DIDs](operations/key-management/dids/README.md)
-    * [DID Protocols](operations/key-management/dids/did-protocols.md)
-    * [ERC-725](operations/key-management/dids/erc-725.md)
-    * [ERC-735](operations/key-management/dids/erc-735.md)
-    * [ERC-780](operations/key-management/dids/erc-780.md)
-    * [ERC-1056](operations/key-management/dids/erc-1056.md)
-    * [ERC-1484](operations/key-management/dids/erc-1484.md)
+* [Key Management](operations/key-management.md)
 
 ## monitoring
 
