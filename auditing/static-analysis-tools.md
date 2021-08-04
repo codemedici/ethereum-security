@@ -1,6 +1,6 @@
 # Static Analysis tools
 
-• Securify - https://securify.chainsecurity.com - works on bytecode leve  
+• Securify - https://securify.chainsecurity.com - works on bytecode level  
 • Oyente  
 • Maian  
 • Zeus  
