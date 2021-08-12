@@ -36,4 +36,5 @@ All input parameters in external applications should be validated before sending
 ### Resources
 
 * [https://vessenes.com/the-erc20-short-address-attack-explained/](https://vessenes.com/the-erc20-short-address-attack-explained/)
+* [https://blog.sigmaprime.io/solidity-security.html\#short-address](https://blog.sigmaprime.io/solidity-security.html#short-address)
 

@@ -37,9 +37,12 @@ function withdraw\(uint \_amount\) {
 
 #### Reentrancy
 
+* [Reentrancy Attack On Smart Contracts: How To Identify The Exploitable And An Example Of An Attack Contract](https://gus-tavo-guim.medium.com/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4) \[2017\]
 * [https://github.com/crytic/not-so-smart-contracts/tree/master/reentrancy](https://github.com/crytic/not-so-smart-contracts/tree/master/reentrancy)
 * [https://medium.com/@gus\_tavo\_guim/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4](https://medium.com/@gus_tavo_guim/reentrancy-attack-on-smart-contracts-how-to-identify-the-exploitable-and-an-example-of-an-attack-4470a2d8dfe4)
 * [https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc\#reentrancy](https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc#reentrancy)
+* [https://blog.sigmaprime.io/solidity-security.html\#reentrancy](https://blog.sigmaprime.io/solidity-security.html#reentrancy) \[2018\]
+* [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/reentrancy.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/reentrancy.md)
 
 #### address global functions
 

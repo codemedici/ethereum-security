@@ -2,6 +2,10 @@
 
 ## Forcibly Sending Ether to a Contract¶
 
+Since it is always possible to send Ether to a contract, see [Forcibly Sending Ether to a Smart Contract](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks-and-vulnerabilites/forcibly-sending-ether.md), if a contract assumes a specific balance, it is vulnerable to attack.
+
+Say we have a contract that prevents all functions from executing if there is any Ether stored in the contract. If a malicious user decides to exploit this by forcibly sending Ether, they will cause a DoS, rendering the contract unusable. For this reason, it's important to never use strict equality checks for the balance of Ether in a contract.
+
 It is possible to forcibly send Ether to a contract without triggering its fallback function. This is an important consideration when placing important logic in the fallback function or making calculations based on a contract's balance. Take the following example:
 
 `contract Vulnerable {  
@@ -21,13 +25,13 @@ Warning
 
 It is also possible to precompute a contract's address and send Ether to that address before deploying the contract.
 
-### Unexpected Ether
+## Unexpected Ether
 
 Typically, when ether is sent to a contract it must execute either the fallback function or another function defined in the contract. There are two exceptions to this, where ether can exist in a contract without having executed any code. Contracts that rely on code execution for all ether sent to them can be vulnerable to attacks where ether is forcibly sent.
 
 For further reading on this, see “How to Secure Your Smart Contracts” and “Solidity Security Patterns - Forcing Ether to a Contract”.
 
-#### The Vulnerability
+## The Vulnerability
 
 A common defensive programming technique that is useful in enforcing correct state transitions or validating operations is invariant checking. This technique involves defining a set of invariants \(metrics or parameters that should not change\) and checking that they remain unchanged after a single \(or many\) operation\(s\). This is typically good design, provided the invariants being checked are in fact invariants. One example of an invariant is the totalSupply of a fixed-issuance ERC20 token. As no function should modify this invariant, one could add a check to the transfer function that ensures the totalSupply remains unmodified, to guarantee the function is working as expected.
 
@@ -35,11 +39,11 @@ In particular, there is one apparent invariant that it may be tempting to use bu
 
 There are two ways in which ether can \(forcibly\) be sent to a contract without using a payable function or executing any code on the contract:
 
-#### Self-destruct/suicide
+## Self-destruct/suicide
 
 Any contract is able to implement the selfdestruct function, which removes all bytecode from the contract address and sends all ether stored there to the parameter-specified address. If this specified address is also a contract, no functions \(including the fallback\) get called. Therefore, the selfdestruct function can be used to forcibly send ether to any contract regardless of any code that may exist in the contract, even contracts with no payable functions. This means any attacker can create a contract with a selfdestruct function, send ether to it, call selfdestruct\(target\) and force ether to be sent to a target contract. Martin Swende has an excellent blog post describing some quirks of the self-destruct opcode \(Quirk \#2\) along with an account of how client nodes were checking incorrect invariants, which could have led to a rather catastrophic crash of the Ethereum network.
 
-#### Pre-sent ether
+## Pre-sent ether
 
 Another way to get ether into a contract is to preload the contract address with ether. Contract addresses are deterministic—in fact, the address is calculated from the Keccak-256 \(commonly synonymous with SHA-3\) hash of the address creating the contract and the transaction nonce that creates the contract. Specifically, it is of the form address = sha3\(rlp.encode\(\[account\_address,transaction\_nonce\]\)\) \(see Adrian Manning’s discussion of “Keyless Ether” for some fun use cases of this\). This means anyone can calculate what a contract’s address will be before it is created and send ether to that address. When the contract is created it will have a nonzero ether balance.
 
@@ -152,4 +156,13 @@ A few examples of exploitable contracts were given in the Underhanded Solidity C
 • Ether can be sent to the contract address before deployment, as the address of a smart contract is deterministically generated before it is actually deployed. The address is the result of a keccak hash of the address of the deployer and the nonce of the transaction.  
 • Even if no Ether was sent before deployment, Ether can be forced into contracts with selfdestruct or by designating a contract the recipient of mining rewards.  
 • Critically examine logic that depends on contract balance.
+
+## Resources
+
+* [https://blog.sigmaprime.io/solidity-security.html\#ether](https://blog.sigmaprime.io/solidity-security.html#ether)
+* [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/forcibly-sending-ether.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/forcibly-sending-ether.md)
+* [https://swcregistry.io/docs/SWC-132](https://swcregistry.io/docs/SWC-132)
+* [https://consensys.github.io/smart-contract-best-practices/known\_attacks/\#forcibly-sending-ether-to-a-contract](https://consensys.github.io/smart-contract-best-practices/known_attacks/#forcibly-sending-ether-to-a-contract)
+* [https://blog.sigmaprime.io/solidity-security.html\#ether](https://blog.sigmaprime.io/solidity-security.html#ether)
+* [https://medium.com/@nmcl/gridlock-a-smart-contract-bug-73b8310608a9](https://medium.com/@nmcl/gridlock-a-smart-contract-bug-73b8310608a9)
 

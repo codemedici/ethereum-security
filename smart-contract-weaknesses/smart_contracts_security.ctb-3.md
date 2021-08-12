@@ -20,3 +20,7 @@ The source of entropy \(randomness\) must be external to the blockchain. This ca
 
 In February 2018 Arseny Reutov [blogged](http://bit.ly/2Q589lx) about his analysis of 3,649 live smart contracts that were using some sort of pseudorandom number generator \(PRNG\); he found 43 contracts that could be exploited.
 
+## Resources
+
+* [https://blog.sigmaprime.io/solidity-security.html\#visibility](https://blog.sigmaprime.io/solidity-security.html#visibility)
+

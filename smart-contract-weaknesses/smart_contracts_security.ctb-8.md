@@ -8,11 +8,7 @@ Be careful with the smaller data-types like `uint8`, `uint16`, `uint24`...etc: t
 
 Be aware there are around [20 cases for overflow and underflow](https://github.com/ethereum/solidity/issues/796#issuecomment-253578925)!
 
-### Use of
-
-### `var`
-
-###  to declare variables
+### Use of`var` to declare variables
 
 `var` is deprecated since version `0.4.20`, but is still be available in versions below `0.5.0` for compatibility. The issue with var is that the type of the variable is assumed from it's first assigned value. This can cause a number of issues, as assigning 0 or any low value using var will result in an uint8, which will overflow if it exceeds 255. This causes an infinite loop in the case below:
 
@@ -44,4 +40,8 @@ Remediation
 
 One simple solution to mitigate the common mistakes for overflow and underflow is to use SafeMath.sol library for arithmetic functions.  
 See [SWC-101](https://swcregistry.io/docs/SWC-101)
+
+## Resources
+
+* [https://blog.sigmaprime.io/solidity-security.html\#ouflow](https://blog.sigmaprime.io/solidity-security.html#ouflow)
 
