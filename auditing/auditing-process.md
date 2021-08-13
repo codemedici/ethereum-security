@@ -1,5 +1,73 @@
 # Auditing process
 
+An audit is:  
+• An assessment of your secure development process.  
+• The best option available to identify subtle vulnerabilities.  
+• A systematic method for assessing the quality and security of code.
+
+An opportunity to:  
+• Learn from experts  
+• Identify gaps in your process  
+• Identify underspecified areas of your system
+
+An audit can not:  
+• Replace internal quality assurance  
+• Overcome excessive complexity or poor architecture  
+• Guarantee no bugs or vulnerabilities
+
+## Preparing for an Audit
+
+• We have a finite amount of time to audit your code.  
+• Preparation will help you get the most value from us.  
+• We must first understand your code, before we can identify subtle vulnerabilities.  
+• Imagine we’re a new developer hired to join your team, but we only have a few days to ramp up.
+
+### Steps to prepare
+
+**1. Documentation**
+
+The less time we spend trying to understand your system, the more time we can spend finding bugs.
+
+GOOD DOCUMENTATION:  
+Describes the overall system and its objectives  
+Describes what should not be possible  
+Lists which contracts are derived/deployed, and how they interact with one another
+
+Documenting your code will also help you to improve it.
+
+Example of good documentation: [0x Protocol Specifications](https://github.com/0xProject/0x-protocol-specification/blob/master/v2/v2-specification.md)
+
+**2. Make it easy to run**
+
+Example from [Polymath](https://github.com/PolymathNetwork/polymath-core):
+
+[![images/104-1.png](../.gitbook/assets/104-1.png)]()
+
+3. Clean up the code
+
+• Add helpful comments: explain the intent, i..e. what are you trying to do
+
+[![images/104-2.png](../.gitbook/assets/104-2.png)]()
+
+• Using NatSpec \(natural specification\) comments:
+
+[![images/104-3.png](../.gitbook/assets/104-3.png)]()
+
+• Fix TODOs  
+• delete commented out code
+
+4. Run Tools
+
+• [EthLint](https://www.ethlint.com/)  
+• [Slither](https://github.com/crytic/slither/issues)  
+• MythX
+
+6. Freeze the code
+
+• We can't audit a moving target
+
+## What to expect from an audit
+
 ## The Audit Process
 
 The audit process varies greatly from company to company, and between individuals as there is, as yet, no generally-accepted industry standard process. We will walk through several activities that take place before, during and after an audit, beginning with foundational points that are generally agreed upon even as we recognize differences of opinion that exist at the practical level.
@@ -35,7 +103,8 @@ When applications actually started being deployed in the mainnet, circa 2016, on
 
 Observing projects getting killed by preventable problems increased general awareness of the importance of preventative quality-assurance. Two approaches shaped the formative Ethereum code security industry.
 
-Bug Bounties  
+### Bug Bounties
+
 The first of these is Bug Bounties. Bug bounties are a time-tested approach to reinforcing information security. Organizations such as HackerOne\[^1\], organize bug bounties for corporate clients. Bug Bounties are a way of reaching out to large numbers of qualified developers, to possibly discover critical issues. Importantly, Bug Bounties provide incentives to search and discover. After all, why should an accomplished expert devote valuable time and effort to fortify a piece of software if no incentive exists? Software defects in the open can go undetected for a considerable time if no one is incentivized to find them. As history has shown, the expert with the incentive to discover a vulnerability is often incentivized by an intention to exploit a weakness. Bug Bounties alter the balance of incentives. They offer honest experts a reason to search for problems and report findings before weaknesses devolve into incidents in production.
 
 Soon after, companies began reaching out to successful bug hunters and community members known for dexterity around Solidity and the EVM. This is logical, because even if one intends to run a Bug Bounty campaign, one probably doesn’t want to offer bounty hunters low-hanging fruits. A rational actor will want to establish confidence in the code and a low probability of paying out the reward for a critical bug. Confidence enables the possibility of substantial rewards, and substantial rewards is what summons large contingents of talented developers.
@@ -343,4 +412,8 @@ Solidified’s bug bounty platform categorizes the most common known vulnerabili
 It is important to observe the classification standards of the organization or platform you are working with. Always review the rules before setting the category assessment because incorrect classification may lead to your report \(and your bounty claim\) being rejected. Remember to gather evidence supporting your report.
 
 [OWASP Risk Rating Template](https://www.owasp.org/index.php/File:OWASP_Risk_Rating_Template_Example.xlsx)
+
+## Resources
+
+[https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571](https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571)
 

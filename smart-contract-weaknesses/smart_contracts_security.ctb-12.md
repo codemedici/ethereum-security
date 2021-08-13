@@ -1,6 +1,10 @@
 # Unchecked CALL Return Values
 
-## Unchecked CALL Return Values
+If the return value of a low-level call is not checked, the execution may resume even if the function call throws an error. This can lead to unexpected behaviour and break the program logic. A failed call can even be caused by an attacker, who may be able to further exploit the application.
+
+In solidity, you can either use low-level calls such as: `address.call()`, `address.callcode()`, `address.delegatecall()`, and `address.send()`; or you can use contract calls such as: `ExternalContract.doSomething()`. Low-level calls will never throw an exception, instead they will return `false` if they encounter an exception, whereas contract calls will automatically throw.
+
+In the case that you use low-level calls, be sure to check the return value to handle possible failed calls.
 
 There are a number of ways of performing external calls in Solidity. Sending ether to external accounts is commonly performed via the transfer method. However, the send function can also be used, and for more versatile external calls the CALL opcode can be directly employed in Solidity. The `call` and `send` functions return a Boolean indicating whether the call succeeded or failed. Thus, these functions have a simple caveat, in that the transaction that executes these functions will not revert if the external call \(intialized by call or send\) fails; rather, the functions will simply return false. A common error is that the developer expects a revert to occur if the external call fails, and does not check the return value.
 
@@ -100,6 +104,9 @@ A more serious version of this bug occurred in the King of the Ether. An excelle
 
 ### Resources
 
-[https://www.kingoftheether.com/postmortem.html](https://www.kingoftheether.com/postmortem.html)  
-[https://aakilfernandes.github.io/blockhashes-are-only-good-for-256-blocks](https://aakilfernandes.github.io/blockhashes-are-only-good-for-256-blocks)
+* [https://www.kingoftheether.com/postmortem.html](https://www.kingoftheether.com/postmortem.html)
+* [https://aakilfernandes.github.io/blockhashes-are-only-good-for-256-blocks](https://aakilfernandes.github.io/blockhashes-are-only-good-for-256-blocks)
+* [https://blog.sigmaprime.io/solidity-security.html\#unchecked-calls](https://blog.sigmaprime.io/solidity-security.html#unchecked-calls)
+* [https://swcregistry.io/docs/SWC-104](https://swcregistry.io/docs/SWC-104)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/\#handle-errors-in-external-calls](https://consensys.github.io/smart-contract-best-practices/recommendations/#handle-errors-in-external-calls)
 

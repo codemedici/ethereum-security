@@ -24,7 +24,7 @@ This section attempts to give an overview of a generic key-management system, by
 
 The typical phases of a key management lifecycle are shown in the picture below:
 
-![](../../.gitbook/assets/keymanagement.jpg)
+![](../.gitbook/assets/keymanagement.jpg)
 
 ### 1. Key Generation
 
@@ -36,7 +36,7 @@ Another option for generating keys is to deterministically derive them from a ro
 
 millions of public/private key pairs from a single mnemonic which can also be used to restore them all should the HD wallet get lost for example. The following diagram illustrates this concept of a ‘hierarchical deterministic wallet’:
 
-![](../../.gitbook/assets/keymanagement2.jpg)
+![](../.gitbook/assets/keymanagement2.jpg)
 
 For detailed information on Ethereum wallets and key generation [see here](ttps://github.com/ethereumbook/ethereumbook/blob/develop/05wallets.asciidoc).
 

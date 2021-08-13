@@ -1,10 +1,10 @@
 # Uninitialized Storage pointers
 
-### Relationships
-
-[CWE-824: Access of Uninitialized Pointer](https://cwe.mitre.org/data/definitions/824.html)
-
 ### Description
+
+Data is stored in the EVM as either `storage`, `memory`, or `calldata`. It is important that the two are well understood and correctly initialized. Incorrectly initializing data storage pointers, or simply leaving them uninitialized, can lead to contract vulnerabilities.
+
+As of solidity `0.5.0`, uninitialized storage pointers are no longer an issue since contracts with uninitialized storage pointers will no longer compile. This being said, it's still important to understand what storage pointers you should be using in certain situations.
 
 Uninitialized local storage variables can point to unexpected storage locations in the contract, which can lead to intentional or unintentional vulnerabilities.
 
@@ -289,4 +289,9 @@ Check if the contract requires a storage object as in many situations this is ac
 * Open Zeppelin's security forum
 * Martin Swende Blog
 * Storage Pointers in Solidity
+* [https://blog.sigmaprime.io/solidity-security.html\#storage](https://blog.sigmaprime.io/solidity-security.html#storage)
+* [https://github.com/sigp/solidity-security-blog\#storage](https://github.com/sigp/solidity-security-blog#storage)
+* [https://solidity.readthedocs.io/en/latest/types.html\#data-location](https://solidity.readthedocs.io/en/latest/types.html#data-location)
+* [https://solidity.readthedocs.io/en/latest/miscellaneous.html\#layout-of-state-variables-in-storage](https://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage)
+* [https://solidity.readthedocs.io/en/latest/miscellaneous.html\#layout-in-memory](https://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-in-memory)
 

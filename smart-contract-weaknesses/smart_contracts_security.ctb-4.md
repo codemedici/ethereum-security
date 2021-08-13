@@ -235,3 +235,7 @@ contract Log
 }  
 This post by one reddit user explains how they lost 1 ether to this contract by trying to exploit the reentrancy bug they expected to be present in the contract.
 
+## Resources
+
+* [https://blog.sigmaprime.io/solidity-security.html\#contract-reference](https://blog.sigmaprime.io/solidity-security.html#contract-reference)
+

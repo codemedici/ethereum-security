@@ -1,12 +1,14 @@
+---
+description: >-
+  including gas limit reached, unexpected throw, unexpected kill, access control
+  breached
+---
+
 # Denial of Service
-
-## Denial of Services
-
-#### including gas limit reached, unexpected throw, unexpected kill, access control breached
 
 Denial of service is deadly in the world of Ethereum: while other types of applications can eventually recover, smart contracts can be taken offline forever by just one of these attacks. Many ways lead to denials of service, including maliciously behaving when being the recipient of a transaction, artificially increasing the gas necessary to compute a function, abusing access controls to access private components of smart contracts, taking advantage of mixups and negligence, etc. This class of attack includes many different variants and will probably see a lot of development in the years to come.
 
-### Example
+## Example
 
 1. An auction contract allows its users to bid on different assets.  
 2. To bid, a user must call a bid\(uint object\) function with the desired amount of ether. The auction contract will store the ether in escrow until the object's owner accepts the bid or the initial bidder cancels it. This means that the auction contract must hold the full value of any unresolved bid in its balance.  
@@ -38,6 +40,106 @@ Additional Resources:
 [https://dasp.co/\#item-5](https://dasp.co/#item-5)  
 Parity Multisig Hacked. Again  
 Statement on the Parity multi-sig wallet vulnerability and the Cappasity token crowdsale
+
+## DoS with Block Gas Limit
+
+Many contracts rely on calls happening within certain period of time, but Ethereum can be spammed with very high Gwei transactions for a decent amount of time relatively cheaply.
+
+For example, FOMO3D \(a countdown game where the last investor wins the jackpot, but each investment adds time to the countdown\) was won by a user who completely clogged the blockchain for a small period of time, disallowing others from investing until the timer ran out and he won \(see [DoS with Block Gas Limit](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/dos-gas-limit.md)\).
+
+There are many "croupier" gambling contracts nowadays that rely on past blockhashes to provide RNG. This is not a terrible source of RNG for the most part, and they even account for the pruning of hashes that happens after 256 blocks, but at that point many of them simply null the bet. This would allow someone to make bets on many of these similarly-functioning contracts with a certain result as the winner for them all, check the croupier's submission while it's still pending, and, if it's unfavorable, simply clog the blockchain until pruning occurs and you can get your bets returned.
+
+### Example: Governmental - Gas limit
+
+The Governmental was a game, deployed in April 2016, in which players could call a payout function that paid taxes to previous players Yes, it was a kind of a Ponzi scheme, with government-inspired dynamics.
+
+The original contract can be inspected here. Below are the lines that caused the problem:  
+[https://etherscan.io/address/0xf45717552f12ef7cb65e95476f217ea008167ae3\#code](https://etherscan.io/address/0xf45717552f12ef7cb65e95476f217ea008167ae3#code)
+
+`creditorAddresses = new address[](0);  
+creditorAmounts = new uint[](0);`
+
+The code above clears two arrays of previous players. These operations' costs are unbounded, directly proportional to the number of users. In case of Governmental, the payout function ceased working when a large enough number of users signed up.
+
+The best practice in this case would be to avoid unbounded loops as much as possible. If they are needed, account for the block gas limit with a method that ensures processing will be successful in any case.
+
+Later on, someone was able to drain the contract. It’s unclear if that was due to an increased gas limit or fewer players after the incident.
+
+This same contract was later found to be vulnerable to the deep callstack attack whereby one could manipulate the callstack by performing useless operations before calling the target contract, with the goal of halting the function at a determined point, allowing for manipulation of state. This attack is no longer applicable since implementation of EIP 150.  
+[https://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack](https://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack)
+
+Reddit thread about the vulnerability.
+
+## DoS with \(Unexpected\) revert
+
+DoS \(Denial of Service\) attacks can occur in functions when you try to send funds to a user and the functionality relies on that fund transfer being successful.
+
+This can be problematic in the case that the funds are sent to a smart contract created by a bad actor, since they can simply create a fallback function that reverts all payments.
+
+For example:
+
+```text
+// INSECURE
+contract Auction {
+    address currentLeader;
+    uint highestBid;
+
+    function bid() payable {
+        require(msg.value > highestBid);
+
+        require(currentLeader.send(highestBid)); // Refund the old leader, if it fails then revert
+
+        currentLeader = msg.sender;
+        highestBid = msg.value;
+    }
+}
+```
+
+As you can see in this example, if an attacker bids from a smart contract with a fallback function reverting all payments, they can never be refunded, and thus no one can ever make a higher bid.
+
+This can also be problematic without an attacker present. For example, you may want to pay an array of users by iterating through the array, and of course you would want to make sure each user is properly paid. The problem here is that if one payment fails, the funtion is reverted and no one is paid.
+
+```text
+address[] private refundAddresses;
+mapping (address => uint) public refunds;
+
+// bad
+function refundAll() public {
+    for(uint x; x < refundAddresses.length; x++) { // arbitrary length iteration based on how many addresses participated
+        require(refundAddresses[x].send(refunds[refundAddresses[x]])) // doubly bad, now a single failure on send will hold up all funds
+    }
+}
+```
+
+An effective solution to this problem would be to use a pull payment system over the current push payment system. To do this, separate each payment into it's own transaction, and have the recipient call the function.
+
+```text
+contract auction {
+    address highestBidder;
+    uint highestBid;
+    mapping(address => uint) refunds;
+
+    function bid() payable external {
+        require(msg.value >= highestBid);
+
+        if (highestBidder != address(0)) {
+            refunds[highestBidder] += highestBid; // record the refund that this user can claim
+        }
+
+        highestBidder = msg.sender;
+        highestBid = msg.value;
+    }
+
+    function withdrawRefund() external {
+        uint refund = refunds[msg.sender];
+        refunds[msg.sender] = 0;
+        (bool success, ) = msg.sender.call.value(refund)("");
+        require(success);
+    }
+}
+```
+
+Examples from: [https://consensys.github.io/smart-contract-best-practices/known\_attacks/\#dos-with-unexpected-revert](https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-unexpected-revert) [https://consensys.github.io/smart-contract-best-practices/recommendations/\#favor-pull-over-push-for-external-calls](https://consensys.github.io/smart-contract-best-practices/recommendations/#favor-pull-over-push-for-external-calls)
 
 ## King of Ether
 
@@ -87,28 +189,12 @@ Now, go ahead, deploy this contract and make yourself the eternal king.
 
 For more information about King of Ether Throne, take a look at the postmortem of the event.
 
-## DoS with Block Gas Limit
+## Resources
 
-[https://consensys.github.io/smart-contract-best-practices/known\_attacks/\#dos-with-block-gas-limit](https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-block-gas-limit)
-
-### Example: Governmental - Gas limit
-
-The Governmental was a game, deployed in April 2016, in which players could call a payout function that paid taxes to previous players Yes, it was a kind of a Ponzi scheme, with government-inspired dynamics.
-
-The original contract can be inspected here. Below are the lines that caused the problem:  
-[https://etherscan.io/address/0xf45717552f12ef7cb65e95476f217ea008167ae3\#code](https://etherscan.io/address/0xf45717552f12ef7cb65e95476f217ea008167ae3#code)
-
-`creditorAddresses = new address[](0);  
-creditorAmounts = new uint[](0);`
-
-The code above clears two arrays of previous players. These operations' costs are unbounded, directly proportional to the number of users. In case of Governmental, the payout function ceased working when a large enough number of users signed up.
-
-The best practice in this case would be to avoid unbounded loops as much as possible. If they are needed, account for the block gas limit with a method that ensures processing will be successful in any case.
-
-Later on, someone was able to drain the contract. It’s unclear if that was due to an increased gas limit or fewer players after the incident.
-
-This same contract was later found to be vulnerable to the deep callstack attack whereby one could manipulate the callstack by performing useless operations before calling the target contract, with the goal of halting the function at a determined point, allowing for manipulation of state. This attack is no longer applicable since implementation of EIP 150.  
-[https://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack](https://ethereum.stackexchange.com/questions/9398/how-does-eip-150-change-the-call-depth-attack)
-
-Reddit thread about the vulnerability.
+* [https://blog.sigmaprime.io/solidity-security.html\#dos](https://blog.sigmaprime.io/solidity-security.html#dos)
+* [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/dos-revert.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/dos-revert.md)
+* [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/dos-gas-limit.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/attacks/dos-gas-limit.md)
+* [https://consensys.github.io/smart-contract-best-practices/known\_attacks/\#dos-with-block-gas-limit](https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-block-gas-limit)
+* [https://consensys.github.io/smart-contract-best-practices/known\_attacks/\#dos-with-unexpected-revert](https://consensys.github.io/smart-contract-best-practices/known_attacks/#dos-with-unexpected-revert)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/\#favor-pull-over-push-for-external-calls](https://consensys.github.io/smart-contract-best-practices/recommendations/#favor-pull-over-push-for-external-calls)
 
