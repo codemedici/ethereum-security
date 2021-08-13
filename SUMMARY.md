@@ -54,7 +54,6 @@
 
 ## Auditing
 
-* [Program Analysis](auditing/program-analysis.md)
 * [Checklists](auditing/checklists.md)
 * [Auditing process](auditing/auditing-process.md)
 * [Program Analysis](auditing/tools-1/README.md)
