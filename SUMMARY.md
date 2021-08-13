@@ -37,7 +37,7 @@
 * [Entropy Illusion](smart-contract-weaknesses/smart_contracts_security.ctb-3.md)
 * [Unsafe Functions](smart-contract-weaknesses/unsafe-functions.md)
 * [Design Flaws](smart-contract-weaknesses/smart_contracts_security.ctb-2.md)
-* [Deprecated Code](smart-contract-weaknesses/smart_contracts_security.ctb-1.md)
+* [Deprecated Code](smart-contract-weaknesses/deprecated-code.md)
 * [Denial of Service](smart-contract-weaknesses/smart_contracts_security.ctb.md)
 * [Access Control](smart-contract-weaknesses/access-control/README.md)
   * [delegatecall](smart-contract-weaknesses/access-control/delegatecall.md)
