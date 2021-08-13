@@ -90,9 +90,9 @@
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 
-## Blockchain Misc <a id="hyperledger"></a>
+## Blockchain Misc
 
-* [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
-* [Blockchain for Cybersecurity Infrastructure](hyperledger/blockchain-for-cybersecurity-infrastructure.md)
-* [Bitcoin and Ethereum Wallet Cracking](hyperledger/bitcoin-and-ethereum-wallet-cracking.md)
+* [Attack Surfaces of Hyperledger Fabric](blockchain-misc/attack-surfaces-of-hyperledger-fabric.md)
+* [Blockchain for Cybersecurity Infrastructure](blockchain-misc/blockchain-for-cybersecurity-infrastructure.md)
+* [Bitcoin and Ethereum Wallet Cracking](blockchain-misc/bitcoin-and-ethereum-wallet-cracking.md)
 
