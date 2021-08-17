@@ -40,6 +40,7 @@
 * [Deprecated Code](smart-contract-weaknesses/deprecated-code.md)
 * [Denial of Service](smart-contract-weaknesses/smart_contracts_security.ctb.md)
 * [Access Control](smart-contract-weaknesses/access-control/README.md)
+  * [Initialize\(\)](smart-contract-weaknesses/access-control/initialize.md)
   * [delegatecall](smart-contract-weaknesses/access-control/delegatecall.md)
   * [Default Visibilities](smart-contract-weaknesses/access-control/default-visibilities.md)
   * [Tx.origin Authentication](smart-contract-weaknesses/access-control/tx.origin-authentication.md)
