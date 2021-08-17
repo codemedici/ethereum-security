@@ -4,7 +4,7 @@ There are _two?_  bugs that I'm aware of.
 
 ## Uninitialized `initialize()` Function
 
-I.e. The contract got deployed and nobody bothered to call it
+I.e. The contract got deployed and nobody bothered calling `initialize()`, perhaps thinking nobody would notice. The `initializer` modifier only prevents from calling the function twice, it doesn't enforce the caller's address to be the contract's owner.
 
 ## Missing `initializer` modifier.
 
