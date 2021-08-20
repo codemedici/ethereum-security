@@ -2,7 +2,7 @@
 
 When using signed messages for authorizing operations on behalf of a signer, an attacker could reuse the signed message to trigger the same operation multiple times. Use replay attack protections to guard against this.
 
-### Description
+## Description
 
 A common pattern for gasless interactions is to ask users to sign a message instead of a transaction to authorize an action. A third-party relayer, such as a Defender Relayer, can then send the message in a transaction, without requiring the user to pay for the gas fees. The recipient contract then verifies the message signature, and executes the action requested by the signer.
 
@@ -57,7 +57,7 @@ contract MyERC20 is ERC20 {
 
 However, without replay attack protection, a single signed message could be submitted multiple times to drain the signer's funds. Replay attack protection is required within the same contract, across different contracts, and also across different chains.
 
-#### Using Nonces
+## Using Nonces
 
 The most secure pattern for replay attack protection within the same contract is to use _nonces_. A nonce is a value that can be used at most once. Once an action is processed by the recipient, the associated nonce should be marked as used. Any new signed messages that use the same nonce must be rejected.
 
@@ -67,7 +67,7 @@ A simple implementation for nonce management is to track used nonces per signer 
 
 An alternative is to maintain a single sequential nonce per signer. This has the advantage of being more gas-efficient, since each signer uses a single storage slot instead of once per message sent. However, it enforces messages to be processed in-order, which may or may not be desired depending on the use case. For reference, [EIP-2612](https://eips.ethereum.org/EIPS/eip-2612) follows this approach.
 
-#### Replay Across Contracts
+## Replay Across Contracts
 
 While using nonces protects against the same message being replayed on the verifying contract, it does not prevent it from being replayed on a different contract. An attacker could gather a message signed for one contract, but then replay it on a different one with the same interface.
 
@@ -75,13 +75,13 @@ Following the fictitious example of the ERC-20 `transferWithSignature`, an attac
 
 An easy technique to protect against this is to include the address of the verifying contract as part of the signed message. The verifier then checks that the address in the signature matches its own, and rejects the messages otherwise.
 
-#### Replay Across Chains
+## Replay Across Chains
 
 There is still one more scenario where a signed message can be replayed: across different chains. The same contract could be deployed on the same address on different networks, such as Rinkeby, Mainnet, and xDai. An attacker could grab a signed message destined to a contract on one of the networks, and replay it on the others. A protection against this type of replay attack is to include the chain identifier as part of the signature. The EVM provides a `chainid` opcode that can be used for this.
 
 Note that, as with nonces, Ethereum itself uses this protection for transactions as defined in [EIP-155](https://eips.ethereum.org/EIPS/eip-155).
 
-#### Relevant EIPs
+## Relevant EIPs
 
 The [EIP-191](https://eips.ethereum.org/EIPS/eip-191) _Signed Data Standard_ defines different types of signed messages under different _versions_. In particular, version `0x00` defines an intended validator, which standardizes how the recipient address `address(this)` should be included as part of the signature.
 
