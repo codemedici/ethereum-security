@@ -352,14 +352,81 @@ The rest of this section's text was copied from the original [blog post](https:/
 
 ### Conclusion <a id="conclusion"></a>
 
-Although tokens are integral to this ecosystem, they are imperfect, and as such, engineers should carefully consider their flaws and features when working with them. As with all smart contract development, your work can carry significant amounts of real world value, so it’s crucial that you proceed carefully. We believe DApp developers need to count in all token behaviours, and as the result code their DApp in a way that cannot be exploited with different token implementations, at least for the well known token behaviours.  
+Although tokens are integral to this ecosystem, they are imperfect, and as such, engineers should carefully consider their flaws and features when working with them. As with all smart contract development, your work can carry significant amounts of real world value, so it’s crucial that you proceed carefully. We believe DApp developers need to count in all token behaviours, and as the result code their DApp in a way that cannot be exploited with different token implementations, at least for the well known token behaviours.
+
+## [Token Implementation Best Practice](https://consensys.github.io/smart-contract-best-practices/tokens/) \(Consensys\)
+
+{% hint style="info" %}
+Last checked: **20 August 2021**. Remember to check the [Github page](https://consensys.github.io/smart-contract-best-practices/tokens/) for any updates to this section.
+{% endhint %}
+
+```text
+    function transfer(address _to, uint _value)
+        validDestination(_to)
+        returns (bool) 
+    {
+        (... your logic ...)
+    }
+
+    function transferFrom(address _from, address _to, uint _value)
+        validDestination(_to)
+        returns (bool) 
+    {
+        (... your logic ...)
+    }
+```
+
+The modifier should then be applied to the "transfer" and "transferFrom" methods:
+
+```text
+    modifier validDestination( address to ) {
+        require(to != address(0x0));
+        require(to != address(this) );
+        _;
+    }
+```
+
+An example of implementing both the above recommendations would be to create the following modifier; validating that the "to" address is neither 0x0 nor the smart contract's own address:
+
+#### Example[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#example) <a id="example"></a>
+
+An example of the potential for loss by leaving this open is the [EOS token smart contract](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0) where more than 90,000 tokens are stuck at the contract address.
+
+Consider also preventing the transfer of tokens to the same address of the smart contract.
+
+### Prevent transferring tokens to the contract address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-contract-address) <a id="prevent-transferring-tokens-to-the-contract-address"></a>
+
+At the time of writing, the "zero" address \([0x0000000000000000000000000000000000000000](https://etherscan.io/address/0x0000000000000000000000000000000000000000)\) holds tokens with a value of more than 80$ million.
+
+### Prevent transferring tokens to the 0x0 address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-0x0-address) <a id="prevent-transferring-tokens-to-the-0x0-address"></a>
+
+The EIP-20 token's `approve()` function creates the potential for an approved spender to spend more than the intended amount. A [front running attack](https://consensys.github.io/smart-contract-best-practices/known_attacks/#transaction-ordering-dependence-tod-front-running) can be used, enabling an approved spender to call `transferFrom()` both before and after the call to `approve()` is processed. More details are available on the [EIP](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md#approve), and in [this document](https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM/edit).
+
+### Be aware of front running attacks on EIP-20[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#be-aware-of-front-running-attacks-on-eip-20) <a id="be-aware-of-front-running-attacks-on-eip-20"></a>
+
+* [EIP20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+* [EIP721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) \(non-fungible token\)
+* More at [eips.ethereum.org](https://eips.ethereum.org/erc#final)
+
+Examples of currently accepted standards include:
+
+Generally speaking, smart contracts of tokens should follow an accepted and stable standard.
+
+### Comply with the latest standard[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#comply-with-the-latest-standard) <a id="comply-with-the-latest-standard"></a>
+
+Implementing Tokens should comply with other best practices, but also have some unique considerations.
+
+## Token Implementation Best Practice <a id="token-implementation-best-practice"></a>
+
+  
 
 
 ## Resources
 
 * [Weird ERC20](https://github.com/d-xo/weird-erc20) - repository contains minimal example implementations in Solidity of ERC20 tokens with behavior that may be surprising or unexpected
 * [token integration checklist](https://github.com/crytic/building-secure-contracts/blob/master/development-guidelines/token_integration.md) - by Trail of Bits
-* [token interaction checklist](https://consensys.net/diligence/blog/2020/11/token-interaction-checklist/) - by Consensys Diligence
+* [token interaction checklist](https://consensys.net/diligence/blog/2020/11/token-interaction-checklist/) - by Consensys
+* [Token Implementation Best Practice](https://consensys.github.io/smart-contract-best-practices/tokens/) - by Consensys
 * [Inadherence to Standards Vulnerability](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/inadherence-to-standards.md)
 * [Binance Isn’t ERC-20](https://blog.goodaudience.com/binance-isnt-erc-20-7645909069a4)
 * [Is BNB really an ERC20?](https://coinrivet.com/is-bnb-really-an-erc-20-token/)
