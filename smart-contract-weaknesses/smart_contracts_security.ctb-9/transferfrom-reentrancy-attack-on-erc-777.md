@@ -12,7 +12,10 @@ External calls inside transfer/transferFrom function can be called either before
 
 ## Resources
 
-[https://medium.com/consensys-diligence/uniswap-audit-b90335ac007](https://medium.com/consensys-diligence/uniswap-audit-b90335ac007) [https://github.com/ConsenSys/Uniswap-audit-report-2018-12\#31-liquidity-pool-can-be-stolen-in-some-tokens-eg-erc-777-29](https://github.com/ConsenSys/Uniswap-audit-report-2018-12#31-liquidity-pool-can-be-stolen-in-some-tokens-eg-erc-777-29) [https://codefi.consensys.net/blog/security-risks-in-ethereum-defi](https://codefi.consensys.net/blog/security-risks-in-ethereum-defi)
+* [https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/](https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/)
+* [https://medium.com/consensys-diligence/uniswap-audit-b90335ac007](https://medium.com/consensys-diligence/uniswap-audit-b90335ac007)
+* [https://github.com/ConsenSys/Uniswap-audit-report-2018-12\#31-liquidity-pool-can-be-stolen-in-some-tokens-eg-erc-777-29](https://github.com/ConsenSys/Uniswap-audit-report-2018-12#31-liquidity-pool-can-be-stolen-in-some-tokens-eg-erc-777-29)
+* [https://codefi.consensys.net/blog/security-risks-in-ethereum-defi](https://codefi.consensys.net/blog/security-risks-in-ethereum-defi)
 
 ## Remediation
 

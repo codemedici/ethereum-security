@@ -17,6 +17,7 @@
 * [Insufficient Gas Griefing](smart-contract-weaknesses/insufficient-gas-griefing.md)
 * [Constructors](smart-contract-weaknesses/constructors.md)
 * [Reentrancy](smart-contract-weaknesses/smart_contracts_security.ctb-9/README.md)
+  * [Implement Reentrancy Protections](smart-contract-weaknesses/smart_contracts_security.ctb-9/implement-reentrancy-protections.md)
   * [transferFrom\(\) Reentrancy Attack on ERC-777](smart-contract-weaknesses/smart_contracts_security.ctb-9/transferfrom-reentrancy-attack-on-erc-777.md)
   * [Ethernaut](smart-contract-weaknesses/smart_contracts_security.ctb-9/ethernaut.md)
   * [Example - EtherStore.sol](smart-contract-weaknesses/smart_contracts_security.ctb-9/example-etherstore.sol.md)
@@ -29,7 +30,8 @@
 * [Unchecked CALL Return Values](smart-contract-weaknesses/smart_contracts_security.ctb-12.md)
 * [Timestamp Dependence](smart-contract-weaknesses/smart_contracts_security.ctb-11.md)
 * [Short Address/Parameter Attack](smart-contract-weaknesses/smart_contracts_security.ctb-10.md)
-* [Integer Under/Overflow](smart-contract-weaknesses/smart_contracts_security.ctb-8.md)
+* [Integer Under/Overflow](smart-contract-weaknesses/integer-under-over-flow/README.md)
+  * [Recast Variables Safely](smart-contract-weaknesses/integer-under-over-flow/recast-variables-safely.md)
 * [Function Overriding](smart-contract-weaknesses/smart_contracts_security.ctb-7.md)
 * [Floating Point and Precision](smart-contract-weaknesses/smart_contracts_security.ctb-5.md)
 * [External Contract Referencing](smart-contract-weaknesses/smart_contracts_security.ctb-4.md)
@@ -73,20 +75,34 @@
 ## Operations
 
 * [OZ Defender](operations/oz-defender.md)
-* [Key Management](operations/key-management.md)
+* [Key Management](operations/key-management/README.md)
+  * [Secure All Administrative Keys](operations/key-management/secure-all-administrative-keys.md)
+* [Post-Mortem Analysis](operations/post-mortem-analysis.md)
 
 ## monitoring
 
+* [Data Out of Sync](monitoring/data-out-of-sync.md)
 * [Drop In System Funds](monitoring/drop-in-system-funds.md)
 * [Priviledged Administration Transactions](monitoring/priviledged-administration-transactions.md)
+* [Spikes in Account Activity](monitoring/spikes-in-account-activity.md)
 
 ## testing
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
+* [Assert Revert Reasons](testing/assert-revert-reasons.md)
 
 ## Blockchain Misc
 
 * [Attack Surfaces of Hyperledger Fabric](blockchain-misc/attack-surfaces-of-hyperledger-fabric.md)
 * [Blockchain for Cybersecurity Infrastructure](blockchain-misc/blockchain-for-cybersecurity-infrastructure.md)
 * [Bitcoin and Ethereum Wallet Cracking](blockchain-misc/bitcoin-and-ethereum-wallet-cracking.md)
+
+## DeFi
+
+* [Overview of Risks](defi/overview-of-risks.md)
+
+## Development
+
+* [Access Arrays Using Enumeration and Pagination](development/access-arrays-using-enumeration-and-pagination.md)
+* [Prevent Replay Attacks When Using Signatures](development/prevent-replay-attacks-when-using-signatures.md)
 

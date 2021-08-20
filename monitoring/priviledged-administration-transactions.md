@@ -24,3 +24,7 @@ Specifically, setup monitoring for:
 * Calls to function which allow or block access to assets or capabilities for specific accounts
 * Calls using privileged accounts not related to expected administrator operations, detected via inspection of mined transactions
 
+## Resources
+
+* [https://defender.openzeppelin.com/\#/advisor/docs/privileged-administrator-transactions](https://defender.openzeppelin.com/#/advisor/docs/privileged-administrator-transactions?)
+
