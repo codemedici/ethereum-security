@@ -5,7 +5,6 @@
 ## Smart Contract Weaknesses
 
 * [Flashloans](smart-contract-weaknesses/flashloans.md)
-* [Upgradeability](smart-contract-weaknesses/upgradeability.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
 * [Signature Replay](smart-contract-weaknesses/signature-replay.md)
@@ -62,19 +61,14 @@
   * [Manticore](auditing/tools-1/manticore.md)
   * [Mythril](auditing/tools-1/mythril.md)
   * [Slither](auditing/tools-1/slither.md)
-* [Symbolic computation](auditing/symbolic-computation.md)
-* [Static Analysis tools](auditing/static-analysis-tools.md)
 * [Example Audits](auditing/example-audits.md)
 
 ## best practices
 
-* [General Philosophy](best-practices/general-philosophy.md)
-* [Secure Development Recommendations](best-practices/secure-development-recommendations/README.md)
-  * [Development Guidelines](best-practices/secure-development-recommendations/development-guidelines.md)
-  * [Secure Development Workflow](best-practices/secure-development-recommendations/secure-development-workflow.md)
-  * [Solidity specific recommendations](best-practices/secure-development-recommendations/solidity-specific-recommendations.md)
-  * [Protocol specific recommendations](best-practices/secure-development-recommendations/protocol-specific-recommendations.md)
-* [Upgradability](best-practices/upgradability.md)
+* [Development Guidelines](best-practices/development-guidelines.md)
+* [Protocol specific recommendations](best-practices/protocol-specific-recommendations.md)
+* [Solidity specific recommendations](best-practices/solidity-specific-recommendations.md)
+* [Token Specific Recommendations](best-practices/token-specific-recommendations.md)
 
 ## Operations
 
