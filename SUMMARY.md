@@ -85,11 +85,13 @@
 * [Drop In System Funds](monitoring/drop-in-system-funds.md)
 * [Priviledged Administration Transactions](monitoring/priviledged-administration-transactions.md)
 * [Spikes in Account Activity](monitoring/spikes-in-account-activity.md)
+* [Collateral Ratios](monitoring/collateral-ratios.md)
 
 ## testing
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 * [Assert Revert Reasons](testing/assert-revert-reasons.md)
+* [Test Events Emission](testing/test-events-emission.md)
 
 ## Blockchain Misc
 
