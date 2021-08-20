@@ -4,8 +4,8 @@ In terms of smart contract development, it's important to follow standards. Stan
 
 Take for example binance's original BNB token. It was marketed as an ERC20 token, but it was later pointed out that it wasn't actually ERC20 compliant for a few reasons:
 
-* It prevented sending to 0x0
-* It blocked transfers of 0 value
+* [It prevented sending to 0x0](token-specific-recommendations.md#prevent-transferring-tokens-to-the-contract-address)
+* [It blocked transfers of 0 value](token-specific-recommendations.md#revert-on-transfer-to-the-zero-address)
 * [It didn't return true or false for success or fail](token-specific-recommendations.md#missing-return-values)
 * [it is pausable](token-specific-recommendations.md#pausable-tokens)
 
@@ -360,6 +360,46 @@ Although tokens are integral to this ecosystem, they are imperfect, and as such,
 Last checked: **20 August 2021**. Remember to check the [Github page](https://consensys.github.io/smart-contract-best-practices/tokens/) for any updates to this section.
 {% endhint %}
 
+Implementing Tokens should comply with other best practices, but also have some unique considerations.
+
+### Comply with the latest standard[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#comply-with-the-latest-standard) <a id="comply-with-the-latest-standard"></a>
+
+Generally speaking, smart contracts of tokens should follow an accepted and stable standard.
+
+Examples of currently accepted standards include:
+
+* [EIP20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
+* [EIP721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) \(non-fungible token\)
+* More at [eips.ethereum.org](https://eips.ethereum.org/erc#final)
+
+### Be aware of front running attacks on EIP-20[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#be-aware-of-front-running-attacks-on-eip-20) <a id="be-aware-of-front-running-attacks-on-eip-20"></a>
+
+The EIP-20 token's `approve()` function creates the potential for an approved spender to spend more than the intended amount. A [front running attack](https://consensys.github.io/smart-contract-best-practices/known_attacks/#transaction-ordering-dependence-tod-front-running) can be used, enabling an approved spender to call `transferFrom()` both before and after the call to `approve()` is processed. More details are available on the [EIP](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md#approve), and in [this document](https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM/edit).
+
+### Prevent transferring tokens to the 0x0 address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-0x0-address) <a id="prevent-transferring-tokens-to-the-0x0-address"></a>
+
+At the time of writing, the "zero" address \([0x0000000000000000000000000000000000000000](https://etherscan.io/address/0x0000000000000000000000000000000000000000)\) holds tokens with a value of more than 80$ million.
+
+### Prevent transferring tokens to the contract address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-contract-address) <a id="prevent-transferring-tokens-to-the-contract-address"></a>
+
+Consider also preventing the transfer of tokens to the same address of the smart contract.
+
+An example of the potential for loss by leaving this open is the [EOS token smart contract](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0) where more than 90,000 tokens are stuck at the contract address.
+
+#### Example[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#example) <a id="example"></a>
+
+An example of implementing both the above recommendations would be to create the following modifier; validating that the "to" address is neither 0x0 nor the smart contract's own address:
+
+```text
+    modifier validDestination( address to ) {
+        require(to != address(0x0));
+        require(to != address(this) );
+        _;
+    }
+```
+
+The modifier should then be applied to the "transfer" and "transferFrom" methods:
+
 ```text
     function transfer(address _to, uint _value)
         validDestination(_to)
@@ -375,51 +415,6 @@ Last checked: **20 August 2021**. Remember to check the [Github page](https://co
         (... your logic ...)
     }
 ```
-
-The modifier should then be applied to the "transfer" and "transferFrom" methods:
-
-```text
-    modifier validDestination( address to ) {
-        require(to != address(0x0));
-        require(to != address(this) );
-        _;
-    }
-```
-
-An example of implementing both the above recommendations would be to create the following modifier; validating that the "to" address is neither 0x0 nor the smart contract's own address:
-
-#### Example[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#example) <a id="example"></a>
-
-An example of the potential for loss by leaving this open is the [EOS token smart contract](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0) where more than 90,000 tokens are stuck at the contract address.
-
-Consider also preventing the transfer of tokens to the same address of the smart contract.
-
-### Prevent transferring tokens to the contract address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-contract-address) <a id="prevent-transferring-tokens-to-the-contract-address"></a>
-
-At the time of writing, the "zero" address \([0x0000000000000000000000000000000000000000](https://etherscan.io/address/0x0000000000000000000000000000000000000000)\) holds tokens with a value of more than 80$ million.
-
-### Prevent transferring tokens to the 0x0 address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-0x0-address) <a id="prevent-transferring-tokens-to-the-0x0-address"></a>
-
-The EIP-20 token's `approve()` function creates the potential for an approved spender to spend more than the intended amount. A [front running attack](https://consensys.github.io/smart-contract-best-practices/known_attacks/#transaction-ordering-dependence-tod-front-running) can be used, enabling an approved spender to call `transferFrom()` both before and after the call to `approve()` is processed. More details are available on the [EIP](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md#approve), and in [this document](https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM/edit).
-
-### Be aware of front running attacks on EIP-20[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#be-aware-of-front-running-attacks-on-eip-20) <a id="be-aware-of-front-running-attacks-on-eip-20"></a>
-
-* [EIP20](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md)
-* [EIP721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) \(non-fungible token\)
-* More at [eips.ethereum.org](https://eips.ethereum.org/erc#final)
-
-Examples of currently accepted standards include:
-
-Generally speaking, smart contracts of tokens should follow an accepted and stable standard.
-
-### Comply with the latest standard[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#comply-with-the-latest-standard) <a id="comply-with-the-latest-standard"></a>
-
-Implementing Tokens should comply with other best practices, but also have some unique considerations.
-
-## Token Implementation Best Practice <a id="token-implementation-best-practice"></a>
-
-  
-
 
 ## Resources
 
