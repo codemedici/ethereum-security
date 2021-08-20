@@ -56,11 +56,11 @@
 
 * [Checklists](auditing/checklists.md)
 * [Auditing process](auditing/auditing-process.md)
-* [Program Analysis](auditing/tools-1/README.md)
-  * [Echidna](auditing/tools-1/echidna.md)
-  * [Manticore](auditing/tools-1/manticore.md)
-  * [Mythril](auditing/tools-1/mythril.md)
-  * [Slither](auditing/tools-1/slither.md)
+* [Program Analysis](auditing/program-analysis/README.md)
+  * [Echidna](auditing/program-analysis/echidna.md)
+  * [Manticore](auditing/program-analysis/manticore.md)
+  * [Mythril](auditing/program-analysis/mythril.md)
+  * [Slither](auditing/program-analysis/slither.md)
 * [Example Audits](auditing/example-audits.md)
 
 ## best practices
