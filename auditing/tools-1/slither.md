@@ -246,3 +246,7 @@ A `Function` or a `Modifier` object has:
 
 [print\_basic\_information.py](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/slither/examples/print_basic_information.py) shows how to print basic information about a project.
 
+## Resources
+
+* [Slither Trophies](https://github.com/crytic/slither/blob/master/trophies.md) - lists security vulnerabilities that were found by Slither.
+

@@ -85,3 +85,12 @@ describe("Upgrade test", function() {
 });
 ```
 
+
+
+## Resources
+
+* [https://defender.openzeppelin.com/\#/advisor/docs/test-contract-upgrades](https://defender.openzeppelin.com/#/advisor/docs/test-contract-upgrades)
+* [https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/](https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/)
+* [Proxy Delegate](https://github.com/fravoll/solidity-patterns/blob/master/docs/proxy_delegate.md)\*\*\*\*
+* [Eternal Storage](https://github.com/fravoll/solidity-patterns/blob/master/docs/eternal_storage.md) - separate storage and logic between two contracts.
+

@@ -5,7 +5,6 @@
 ## Smart Contract Weaknesses
 
 * [Flashloans](smart-contract-weaknesses/flashloans.md)
-* [Upgradeability](smart-contract-weaknesses/upgradeability.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
 * [Signature Replay](smart-contract-weaknesses/signature-replay.md)
@@ -37,9 +36,10 @@
 * [Entropy Illusion](smart-contract-weaknesses/smart_contracts_security.ctb-3.md)
 * [Unsafe Functions](smart-contract-weaknesses/unsafe-functions.md)
 * [Design Flaws](smart-contract-weaknesses/smart_contracts_security.ctb-2.md)
-* [Deprecated Code](smart-contract-weaknesses/smart_contracts_security.ctb-1.md)
+* [Deprecated Code](smart-contract-weaknesses/deprecated-code.md)
 * [Denial of Service](smart-contract-weaknesses/smart_contracts_security.ctb.md)
 * [Access Control](smart-contract-weaknesses/access-control/README.md)
+  * [Initialize\(\)](smart-contract-weaknesses/access-control/initialize.md)
   * [delegatecall](smart-contract-weaknesses/access-control/delegatecall.md)
   * [Default Visibilities](smart-contract-weaknesses/access-control/default-visibilities.md)
   * [Tx.origin Authentication](smart-contract-weaknesses/access-control/tx.origin-authentication.md)
@@ -54,7 +54,6 @@
 
 ## Auditing
 
-* [Program Analysis](auditing/program-analysis.md)
 * [Checklists](auditing/checklists.md)
 * [Auditing process](auditing/auditing-process.md)
 * [Program Analysis](auditing/tools-1/README.md)
@@ -62,19 +61,14 @@
   * [Manticore](auditing/tools-1/manticore.md)
   * [Mythril](auditing/tools-1/mythril.md)
   * [Slither](auditing/tools-1/slither.md)
-* [Symbolic computation](auditing/symbolic-computation.md)
-* [Static Analysis tools](auditing/static-analysis-tools.md)
 * [Example Audits](auditing/example-audits.md)
 
 ## best practices
 
-* [General Philosophy](best-practices/general-philosophy.md)
-* [Secure Development Recommendations](best-practices/secure-development-recommendations/README.md)
-  * [Development Guidelines](best-practices/secure-development-recommendations/development-guidelines.md)
-  * [Secure Development Workflow](best-practices/secure-development-recommendations/secure-development-workflow.md)
-  * [Solidity specific recommendations](best-practices/secure-development-recommendations/solidity-specific-recommendations.md)
-  * [Protocol specific recommendations](best-practices/secure-development-recommendations/protocol-specific-recommendations.md)
-* [Upgradability](best-practices/upgradability.md)
+* [Development Guidelines](best-practices/development-guidelines.md)
+* [Protocol specific recommendations](best-practices/protocol-specific-recommendations.md)
+* [Solidity specific recommendations](best-practices/solidity-specific-recommendations.md)
+* [Token Specific Recommendations](best-practices/token-specific-recommendations.md)
 
 ## Operations
 
@@ -90,9 +84,9 @@
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 
-## Blockchain Misc <a id="hyperledger"></a>
+## Blockchain Misc
 
-* [Attack Surfaces of Hyperledger Fabric](hyperledger/attack-surfaces-of-hyperledger-fabric.md)
-* [Blockchain for Cybersecurity Infrastructure](hyperledger/blockchain-for-cybersecurity-infrastructure.md)
-* [Bitcoin and Ethereum Wallet Cracking](hyperledger/bitcoin-and-ethereum-wallet-cracking.md)
+* [Attack Surfaces of Hyperledger Fabric](blockchain-misc/attack-surfaces-of-hyperledger-fabric.md)
+* [Blockchain for Cybersecurity Infrastructure](blockchain-misc/blockchain-for-cybersecurity-infrastructure.md)
+* [Bitcoin and Ethereum Wallet Cracking](blockchain-misc/bitcoin-and-ethereum-wallet-cracking.md)
 
