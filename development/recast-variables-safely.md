@@ -6,7 +6,7 @@ description: >-
 
 # Recast Variables Safely
 
-### Description
+## Description
 
 Downcasts and typecasts are sometimes necessary when dealing with mixed integer types, for example in arithmetic operations that might overflow the base type in intermediate steps.
 
@@ -14,7 +14,7 @@ Unfortunately, Solidity does not raise any errors on explicit downcasts where th
 
 It is critical therefore to provide defensive measures when dealing with explicit casts. The OpenZeppelin Contracts [`SafeCast` library](https://docs.openzeppelin.com/contracts/3.x/api/utils#SafeCast) provides helper functions to safely downcast integers and change their sign, reverting on errors. Avoid any explicit casts, and use these functions instead.
 
-### Example 1
+## Example 1
 
 In this example we attempt to downcast from `uint256` to `uint64`. However, if `input > uint64(-1)` then this `downcast` function will not return a value equal to the input.
 
@@ -43,7 +43,7 @@ contract SomeContract {
 }
 ```
 
-### Example 2
+## Example 2
 
 In this example we attempt to cast from `int256` to `uint256`. However, if `input < 0` then this `recast` function will not return a value equal to the input.
 
@@ -75,4 +75,8 @@ contract SomeContract {
 
 }
 ```
+
+## Resources
+
+* [https://defender.openzeppelin.com/\#/advisor/docs/recast-variables-safely?](https://defender.openzeppelin.com/#/advisor/docs/recast-variables-safely?)
 

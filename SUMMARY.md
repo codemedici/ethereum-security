@@ -74,6 +74,7 @@
 * [Key Management](operations/key-management/README.md)
   * [Secure All Administrative Keys](operations/key-management/secure-all-administrative-keys.md)
 * [Post-Mortem Analysis](operations/post-mortem-analysis.md)
+* [Emergency Response Plan](operations/emergency-response-plan.md)
 
 ## monitoring
 
@@ -83,12 +84,19 @@
 * [Spikes in Account Activity](monitoring/spikes-in-account-activity.md)
 * [Collateral Ratios](monitoring/collateral-ratios.md)
 * [Dependency Changes](monitoring/dependency-changes.md)
+* [Use multiple signatures for critical administrative tasks](monitoring/use-multiple-signatures-for-critical-administrative-tasks.md)
+* [Large Value Transactions](monitoring/large-value-transactions.md)
+* [Expiring Assets](monitoring/expiring-assets.md)
+* [Unused Tokens or Funds](monitoring/unused-tokens-or-funds.md)
+* [Network Congestion](monitoring/network-congestion.md)
+* [Spikes in Low Value Transactions](monitoring/spikes-in-low-value-transactions.md)
 
 ## testing
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 * [Assert Revert Reasons](testing/assert-revert-reasons.md)
 * [Test Events Emission](testing/test-events-emission.md)
+* [Achieve High Smart Contract Test Coverage](testing/achieve-high-smart-contract-test-coverage.md)
 
 ## Development
 
@@ -98,6 +106,15 @@
 * [Prevent Replay Attacks When Using Signatures](development/prevent-replay-attacks-when-using-signatures.md)
 * [Use the Offer-Accept Pattern for Transferring Admin Role](development/use-the-offer-accept-pattern-for-transferring-admin-role.md)
 * [Control Growth of Arrays](development/control-growth-of-arrays.md)
+* [Avoid Packed Encoding When Hashing](development/avoid-packed-encoding-when-hashing.md)
+* [Do Not Use Solidity's transfer Function](development/do-not-use-soliditys-transfer-function.md)
+* [Use Low-Level Calls Carefully](development/use-low-level-calls-carefully.md)
+* [Use PullPayment When Sending ETH](development/use-pullpayment-when-sending-eth.md)
+* [Declare Constants Explicitly](development/declare-constants-explicitly.md)
+* [Include Revert Reasons](development/include-revert-reasons.md)
+* [Minimize Division Errors](development/minimize-division-errors.md)
+* [Do Not Track Time With Block Numbers](development/do-not-track-time-with-block-numbers.md)
+* [Use Indexed Event Parameters](development/use-indexed-event-parameters.md)
 
 ## DeFi
 
