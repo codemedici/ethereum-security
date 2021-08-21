@@ -90,6 +90,10 @@
 * [Unused Tokens or Funds](monitoring/unused-tokens-or-funds.md)
 * [Network Congestion](monitoring/network-congestion.md)
 * [Spikes in Low Value Transactions](monitoring/spikes-in-low-value-transactions.md)
+* [Spikes in Function Calls](monitoring/spikes-in-function-calls.md)
+* [Spikes in Failed Transactions](monitoring/spikes-in-failed-transactions.md)
+* [Significant Price Changes](monitoring/significant-price-changes.md)
+* [Asset Attacks and Issues](monitoring/asset-attacks-and-issues.md)
 
 ## testing
 
@@ -115,6 +119,7 @@
 * [Minimize Division Errors](development/minimize-division-errors.md)
 * [Do Not Track Time With Block Numbers](development/do-not-track-time-with-block-numbers.md)
 * [Use Indexed Event Parameters](development/use-indexed-event-parameters.md)
+* [Emit Events on All State Changes](development/emit-events-on-all-state-changes.md)
 
 ## DeFi
 
