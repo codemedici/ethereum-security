@@ -61,7 +61,7 @@
   * [Slither](auditing/program-analysis/slither.md)
 * [Example Audits](auditing/example-audits.md)
 
-## best practices
+## Best Practices
 
 * [Development Guidelines](best-practices/development-guidelines.md)
 * [Protocol specific recommendations](best-practices/protocol-specific-recommendations.md)
@@ -76,7 +76,7 @@
 * [Post-Mortem Analysis](operations/post-mortem-analysis.md)
 * [Emergency Response Plan](operations/emergency-response-plan.md)
 
-## monitoring
+## Monitoring
 
 * [Data Out of Sync](monitoring/data-out-of-sync.md)
 * [Drop In System Funds](monitoring/drop-in-system-funds.md)
@@ -95,7 +95,7 @@
 * [Significant Price Changes](monitoring/significant-price-changes.md)
 * [Asset Attacks and Issues](monitoring/asset-attacks-and-issues.md)
 
-## testing
+## Testing
 
 * [Test Contract Upgrades](testing/test-contract-upgrades.md)
 * [Assert Revert Reasons](testing/assert-revert-reasons.md)
