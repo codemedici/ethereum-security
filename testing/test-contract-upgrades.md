@@ -93,4 +93,5 @@ describe("Upgrade test", function() {
 * [https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/](https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/)
 * [Proxy Delegate](https://github.com/fravoll/solidity-patterns/blob/master/docs/proxy_delegate.md)\*\*\*\*
 * [Eternal Storage](https://github.com/fravoll/solidity-patterns/blob/master/docs/eternal_storage.md) - separate storage and logic between two contracts.
+* [https://consensys.net/diligence/blog/2019/01/upgradeability-is-a-bug/](https://consensys.net/diligence/blog/2019/01/upgradeability-is-a-bug/)
 

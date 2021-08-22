@@ -17,33 +17,65 @@ An audit can not:
 
 ## Preparing for an Audit
 
-• We have a finite amount of time to audit your code.  
-• Preparation will help you get the most value from us.  
-• We must first understand your code, before we can identify subtle vulnerabilities.  
-• Imagine we’re a new developer hired to join your team, but we only have a few days to ramp up.
 
-### Steps to prepare
 
-**1. Documentation**
+Following these steps to prepare for an audit will go a long way to helping you get the best results.
+
+1. Documentation
+2. Clean code
+3. Testing
+4. Automated Analysis
+5. Frozen code
+6. Use a checklist
+
+* We have a finite amount of time to audit your code.
+* Preparation will help you get the most value from us.
+* We must first understand your code, before we can identify subtle vulnerabilities.
+* Imagine we’re a new developer hired to join your team, but we only have a few days to ramp up.
+
+### **1. Documentation**
+
+The less time we spend trying to understand your system, the faster we can get deep into your code, and the more time we can spend finding bugs. This is why the number one thing you can do to improve the quality of your audit is provide good documentation.
+
+Good documentation starts with a _plain English_ description of what you are building, and why you are building it. It should do this both for the overall system _and_ for each unique contract within the system.
+
+Another marker of good documentation is that it includes a specification of your system’s intended functionality. For each contract, it should describe the most important properties or behaviors that should be maintained. It should also describe the actions and states that should not be possible.
+
+One of the best examples we’ve seen is the [protocol spec for the 0xProject](https://github.com/0xProject/0x-protocol-specification/blob/master/v2/v2-specification.md#trade-settlement). In particular, their use of flow charts nicely illustrates how the system fits together.
+
+![](https://consensys.net/diligence/blog/2019/09/how-to-prepare-for-a-smart-contract-audit/0xProject-Trade-Settlement.png)
+
+Don’t let me scare you off. Good documentation requires a lot of effort. If you don’t have the capacity to put it together, we can help. Writing our own documentation of the code’s behavior is an excellent way to understand it. It can even lead us to discover vulnerabilities and unexpected edge cases.
+
+**What about a pseudocode spec?** I placed an emphasis on “plain English” above \(as opposed to rigid/formal English\) because plain English more clearly expresses what you _want_ the code to do. By contrast, the actual code is often so similar to the pseudocode specification that it can be hard to see when they both describe something you do not actually want.
+
+Pseudocode does have its place and can be especially helpful for precisely describing complex mathematics, but it should always be accompanied by some English about what the math is meant to achieve.
 
 The less time we spend trying to understand your system, the more time we can spend finding bugs.
 
-GOOD DOCUMENTATION:  
-Describes the overall system and its objectives  
-Describes what should not be possible  
-Lists which contracts are derived/deployed, and how they interact with one another
+GOOD DOCUMENTATION:
+
+* Describes the overall system and its objectives
+* Describes what should not be possible
+* Lists which contracts are derived/deployed, and how they interact with one another
 
 Documenting your code will also help you to improve it.
 
 Example of good documentation: [0x Protocol Specifications](https://github.com/0xProject/0x-protocol-specification/blob/master/v2/v2-specification.md)
 
-**2. Make it easy to run**
-
 Example from [Polymath](https://github.com/PolymathNetwork/polymath-core):
 
 [![images/104-1.png](../.gitbook/assets/104-1.png)]()
 
-3. Clean up the code
+### 2. Clean up the code
+
+Polished, well-formatted code is easier to read, which reduces the cognitive overhead needed to review it. A little bit of cleanup will go a long way towards allowing us to focus our energy on finding bugs.
+
+1. Run a linter on your code. Fix any errors or warnings unless you have a good reason not to. For Solidity, we like Ethlint.
+2. If the compiler outputs any warnings, address them.
+3. Remove any comments that indicate unfinished work \(ie. `TODO` or `FIXME`\). _\(This is assuming it’s your final audit before deploying to mainnet. If not, exercise your judgement about what makes sense to leave in.\)_
+4. Remove any code that has been commented out.
+5. Remove any code you don’t need.
 
 • Add helpful comments: explain the intent, i..e. what are you trying to do
 
@@ -56,15 +88,63 @@ Example from [Polymath](https://github.com/PolymathNetwork/polymath-core):
 • Fix TODOs  
 • delete commented out code
 
-4. Run Tools
+### 3. Testing
+
+Write tests! A good goal is a test suite with [100% code coverage](https://en.wikipedia.org/wiki/Code_coverage).
+
+Review the list of test cases for gaps. Are your tests mostly focused on making sure the the ‘happy path’ works? Write some tests to verify undesirable actions are properly protected against, and that the contract fails properly instead of landing in an undesired state.
+
+**Important:** Your README should give clear instructions for running the test suite. If any dependencies are not packaged with your code \(e.g. Truffle\), list them and their exact versions.
+
+### 4. Automated Analysis
+
+Ethereum has many good security analysis tools to help find some of the most common issues. We use some of these during our audits, though you can also run them in advance, which will allow us to spend our time looking for trickier bugs.
+
+Our [MythX](https://mythx.io/) suite, which runs several kinds of analysis at once, is a great place to start. There are many ways to submit your contracts for analysis, including CLI tools for JavaScript and Python as well as plugins for Remix and Truffle. You can find more security tools listed in our [Smart Contract Best Practices](https://consensys.github.io/smart-contract-best-practices/security_tools/).
+
+It’s not essential to do this, but it helps. A caveat is that you will often get warnings about issues that don’t actually exist. If you’re unsure if something is an issue, just let us know and we’ll assess it during the audit.
 
 • [EthLint](https://www.ethlint.com/)  
 • [Slither](https://github.com/crytic/slither/issues)  
 • MythX
 
-6. Freeze the code
+### 5. Freeze the code
 
-• We can't audit a moving target
+> We can't audit a moving target
+
+An audit is an investment in the security of your smart contract system. Besides selecting a high quality auditor for the work \([contact us here](https://consensys.net/diligence/contact/)\), there are several things you can do to make sure you get the most out of your investment.
+
+At the risk of stating the obvious, you should be done with development of your smart contracts before we audit them.
+
+At the start of our audit, we’ll confirm that you’ve “frozen the code” \(i.e. halted development\), and we’ll ask for a specific git commit hash to be the target of our audit.
+
+If a change comes in halfway through an audit, it means the auditors wasted time on old code. In addition, the auditors would have to stop and incorporate the change, which can have wide-ranging impacts on things like the threat model and other code that interacts with the changed code.
+
+If your code won’t be ready by the scheduled start date, let us know. It’s better to delay altogether than try to complete an audit while you continue development.
+
+### 6. Use A Checklist
+
+I’ve summarized these steps in a [markdown checklist](https://gist.github.com/maurelian/13831f1940340e0dcd0482555eb5c4fe) that you can copy and paste for use in your own project.
+
+#### Audit prep checklist \([reference](https://diligence.consensys.net/posts/2019/09/how-to-prepare-for-a-smart-contract-audit/)\)
+
+* [ ] Documentation \(A plain english description of what you are building, and why you are building it. Should indicate the actions and states that should and should not be possible\)
+  * [ ] For the overall system
+  * [ ] For each unique contract within the system
+* [ ] Clean code
+  * [ ] Run a linter \(like [EthLint](https://www.ethlint.com/)\)
+  * [ ] Fix compiler warnings
+  * [ ] Remove TODO and FIXME comments
+  * [ ] Delete unused code
+* [ ] Testing
+  * [ ] README gives clear instructions for running tests
+  * [ ] Testing dependencies are packaged with the code OR are listed including versions
+* [ ] Automated Analysis
+  * [ ] Analysis with [MythX](https://mythx.io/)
+  * [ ] [Other tools](https://consensys.github.io/smart-contract-best-practices/security_tools/)
+* [ ] Frozen code
+  * [ ] Halt development of the contract code
+  * [ ] Provide commit hash for the audit to target
 
 ## What to expect from an audit
 
@@ -415,5 +495,6 @@ It is important to observe the classification standards of the organization or p
 
 ## Resources
 
-[https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571](https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571)
+* [https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571](https://blog.smartdec.net/smartdec-smart-contract-audit-beginners-guide-d04cc7f1c571)
+* [https://consensys.net/diligence/blog/2019/09/how-to-prepare-for-a-smart-contract-audit/](https://consensys.net/diligence/blog/2019/09/how-to-prepare-for-a-smart-contract-audit/)
 

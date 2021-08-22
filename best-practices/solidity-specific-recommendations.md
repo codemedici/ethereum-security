@@ -530,4 +530,5 @@ There may be other situations in which the `extcodesize` check serves your purpo
 ## Resources
 
 * [https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/](https://consensys.github.io/smart-contract-best-practices/recommendations/)
 

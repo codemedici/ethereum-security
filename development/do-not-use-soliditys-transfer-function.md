@@ -63,4 +63,5 @@ contract SomeContract {
 ## Resources
 
 * [https://defender.openzeppelin.com/\#/advisor/docs/do-not-use-soliditys-transfer-function?](https://defender.openzeppelin.com/#/advisor/docs/do-not-use-soliditys-transfer-function?)
+* [https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/](https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/)
 
