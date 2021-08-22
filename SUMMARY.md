@@ -124,6 +124,7 @@
 ## DeFi
 
 * [Overview of Risks](defi/overview-of-risks.md)
+* [DeFi Best Practices](defi/defi-best-practices.md)
 
 ## Blockchain Misc
 
