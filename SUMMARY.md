@@ -71,6 +71,7 @@
 
 * [OZ Defender](operations/oz-defender.md)
 * [Key Management](operations/key-management/README.md)
+  * [Use multiple signatures for critical administrative tasks](operations/key-management/use-multiple-signatures-for-critical-administrative-tasks.md)
   * [Secure All Administrative Keys](operations/key-management/secure-all-administrative-keys.md)
 * [Post-Mortem Analysis](operations/post-mortem-analysis.md)
 * [Emergency Response Plan](operations/emergency-response-plan.md)
@@ -83,7 +84,6 @@
 * [Spikes in Account Activity](monitoring/spikes-in-account-activity.md)
 * [Collateral Ratios](monitoring/collateral-ratios.md)
 * [Dependency Changes](monitoring/dependency-changes.md)
-* [Use multiple signatures for critical administrative tasks](monitoring/use-multiple-signatures-for-critical-administrative-tasks.md)
 * [Large Value Transactions](monitoring/large-value-transactions.md)
 * [Expiring Assets](monitoring/expiring-assets.md)
 * [Unused Tokens or Funds](monitoring/unused-tokens-or-funds.md)
