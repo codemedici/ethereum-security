@@ -4,7 +4,6 @@
 
 ## Smart Contract Weaknesses
 
-* [Flashloans](smart-contract-weaknesses/flashloans.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
 * [Signature Replay](smart-contract-weaknesses/signature-replay.md)
@@ -125,6 +124,7 @@
 
 * [Overview of Risks](defi/overview-of-risks.md)
 * [DeFi Best Practices](defi/defi-best-practices.md)
+* [Flashloans](defi/flashloans.md)
 
 ## Blockchain Misc
 
