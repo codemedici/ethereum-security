@@ -11,20 +11,24 @@ Real World Impact:
 • Parity Multi-sig bug 2  
 • Rubixi
 
-Example:  
+## Example
+
+  
 A smart contract designates the address which initializes it as the contract's owner. This is a common pattern for granting special privileges such as the ability to withdraw the contract's funds.  
 Unfortunately, the initialization function can be called by anyone — even after it has already been called. Allowing anyone to become the owner of the contract and take its funds.  
 Code Example:
 
 In the following example, the contract's initialization function sets the caller of the function as its owner. However, the logic is detached from the contract's constructor, and it does not keep track of the fact that it has already been called.
 
-function initContract\(\) public {  
- owner = msg.sender;  
+```text
+function initContract() public {
+ owner = msg.sender;
 }
+```
 
 In the Parity multi-sig wallet, this initialization function was detached from the wallets themselves and defined in a "library" contract. Users were expected to initialize their own wallet by calling the library's function via a delegateCall. Unfortunately, as in our example, the function did not check if the wallet had already been initialized. Worse, [since the library was a smart contract, anyone could initialize the library itself and call for its destruction](https://github.com/paritytech/parity-ethereum/issues/6995#issuecomment-342409816).
 
-### Resources:
+## Resources
 
 [https://dasp.co/\#item-2](https://dasp.co/#item-2)
 

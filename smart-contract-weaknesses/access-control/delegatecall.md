@@ -98,55 +98,48 @@ To add to these references, let’s explore the contracts that were exploited. T
 
 The library contract is as follows:
 
+```text
 contract WalletLibrary is WalletEvents {
-
   ...
-
-  // throw unless the contract is not yet initialized.  
-  modifier only\_uninitialized { if \(m\_numOwners &gt; 0\) throw; \_; }
-
-  // constructor - just pass on the owner array to multiowned and  
-  // the limit to daylimit  
-  function initWallet\(address\[\] \_owners, uint \_required, uint \_daylimit\)  
-      only\_uninitialized {  
-    initDaylimit\(\_daylimit\);  
-    initMultiowned\(\_owners, \_required\);  
+  // throw unless the contract is not yet initialized.
+  modifier only_uninitialized { if (m_numOwners > 0) throw; _; }
+  // constructor - just pass on the owner array to multiowned and
+  // the limit to daylimit
+  function initWallet(address[] _owners, uint _required, uint _daylimit)
+      only_uninitialized {
+    initDaylimit(_daylimit);
+    initMultiowned(_owners, _required);
   }
-
-  // kills the contract sending everything to \`\_to\`.  
-  function kill\(address \_to\) onlymanyowners\(sha3\(msg.data\)\) external {  
-    suicide\(\_to\);  
+  // kills the contract sending everything to `_to`.
+  function kill(address _to) onlymanyowners(sha3(msg.data)) external {
+    suicide(_to);
   }
-
   ...
-
 }
+```
 
 And here’s the wallet contract:
 
+```text
 contract Wallet is WalletEvents {
-
   ...
-
   // METHODS
-
-  // gets called when no other function matches  
-  function\(\) payable {  
-    // just being sent some cash?  
-    if \(msg.value &gt; 0\)  
-      Deposit\(msg.sender, msg.value\);  
-    else if \(msg.data.length &gt; 0\)  
-      \_walletLibrary.delegatecall\(msg.data\);  
+  // gets called when no other function matches
+  function() payable {
+    // just being sent some cash?
+    if (msg.value > 0)
+      Deposit(msg.sender, msg.value);
+    else if (msg.data.length > 0)
+      _walletLibrary.delegatecall(msg.data);
   }
-
   ...
-
-  // FIELDS  
-  address constant \_walletLibrary =  
-    0xcafecafecafecafecafecafecafecafecafecafe;  
+  // FIELDS
+  address constant _walletLibrary =
+    0xcafecafecafecafecafecafecafecafecafecafe;
 }
+```
 
-Notice that the Wallet contract essentially passes all calls to the WalletLibrary contract via a delegate call. The constant \_walletLibrary address in this code snippet acts as a placeholder for the actually deployed WalletLibrary contract \(which was at 0x863DF6BFa4469f3ead0bE8f9F2AAE51c91A907b4\).
+Notice that the Wallet contract essentially passes all calls to the WalletLibrary contract via a delegate call. The constant `_walletLibrary` address in this code snippet acts as a placeholder for the actually deployed WalletLibrary contract \(which was at `0x863DF6BFa4469f3ead0bE8f9F2AAE51c91A907b4`\).
 
 The intended operation of these contracts was to have a simple low-cost deployable Wallet contract whose codebase and main functionality were in the WalletLibrary contract. Unfortunately, the WalletLibrary contract is itself a contract and maintains its own state. Can you see why this might be an issue?
 

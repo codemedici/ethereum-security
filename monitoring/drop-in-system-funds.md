@@ -16,3 +16,7 @@ An alert to inform the appropriate stakeholders should be triggered when the bal
 
 Separately, before integrating new assets into the protocol, ensure that any transfer of such assets will emit the expected ERC20 Transfer event when the protocol’s balances are affected, and that the token is fully supported in the threshold monitoring.
 
+## Resources
+
+* [https://defender.openzeppelin.com/\#/advisor/docs/drop-in-system-funds](https://defender.openzeppelin.com/#/advisor/docs/drop-in-system-funds?query=drop)
+

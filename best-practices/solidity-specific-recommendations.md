@@ -527,3 +527,8 @@ If your goal is to prevent other contracts from being able to call your contract
 
 There may be other situations in which the `extcodesize` check serves your purpose. Describing all of them here is out of scope. Understand the underlying behaviors of the EVM and use your Judgement.
 
+## Resources
+
+* [https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/](https://consensys.net/blog/developers/solidity-best-practices-for-smart-contract-security/)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/](https://consensys.github.io/smart-contract-best-practices/recommendations/)
+

@@ -1,7 +1,36 @@
-# Example - EtherStore.sol
+# Examples
 
-#### EtherStore.Sol
+## Ethernaut
 
+```javascript
+pragma solidity ^0.4.18;
+contract Reentrance {
+  mapping(address => uint) public balances;
+  function donate(address _to) public payable {
+    balances[_to] += msg.value;
+  }
+  function balanceOf(address _who) public view returns (uint balance) {
+    return balances[_who];
+  }
+  function withdraw(uint _amount) public {
+    if(balances[msg.sender] >= _amount) {
+      if(msg.sender.call.value(_amount)()) {
+        _amount;
+      }
+      balances[msg.sender] -= _amount;
+    }
+  }
+  function() public payable {}
+}
+```
+
+This Ethernaut level exploits this reentrancy issue and the following, additional factors that led to the [DAO hack](http://hackingdistributed.com/2016/06/18/analysis-of-the-dao-exploit/):  
+• Fallback functions [can be called by anyone & execute malicious code](https://hackernoon.com/ethernaut-lvl-1-walkthrough-how-to-abuse-the-fallback-function-118057b68b56)  
+• Malicious external contracts [can abuse withdrawals](https://medium.com/coinmonks/ethernaut-lvl-9-king-walkthrough-how-bad-contracts-can-abuse-withdrawals-db12754f359b)
+
+## EtherStore
+
+{% code title="EtherStore.sol" %}
 ```javascript
 pragma solidity 0.4.18;
 contract EtherStore {
@@ -23,6 +52,7 @@ contract EtherStore {
     }
  }
 ```
+{% endcode %}
 
 Note: `withdrawLimit` set to 0.1 ether.
 
@@ -34,8 +64,7 @@ From \(Metamask\):
 To \(contract\):  
 `0x52b2a43b59a39f4c863aa86da6c6fe73b33bdc73`
 
-#### Attack.sol
-
+{% code title="Attack.sol" %}
 ```javascript
 pragma solidity 0.4.18;
 
@@ -69,6 +98,7 @@ contract Attack {
   }
 }
 ```
+{% endcode %}
 
 [https://ropsten.etherscan.io/tx/0x551f6d272274edbef299763343a4daea58438ef20522ed526ecfea7bff59734f](https://ropsten.etherscan.io/tx/0x551f6d272274edbef299763343a4daea58438ef20522ed526ecfea7bff59734f)  
 From:  

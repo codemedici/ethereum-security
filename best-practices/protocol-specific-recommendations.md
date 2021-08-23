@@ -228,3 +228,7 @@ One way to handle this is to check the value of a variable before negation and t
 
 A similar issue with `int` types occurs when `MIN_INT` is multiplied or divided by `-1`.
 
+## Resources
+
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/](https://consensys.github.io/smart-contract-best-practices/recommendations/)
+

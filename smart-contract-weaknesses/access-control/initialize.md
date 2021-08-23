@@ -12,5 +12,9 @@ Eg. [Punk Finance got rekt](https://medium.com/punkprotocol/punk-finance-fair-la
 
 It is entirely possible to use a custom modifier for the initialize\(\) function,  the point is there should at least be some kind of access control modifier.
 
+## Resources
+
+* [https://www.rekt.news/punkprotocol-rekt/](https://www.rekt.news/punkprotocol-rekt/)
+
 
 
