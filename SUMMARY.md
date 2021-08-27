@@ -4,6 +4,8 @@
 
 ## Smart Contract Weaknesses
 
+* [Price Oracle Manipulation](smart-contract-weaknesses/price-oracle-manipulation/README.md)
+  * [Rekt](smart-contract-weaknesses/price-oracle-manipulation/rekt.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
 * [Signature Replay](smart-contract-weaknesses/signature-replay.md)
@@ -59,6 +61,7 @@
   * [Mythril](auditing/program-analysis/mythril.md)
   * [Slither](auditing/program-analysis/slither.md)
 * [Example Audits](auditing/example-audits.md)
+* [Rekt](auditing/rekt.md)
 
 ## Best Practices
 

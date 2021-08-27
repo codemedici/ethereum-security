@@ -141,7 +141,7 @@ Also the Attack.sol contract has a massive balance on EtherStore, not sure why:
 
 [![images/23-6.png](../../.gitbook/assets/23-6%20%281%29.png)](./)
 
-Calling CollectEther\(\) Sends those 0.5 eth back to our wallet address!
+Calling `CollectEther()` Sends those 0.5 eth back to our wallet address!
 
 [https://ropsten.etherscan.io/tx/0xf11dcf8de8bed562a8b4f0d977efbe2db8940adee4745c0400e8f44b95ffed93](https://ropsten.etherscan.io/tx/0xf11dcf8de8bed562a8b4f0d977efbe2db8940adee4745c0400e8f44b95ffed93)  
 [![images/23-7.png](../../.gitbook/assets/23-7%20%281%29.png)](./)
