@@ -20,7 +20,7 @@ Behind the scenes, the attacker’s trades through Uniswap allowed them to move 
 
 This incident illustrates the fact that even if you think you’re using off-chain price data, you may still actually be using on-chain price data and you may still be exposed to the intricacies involved with using that data.
 
-## The bZx Hack
+## bZx Second Hack
 
 In February 2020, bZx was hacked twice over the span of several days for approximately 1MM USD. You can find an excellent technical analysis of both hacks written by palkeo [here](https://www.palkeo.com/en/projets/ethereum/bzx.html), but we will only be looking at the second hack.
 

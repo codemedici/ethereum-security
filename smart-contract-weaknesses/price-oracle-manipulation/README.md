@@ -1,7 +1,5 @@
 # Price Oracle Manipulation
 
-## Price Oracle Manipulation
-
 On Ethereum, where everything is a smart contract, so too are price oracles. As such, it’s more useful to distinguish between how the price oracle gets its price information. In one approach, you can simply take the existing off-chain price data from price APIs or exchanges and bring it on-chain. In the other, you can calculate the instantaneous price by consulting on-chain decentralized exchanges.
 
 ![](https://samczsun.com/content/images/2020/11/image-24.png)
