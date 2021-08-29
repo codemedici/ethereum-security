@@ -4,8 +4,16 @@
 
 ## Smart Contract Weaknesses
 
+* [Flash Loan Arbitrage](smart-contract-weaknesses/flash-loan-arbitrage/README.md)
+  * [bZx First Hack](smart-contract-weaknesses/flash-loan-arbitrage/bzx-first-hack.md)
 * [Price Oracle Manipulation](smart-contract-weaknesses/price-oracle-manipulation/README.md)
+  * [Synthetix MKR Manipulation](smart-contract-weaknesses/price-oracle-manipulation/synthetix-mkr-manipulation.md)
+  * [Synthetix sKRW Oracle Malfunction](smart-contract-weaknesses/price-oracle-manipulation/synthetix-skrw-oracle-malfunction.md)
+  * [bZx Second Hack](smart-contract-weaknesses/price-oracle-manipulation/bzx-second-hack.md)
+  * [yVault Bug](smart-contract-weaknesses/price-oracle-manipulation/yvault-bug.md)
+  * [Harvest Finance Hack](smart-contract-weaknesses/price-oracle-manipulation/harvest-finance-hack.md)
   * [Rekt](smart-contract-weaknesses/price-oracle-manipulation/rekt.md)
+  * [DDEX \(Hydro Protocol\)](smart-contract-weaknesses/price-oracle-manipulation/ddex-hydro-protocol.md)
   * [Preventative Techniques](smart-contract-weaknesses/price-oracle-manipulation/preventative-techniques.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
