@@ -1,4 +1,8 @@
-# DDEX \(Hydro Protocol\)
+# DDEX \(Bug Bounty\)
+
+{% hint style="warning" %}
+The following content was copied from [samczun's bug bounty report](https://samczsun.com/taking-undercollateralized-loans-for-fun-and-for-profit/) on a bug on DDEX that he discovered and was patched consequently, this was not an actual exploit.
+{% endhint %}
 
 DDEX is a decentralized exchange platform but are in the process of expanding into decentralized lending so that they can offer their users the ability to create leveraged long and short positions. They're currently beta testing their decentralized margin exchange.
 

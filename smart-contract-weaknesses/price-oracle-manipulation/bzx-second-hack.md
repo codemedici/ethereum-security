@@ -114,7 +114,7 @@ Also note that if they wanted, the attacker could have pulled back the price tha
 
 The second attack was much simpler than the first one, and this was indeed an oracle attack.
 
-Both attacks \(see [bZx first hack](../flash-loan-arbitrage/bzx-first-hack.md)\) exploited the fact that it is possible to borrow huge amounts of liquidity for the duration of a single transaction \(“flash loan”\). Part of this liquidity ends up doing a massive buy/sell on an on-chain exchange \(like Kyber\): this order has a huge spread and shifts a lot the market price.
+Both attacks \(see [bZx first hack](bzx-first-hack.md)\) exploited the fact that it is possible to borrow huge amounts of liquidity for the duration of a single transaction \(“flash loan”\). Part of this liquidity ends up doing a massive buy/sell on an on-chain exchange \(like Kyber\): this order has a huge spread and shifts a lot the market price.
 
 But the comparison stops here. The attack vector is very different:
 

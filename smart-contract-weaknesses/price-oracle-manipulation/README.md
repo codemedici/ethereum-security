@@ -40,6 +40,20 @@ Before the user takes out a loan, they buy 5,000 ETH for 2,000,000 USD. The Unis
 
 This case study illustrates the most common mistake when using a decentralized exchange as a price oracle - **an attacker has almost full control over the price during a transaction** and trying to read that price accurately is like reading the weight on a scale before it’s finished settling. You’ll probably get the wrong number and depending on the situation it might cost you a lot of money.
 
+## Key Takeaways <a id="key-takeaways"></a>
+
+### Don't use an on-chain decentralized oracle without some sort of validation <a id="don-t-use-an-on-chain-decentralized-oracle-without-some-sort-of-validation"></a>
+
+Due to the nature of on-chain decentralized oracles, ensure that you're validating the rate being returned, whether it's by taking the order \(thereby nullifying any gains which may have been realized\), **comparing the rate against known good rates \(in the case of DAI\), or comparing the rate in both directions**.
+
+### Consider the implications of dependencies on third-party projects <a id="consider-the-implications-of-dependencies-on-third-party-projects"></a>
+
+In both cases, DDEX and bZx assumed that Uniswap and Kyber would be a source of accurate price data. However, **an accurate rate for a DEX means that a trade can be made using that rate, while an accurate rate for a DeFi project means that it is close to or equal to the FMV**. In other words, an accurate rate for a DeFi project is an accurate rate for a DEX, but the opposite might not be true.
+
+Furthermore, bZx's second attempt at solving this problem was insufficient due to a misunderstanding in how the Kyber Network internally calculates the exchange rate between two non-ETH tokens.
+
+As such, before introducing a dependency on a third-party project, consider not only whether the project has been audited, but also whether the project's specifications and threat model align with your own. If you have the time, taking an in-depth look at their contracts also doesn't hurt.
+
 ## Resources
 
 * [https://samczsun.com/so-you-want-to-use-a-price-oracle/](https://samczsun.com/so-you-want-to-use-a-price-oracle/)
