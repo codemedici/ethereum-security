@@ -14,7 +14,6 @@
   * [Harvest Finance Hack](smart-contract-weaknesses/price-oracle-manipulation/harvest-finance-hack.md)
   * [Rekt](smart-contract-weaknesses/price-oracle-manipulation/rekt.md)
   * [DDEX \(Bug Bounty\)](smart-contract-weaknesses/price-oracle-manipulation/ddex-hydro-protocol.md)
-  * [Preventative Techniques](smart-contract-weaknesses/price-oracle-manipulation/preventative-techniques.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
 * [Signature Replay](smart-contract-weaknesses/signature-replay.md)
