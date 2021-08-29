@@ -60,21 +60,21 @@ By now, I hope that you’ve learned to recognize the common thread - it's not a
 
 ### Shallow Markets, No Diving <a id="shallow-markets-no-diving"></a>
 
-Like diving into the shallow end of a pool, diving into a shallow market is painful and might result in significant expenses which will change your life forever. Before you even consider the intricacies of the specific price oracle you’re planning to use, consider whether the token is liquid enough to warrant integration with your platform.
+Like diving into the shallow end of a pool, diving into a shallow market is painful and might result in significant expenses which will change your life forever. Before you even consider the intricacies of the specific price oracle you’re planning to use, **consider whether the token is liquid enough to warrant integration with your platform.**
 
 ### A Bird in the Hand is Worth Two in the Bush <a id="a-bird-in-the-hand-is-worth-two-in-the-bush"></a>
 
-It may be mesmerizing to see the potential exchange rate on Uniswap, but nothing’s final until you actually click trade and the tokens are sitting in your wallet. Similarly, the best way to know for sure the exchange rate between two assets is to simply swap the assets directly. This approach is great because there’s no take-backs and no what-ifs. However, it may not work for protocols such as lending platforms which are required to hold on to the original asset.
+It may be mesmerizing to see the potential exchange rate on Uniswap, but nothing’s final until you actually click trade and the tokens are sitting in your wallet. Similarly, **the best way to know for sure the exchange rate between two assets is to simply swap the assets directly**. This approach is great because there’s no take-backs and no what-ifs. However, it may not work for protocols such as lending platforms which are required to hold on to the original asset.
 
 ### Almost Decentralized Oracles <a id="almost-decentralized-oracles"></a>
 
-One way to summarize the problem with oracles that rely on on-chain data is that they’re a little too up-to-date. If that’s the case, why not introduce a bit of artificial delay? Write a contract which updates itself with the latest price from a decentralized exchange like Uniswap, but only when requested by a small group of privileged users. Now even if an attacker can manipulate the price, they can’t get your protocol to actually use it.
+One way to summarize the problem with oracles that rely on on-chain data is that they’re a little too up-to-date. If that’s the case, why not introduce a bit of artificial delay? **Write a contract which updates itself with the latest price from a decentralized exchange like Uniswap, but only when requested by a small group of privileged users**. Now even if an attacker can manipulate the price, they can’t get your protocol to actually use it.
 
 This approach is really simple to implement and is a quick win, but there are a few drawbacks - in times of chain congestion you might not be able to update the price as quickly as you’d like, and you’re still vulnerable to sandwich attacks. Also, now your users need to trust that you’ll actually keep the price updated.
 
 ### Speed Bumps <a id="speed-bumps"></a>
 
-Manipulating price oracles is a time-sensitive operation because arbitrageurs are always watching and would love the opportunity to optimize any suboptimal markets. If an attacker wants to minimize risk, they’ll want to do the two trades required to manipulate a price oracle in a single transaction so there’s no chance that an arbitrageur can jump in the middle. As a protocol developer, if your system supports it, it may be enough to simply implement a delay of as short as 1 block between a user entering and exiting your system.
+Manipulating price oracles is a time-sensitive operation because arbitrageurs are always watching and would love the opportunity to optimize any suboptimal markets. If an attacker wants to minimize risk, they’ll want to do the two trades required to manipulate a price oracle in a single transaction so there’s no chance that an arbitrageur can jump in the middle. As a protocol developer, if your system supports it, **it may be enough to simply implement a delay of as short as 1 block between a user entering and exiting your system.**
 
 Of course, this might impact composability and miner collaboration with traders is on the rise. In the future, it may be possible for bad actors to perform price oracle manipulation across multiple transactions knowing that the miner they’ve partnered with will guarantee that no one can jump in the middle and take a bite out of their earnings.
 
@@ -86,7 +86,23 @@ Uniswap V2 introduced a TWAP oracle for on-chain developers to use. The [documen
 
 Sometimes they say that if you want something done right, you do it yourself. What if you gather up N trusted friends and ask them to submit what they think is the right price on-chain, and the best M answers becomes the current price?
 
-This approach is used by many large projects today: Maker runs a set of [price feeds](https://developer.makerdao.com/feeds/) operated by trusted entities, Compound created the [Open Oracle](https://medium.com/compound-finance/announcing-compound-open-oracle-development-cff36f06aad3) and features reporters such as [Coinbase](https://blog.coinbase.com/introducing-the-coinbase-price-oracle-6d1ee22c7068), and Chainlink aggregates price data from Chainlink operators and exposes it on-chain. Just keep in mind that if you choose to use one of these solutions, you’ve now delegated trust to a third party and your users will have to do the same. Requiring reporters to manually post updates on-chain also means that during times of high market volatility and chain congestion, price updates may not arrive on time.
+This approach is used by many large projects today: Maker runs a set of [price feeds](https://developer.makerdao.com/feeds/) operated by trusted entities, Compound created the [Open Oracle](https://medium.com/compound-finance/announcing-compound-open-oracle-development-cff36f06aad3) and features reporters such as [Coinbase](https://blog.coinbase.com/introducing-the-coinbase-price-oracle-6d1ee22c7068), and **Chainlink aggregates price data from Chainlink operators and exposes it on-chain.** Just keep in mind that if you choose to use one of these solutions, you’ve now delegated trust to a third party and your users will have to do the same. Requiring reporters to manually post updates on-chain also means that during times of high market volatility and chain congestion, price updates may not arrive on time.
+
+### **Implementing a commit-and-reveal mechanism for deposits**
+
+This would **remove the ability to perform deposits and withdrawals within a single transaction** and therefore, make flash-loan based attacks infeasible. On users’ side, this would mean that during depositing, their tokens will be transferred into Harvest in one transaction. The users would subsequently claim their share in another transaction, ideally inside a different block. This would constitute a UX change and potentially incur a higher, yet still acceptable, gas cost for the depositors.
+
+### **A stricter configuration of the existing deposit arb check in the strategies**
+
+The current threshold was set to 3%, and it was not sufficient to protect the vault against such an attack. A stricter threshold can make such an attack economically infeasible, however, it may be limiting deposits in the case of a natural impermanent loss effects. Sunday’s events over 7 minutes show that this measure is not effective enough and thus should be seen as complementary to other ones.
+
+### **Withdrawals in an underlying asset**
+
+When users deposit into vaults that use share pools \(such as the Y pool\), they effectively trade their single asset for the pool asset \(such as the yCurve\). If the users withdrew only the underlying asset, they would be able to trade them for an asset combination as per the current market conditions. If the market was manipulated, the trade would be also subject to such manipulation, which would prevent the attacking entity from generating a profit. From a regular user’s perspective, withdrawing yCRV could be followed by conversion into a stablecoin in a separate transaction. While this requires a UX change, this could also address the social slippage problem, and thus could be beneficial for the protocol. The disadvantage of this approach is that it binds the vault withdrawal mechanism to the strategy that is currently being used: if a strategy is switched to another strategy that does not use the shared underlying pool, or uses a different pool, the asset produced by the withdrawal would change too.
+
+### **Using oracles for determining asset price**
+
+While an approximate asset price may be effectively determined from external oracles \(provided by Chainlink or Maker\), it would have a very loose connection to the real share price. If the value of assets inside the underlying DeFi protocol differed from the value reported by the oracle, the vault would be exposed to free arbitrage and a flashloan attack. This is not a solution for Harvest, however, oracles will be considered in the system design and possible mitigation strategies \(as they have been considered up to this point\).
 
 ## Resources
 
