@@ -76,11 +76,69 @@ This approach is really simple to implement and is a quick win, but there are a 
 
 Manipulating price oracles is a time-sensitive operation because arbitrageurs are always watching and would love the opportunity to optimize any suboptimal markets. If an attacker wants to minimize risk, they’ll want to do the two trades required to manipulate a price oracle in a single transaction so there’s no chance that an arbitrageur can jump in the middle. As a protocol developer, if your system supports it, **it may be enough to simply implement a delay of as short as 1 block between a user entering and exiting your system.**
 
+This would **remove the ability to perform deposits and withdrawals within a single transaction** and therefore, make flash-loan based attacks infeasible. On users’ side, this would mean that during depositing, their tokens will be transferred into Harvest in one transaction. The users would subsequently claim their share in another transaction, ideally inside a different block. This would constitute a UX change and potentially incur a higher, yet still acceptable, gas cost for the depositors.
+
 Of course, this might impact composability and miner collaboration with traders is on the rise. In the future, it may be possible for bad actors to perform price oracle manipulation across multiple transactions knowing that the miner they’ve partnered with will guarantee that no one can jump in the middle and take a bite out of their earnings.
 
-### Time-Weighted Average Price \(TWAP\) <a id="time-weighted-average-price-twap-"></a>
+### Uniswap Time-Weighted Average Price \(TWAP\) <a id="time-weighted-average-price-twap-"></a>
 
 Uniswap V2 introduced a TWAP oracle for on-chain developers to use. The [documentation](https://uniswap.org/docs/v2/core-concepts/oracles/) goes into more detail on the exact security guarantees that the oracle provides, but in general for large pools over a long period of time with no chain congestion, the TWAP oracle is highly resistant to oracle manipulation attacks. However, due to the nature of its implementation, it may not respond quickly enough to moments of high market volatility and only works for assets for which there is already a liquid token on-chain.
+
+The Uniswap TWAP oracle is available for any token which has a pair on Uniswap V2 or V3. It allows you to calculate the average price of the asset over some period of time up to a certain extent.
+
+#### When to use
+
+Use the Uniswap TWAP oracle if your token is listed on Uniswap V2 or V3 with sufficient trader activity and liquidity. In other words, it is expected that if there is an arbitrage opportunity, a trader should come and take it in order to rebalance the pool. If this is not the case, then it’s possible for an attacker to skew the price and simply wait for the TWAP to update.
+
+#### Potential risks
+
+You must decide on the time interval to use, which can be tricky. A shorter time interval means that you will see price updates quicker, but also lowers the cost of attack to manipulate the oracle. A longer time interval makes it much harder to manipulate the average price, but also means you won’t be able to react to volatility in the markets.
+
+#### Example implementation
+
+For Uniswap V2, see [GitHub](https://github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/examples/ExampleOracleSimple.sol) for an implementation of a 24 hour TWAP oracle.
+
+For Uniswap V3, see [GitHub](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/libraries/OracleLibrary.sol) for a library which you can integrate into your project.
+
+{% hint style="info" %}
+Related: [https://shouldiusespotpriceasmyoracle.com/](https://shouldiusespotpriceasmyoracle.com/)
+{% endhint %}
+
+### Curve Virtual Price
+
+#### Overview
+
+Curve pools provide a function to calculate the price of a single LP token in a flash loan resistant manner.
+
+#### When to use
+
+If you need to calculate the price of Curve LP shares, then use the `get_virtual_price` function.
+
+#### Potential risks
+
+No additional risks besides dependency risk for every token the Curve pool supports.
+
+#### Example implementation
+
+See Curve’s [documentation](https://github.com/curvefi/curve-contract/blob/master/integrations.md#bonus-measuring-profits) for more info.
+
+### Maker Price Feed
+
+#### Overview
+
+Maker operates their own network of price feeds which exposes data to whitelisted contracts on-chain. Projects can apply for access to the price data through the Maker governance process.
+
+#### When to use
+
+Use Maker’s price feeds if you think you can make it through the governance process and you would prefer to offload your oracle risks to the Maker oracle team.
+
+#### Potential risks
+
+You need to trust the Maker team and the anonymous feeds to behave correctly. However, the risk is low in practice given that Maker itself depends on these oracles. Also, as feed operators need to submit prices on chain manually, prices may be delayed during periods of extremely high chain congestion.
+
+#### Example implementation
+
+Submit a [MIP10c9 subproposal](https://github.com/makerdao/mips/blob/master/MIP10/MIP10c9-Subproposal-Template.md) to [Maker Governance](https://forum.makerdao.com/c/core-units/oracles/13)
 
 ### M-of-N Reporters <a id="m-of-n-reporters"></a>
 
@@ -88,13 +146,25 @@ Sometimes they say that if you want something done right, you do it yourself. Wh
 
 This approach is used by many large projects today: Maker runs a set of [price feeds](https://developer.makerdao.com/feeds/) operated by trusted entities, Compound created the [Open Oracle](https://medium.com/compound-finance/announcing-compound-open-oracle-development-cff36f06aad3) and features reporters such as [Coinbase](https://blog.coinbase.com/introducing-the-coinbase-price-oracle-6d1ee22c7068), and **Chainlink aggregates price data from Chainlink operators and exposes it on-chain.** Just keep in mind that if you choose to use one of these solutions, you’ve now delegated trust to a third party and your users will have to do the same. Requiring reporters to manually post updates on-chain also means that during times of high market volatility and chain congestion, price updates may not arrive on time.
 
-### **Implementing a commit-and-reveal mechanism for deposits**
+#### Chainlink
 
-This would **remove the ability to perform deposits and withdrawals within a single transaction** and therefore, make flash-loan based attacks infeasible. On users’ side, this would mean that during depositing, their tokens will be transferred into Harvest in one transaction. The users would subsequently claim their share in another transaction, ideally inside a different block. This would constitute a UX change and potentially incur a higher, yet still acceptable, gas cost for the depositors.
+Chainlink supports over 100 price feeds on Ethereum mainnet, mainly for pairs with ETH and pairs with USD. Developers can access this data for free simply by querying the smart contracts when needed.
+
+#### When to use
+
+Use Chainlink if you need pricing data for an asset that Maker or Uniswap doesn’t support, or if the latency associated with a TWAP oracle is unacceptable to your project.
+
+#### Potential risks
+
+Similar to Maker, you’ll need to trust the Chainlink team and node operators to behave correctly. Chainlink also requires node operators to push values on chain, so it may also suffer delays during periods of high chain congestion.
+
+#### Example implementation
+
+Refer to the [Chainlink documentation](https://docs.chain.link/docs/get-the-latest-price/) for an example of how to get the price from a Chainlink aggregator smart contract.
 
 ### **A stricter configuration of the existing deposit arb check in the strategies**
 
-The current threshold was set to 3%, and it was not sufficient to protect the vault against such an attack. A stricter threshold can make such an attack economically infeasible, however, it may be limiting deposits in the case of a natural impermanent loss effects. Sunday’s events over 7 minutes show that this measure is not effective enough and thus should be seen as complementary to other ones.
+A stricter threshold ****that sets a maximum price fluctuation can make such an attack economically infeasible, however, it may be limiting deposits in the case of a natural impermanent loss effects. 
 
 ### **Withdrawals in an underlying asset**
 
@@ -103,6 +173,22 @@ When users deposit into vaults that use share pools \(such as the Y pool\), they
 ### **Using oracles for determining asset price**
 
 While an approximate asset price may be effectively determined from external oracles \(provided by Chainlink or Maker\), it would have a very loose connection to the real share price. If the value of assets inside the underlying DeFi protocol differed from the value reported by the oracle, the vault would be exposed to free arbitrage and a flashloan attack. This is not a solution for Harvest, however, oracles will be considered in the system design and possible mitigation strategies \(as they have been considered up to this point\).
+
+## FAQ <a id="faq"></a>
+
+### OK, but why shouldn’t I use spot price in the first place? <a id="ok-but-why-shouldnt-i-use-spot-price-in-the-first-place"></a>
+
+Good question. It depends on what you’re using the spot price for, although odds are you probably want to use it to calculate the price of some asset that users are depositing onto your platform. This means that it’s crucial to ensure that the user can’t just lie to you about how much the asset is really worth.
+
+Unfortunately, spot price by definition changes whenever someone buys or sells the asset. This means an attacker can easily make the apparent value much higher or much lower than the true value of the asset. For a protocol which uses the price to calculate the borrowing power of a user, artifically inflating the value of an asset being deposited as collateral means the entire protocol can be \(and will be, as numerous hacks have shown\) completely drained.
+
+### How do I tell if I’m using spot price? <a id="how-do-i-tell-if-im-using-spot-price"></a>
+
+A good question! It turns out it might not be immediately obvious if you’re using spot price or not.
+
+Let’s imagine that you want to find the price of WBTC in ETH. A seemingly obvious solution is to take the Uniswap V2 pair for ETH/WBTC, grab the reserve balance of ETH and WBTC, then divide the two. However, you’ve just calculated the spot price, and an attacker can easily manipulate it by buying or selling into the pool.
+
+That seems fairly straightforward, but what if you actually want to calculate the price of a single ETH/WBTC LP token? It may be tempting to calculate the USD value of ETH and WBTC in order to calculate the total USD value of the pool. However, by doing this you’re actually incorporating the spot price because you’re still dependent on the reserve balances of the pool. This is an extremely subtle detail, and more than one project has been caught by it. You can read more about this footgun in this [writeup](https://cmichel.io/pricing-lp-tokens/) by [@cmichelio](https://twitter.com/cmichelio).
 
 ## Resources
 
@@ -114,4 +200,10 @@ While an approximate asset price may be effectively determined from external ora
 * [https://blog.trailofbits.com/2020/08/05/accidentally-stepping-on-a-defi-lego/](https://blog.trailofbits.com/2020/08/05/accidentally-stepping-on-a-defi-lego/)
 * [https://www.palkeo.com/en/projets/ethereum/bzx.html](https://www.palkeo.com/en/projets/ethereum/bzx.html)
 * [https://medium.com/harvest-finance/harvest-flashloan-economic-attack-post-mortem-3cf900d65217](https://medium.com/harvest-finance/harvest-flashloan-economic-attack-post-mortem-3cf900d65217)
+
+#### Oracles
+
+* [https://makerdao.world/en/faqs/oracles/](https://makerdao.world/en/faqs/oracles/)
+* [https://docs.uniswap.org/protocol/concepts/V3-overview/oracle](https://docs.uniswap.org/protocol/concepts/V3-overview/oracle)
+* [https://ethereum.org/en/developers/docs/oracles/](https://ethereum.org/en/developers/docs/oracles/)
 
