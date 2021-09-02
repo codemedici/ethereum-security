@@ -202,7 +202,8 @@ That seems fairly straightforward, but what if you actually want to calculate th
 * [https://medium.com/harvest-finance/harvest-flashloan-economic-attack-post-mortem-3cf900d65217](https://medium.com/harvest-finance/harvest-flashloan-economic-attack-post-mortem-3cf900d65217)
 * [https://forum.openzeppelin.com/t/introduction-to-the-overcollateralized-loan-pattern-defi-primitive-and-its-security-considerations/2141](https://forum.openzeppelin.com/t/introduction-to-the-overcollateralized-loan-pattern-defi-primitive-and-its-security-considerations/2141)
 * [https://www.youtube.com/watch?v=YGO7nzpXCeA&t=1033s](https://www.youtube.com/watch?v=YGO7nzpXCeA&t=1033s)
-
+* [https://docs.google.com/presentation/d/1pRH3DN-nchKpqVi2xc6osLhbhk9q9USKePPmUHyJHqo/edit](https://docs.google.com/presentation/d/1pRH3DN-nchKpqVi2xc6osLhbhk9q9USKePPmUHyJHqo/edit)
+* 
 #### Oracles
 
 * [https://makerdao.world/en/faqs/oracles/](https://makerdao.world/en/faqs/oracles/)
