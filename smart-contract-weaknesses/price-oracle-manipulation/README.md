@@ -8,9 +8,76 @@ On Ethereum, where everything is a smart contract, so too are price oracles. As 
 
 Both options have their respective advantages and disadvantages. Off-chain data is generally slower to react to volatility, which may be good or bad depending on what you’re trying to use it for. It typically requires a handful of privileged users to push the data on-chain though, so you have to trust that they won’t turn evil and can’t be coerced into pushing bad updates. **On-chain data doesn’t require any privileged access and is always up-to-date, but this means that it’s easily manipulated by attackers.**
 
-## What is decentralized lending? <a id="what-is-decentralized-lending"></a>
+## “Overcollateralized Loan” Pattern \(DeFi primitive\). **AKA the “nonrecourse loan”.**
 
-First, let's talk about traditional lending. When you take out a loan, you typically need to provide some sort of collateral so that if you default on your loan, the lender can then seize the collateral. In order to determine how much collateral you need to supply, the lender typically knows or can reliably calculate the fair market value \(FMV\) of the collateral.
+This is a very common DeFi primitive used in all kinds of projects: Maker/DAI, Compound, Synthetix, etc. It’s used for decentralized loans, derivatives projects, stable coins, and more.
+
+It is a useful, flexible, and powerful pattern, and it has become quite common. It’s worth learning about if you aren’t already familiar with it.
+
+Before we can talk about decentralized lending however, let's introduce traditional lending. When you take out a loan, you typically need to provide some sort of collateral so that if you default on your loan, the lender can then seize the collateral.
+
+Loans come in two flavors: Unsecured loans and secured loans.
+
+* **Secured Loans**: Loans where the borrower is required to put down some amount of collateral. For example: mortgage loans, trading stocks on margin, pawn shop loans, car loans.
+* **Collateral**: Any asset owned by the borrower used to secure the loan. If the borrower defaults, the collateral and use it to cover any unpaid principal and interest. There may be an additional penalty to the borrower if this has to occur.
+
+**Loan-to-Value \(LTV\) Ratio** is the amount the borrower owes the lender \(principal + interest\) divided by the value of the collateral. Higher LTV ratio is riskier for the lender, i.e. the lower the collateral the higher the LTV.
+
+There are two types of secured loans: Recourse loans and **nonrecourse** loans. Difference is what recourse the lender has if the borrower defaults and the collateral is not enough to cover the loan. I.e. with nonrecourse loans the lender does NOT have any means of pursuing the borrower for the remainder owed.
+
+![DeFi loans are both secured and Nonrecourse](../../.gitbook/assets/img-rrsize.png)
+
+Almost all loans in the open blockchain space are nonrecourse loans, therefore the lender wants to see very low LTV ratio \(typically 50-60% or lower\). For example, a 50% means that if you wanted to borrow $100 you'd have to deposit $200 \($100 principal + $100 collateral\). 
+
+![](../../.gitbook/assets/image%20%2811%29.png)
+
+In DeFi, smart contracts calculate the LTV value using the following LTV formula:
+
+\*\*\*\*$$((# of borrowed tokens) * (borrow token price))  /  ((# of collateral tokens) * (collateral token price))$$
+
+The following table compares the factors responsible for increasing or decreasing the TVL: 
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">What increases the LTV ratio?</th>
+      <th style="text-align:left">What decreases the LTV ratio?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">
+        <p>Time (due to interest).</p>
+        <p>I.e. outstanding borrowed tokens accrue interest over time</p>
+      </td>
+      <td style="text-align:left">N/A</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">Borrowing more tokens</td>
+      <td style="text-align:left">Paying back some borrowed tokens</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">Removing some collateral</td>
+      <td style="text-align:left">Adding more collateral tokens</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">Price of borrowed token increases</td>
+      <td style="text-align:left">Price of borrowed tokens decreases</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">Price of collateral token decreases</td>
+      <td style="text-align:left">Price of collateral tokens increases</td>
+    </tr>
+  </tbody>
+</table>
+
+{% hint style="success" %}
+Basically, the TVL increases when the numerator part of the fraction grows proportionally larger than the denominator \(i.e. borrowed tokens value &gt; collateral tokens value\) and decreases when the opposite happens \(i.e. collateral tokens value &gt; borrowed tokens value\).
+{% endhint %}
+
+
+
+## Security considerations
 
 In decentralized lending, the same process occurs except now the lender is a smart contract that is isolated from the outside world. This means that it can't simply "know" the FMV of whatever collateral you're trying to provide.
 
@@ -22,7 +89,7 @@ To solve this problem, developers instruct the smart contract to query an _oracl
 4. On-chain Decentralized Oracle This type of oracle determines the price of assets using an on-chain source, but can be updated by anyone. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [DDEX](https://margin.ddex.io/) uses this type oracle for DAI, while [bZx](https://bzx.network/) uses this type of oracle for all assets
 5. Constant Oracle This type of oracle simply returns a constant value, and is typically used for stablecoins. Nearly all projects mentioned above use this type of oracle for USDC due to its guaranteed peg
 
-## Undercollateralized Loans
+## “Undercollateralized Loan” Pattern \(DeFi primitive\)
 
 Imagine you wanted to bring decentralized lending to the blockchain. Users are allowed to deposit assets as collateral and borrow other assets up to a certain amount determined by the value of the assets they’ve deposited. Let’s assume that a user wants to borrow USD using ETH as collateral, that the current price of ETH is 400 USD, and that the collateralization ratio is 150%.
 
@@ -203,7 +270,9 @@ That seems fairly straightforward, but what if you actually want to calculate th
 * [https://forum.openzeppelin.com/t/introduction-to-the-overcollateralized-loan-pattern-defi-primitive-and-its-security-considerations/2141](https://forum.openzeppelin.com/t/introduction-to-the-overcollateralized-loan-pattern-defi-primitive-and-its-security-considerations/2141)
 * [https://www.youtube.com/watch?v=YGO7nzpXCeA&t=1033s](https://www.youtube.com/watch?v=YGO7nzpXCeA&t=1033s)
 * [https://docs.google.com/presentation/d/1pRH3DN-nchKpqVi2xc6osLhbhk9q9USKePPmUHyJHqo/edit](https://docs.google.com/presentation/d/1pRH3DN-nchKpqVi2xc6osLhbhk9q9USKePPmUHyJHqo/edit)
-* 
+* [The “Overcollateralized Loan” Pattern .ppt](https://docs.google.com/presentation/d/1pRH3DN-nchKpqVi2xc6osLhbhk9q9USKePPmUHyJHqo/edit#slide=id.p)
+* [Computing and Accumulating Interest On-chain .ppt](https://docs.google.com/presentation/d/1c_HXwpuzFYRLb8gU7YgWvnNFE2eQIAcbJ7Pc8dPq9_0/edit#slide=id.p)
+
 #### Oracles
 
 * [https://makerdao.world/en/faqs/oracles/](https://makerdao.world/en/faqs/oracles/)
