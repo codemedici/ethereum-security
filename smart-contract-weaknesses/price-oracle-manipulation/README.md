@@ -24,7 +24,7 @@ This type of oracle determines the price of assets using an on-chain source, suc
 
 #### On-chain Decentralized Oracle
 
-This type of oracle determines the price of assets using an on-chain source, but can be updated by anyone. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [DDEX](https://margin.ddex.io/) uses this type oracle for DAI, while [bZx](https://bzx.network/) uses this type of oracle for all assets
+This type of oracle determines the price of assets using an on-chain source, but can be updated by anyone. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [DDEX](https://margin.ddex.io/) uses this type oracle for DAI, while [bZx](https://bzx.network/) uses this type of oracle for all assets.
 
 ## “Overcollateralized Loan” Pattern \(DeFi primitive\). **AKA the “nonrecourse loan”.**
 
@@ -121,6 +121,8 @@ Should a private key from a privileged account get compromised, the attacker cou
 
 Latest reported price is, on average, at least several seconds behind the current “public knowledge” price, which can open up arbitrage opportunities.
 
+In Chainlink, oracles only update every 20 minutes or if the price changes over 0.5%.
+
 #### Speed VS. Security
 
 Currently, there isn't really a known decentralized method of getting trustworthy price info on-chain in a way that is both fast and prohibitively expensive to manipulate. For example. Augur is decentralized and prohibitively expensive to manipulate, but too slow for price updates. Chainlink/Provable are fast, but cheap to manipulate \(simply attack the websites they query\). Therefore, the median of multiple trusted third parties is the de facto “standard”.
@@ -135,69 +137,28 @@ Additionally, no two projects using this pattern should ever share a price oracl
 
 Calculating interest requires a fixed-point library. Most projects seem to be rolling their own.
 
-Truncation Issues \(Division\)
+#### Truncation Issues \(Division\)
 
-Inherent truncation issues. Must be careful how they’re handled. Can result in truncating away interest owed by borrower over short time frames. Can result in “interest free loans” for certain classes of attackers.
+Both when withdrawing and depositing in/from a DeFi protocol, there is a rounding error for defect, due to the division operation that zeros out 1 wei. For example if 1 wei is worth 1000 DAI \(wei\) \(not 1000^18\), then 999 buys nothing because it is less than the minimum ETH unit wei, ie. 999/1000=0.  
+To give an example, open your terminal and run the following command:
 
-* Computing interest requires measuring time
+```text
+echo 999/1000 | bc
+```
 
-  * Measure by block.timestamp?
-    * manipulable , but barely
-    * Best option IMO
-  * Measure by block.number?
-    * Requires assumptions about block time
-      * Difficulty bomb
-      * ETH2.0 blocktimes unknown
+The effect may be exacerbated if the conversion happened between USDT and ETH, as USDT has 6 decimal places an not 18, a non trivial amount. If you multiply that for every investment, all these pennies accumulate and eventually get swiped up whenever the pool gets emptied.
+
+This becomes a serious issue when division is not done last when making internal calculations, the effect is much bigger; always divide last in solidity! This can result in truncating away interest owed by borrower over short time frames. Can result in “interest free loans” for certain classes of attackers.
+
+#### Measuring Time
+
+Computing interest requires measuring time, but how? One way is to use `block.timestamp` which can be manipulated by miners but the risk is not that great. Using `block.number` is worse as it requires assumptions about block time, there is a difficulty bomb, and  ETH2.0 block times are unknown.
 
 ### Division by Zero in TVL
 
 ![](../../.gitbook/assets/image%20%2813%29.png)
 
-* When all collateral has been removed, denominator of LTV Ratio is zero. Must be handled correctly.
-  * Can occur when liquidating during \(or very near\) the “underwater” state
-  * Can also occur when borrower pulls out remaining collateral after paying back entirety of the loan.
-* If malicious/compromised/buggy price oracle reports the collateral token price as zero.
-
-### Liquidation Mechanism
-
-![](../../.gitbook/assets/image%20%2816%29.png)
-
-Liquidation mechanism requires censorship resistance and available/affordable block space
-
-* Must be able to get liquidation txn mined during “recoverable default” state. Else borrower can end up underwater \(total failure\).
-  * Full blocks!
-  * Miners mining empty blocks
-  * Explicit miner censorship \(perhaps mining pool is the borrower, etc\)
-* The liquidator’s profit \(from the liquidation penalty\) must be enough to cover gas costs.
-
-Liquidation mechanism requires arbitrageurs \(liquidators\). So need users with capital.
-
-* Most commonly, liquidators are required to provide the borrow token before they receive the collateral token.
-  * Makes sense for security reasons but...
-  * Requires liquidators to already have up-front cash.
-* We could allow liquidators to take collateral token first, sell them on a DEX, and then repay the borrow tokens -- as long as it happens all in the same txn.
-  * Just a modified flash loan
-  * Greatly increases the number of liquidators \(no capital required to be a liquidator\)
-  * Could allow both options.
-
-Ability to do partial liquidation is crucial.
-
-* In some variations \(e.g.: pooled loans\) some of the collateral for loan X may be lent out in loan Y.
-  * Means liquidators may not be able to fully liquidate loan X.
-  * Should have incentive mechanisms in place to encourage depositing collateral for X when it is running low \(e.g. high interest rates\)
-* Even in the p2p case, allowing partial liquidation is good idea:
-  * Smaller liquidators can participate
-  * Less slippage
-
-### Governance
-
-* Changing of any of these parameters can result in theft of funds. 
-* Governance is often a weighted vote by token holders.
-  * Therefore governance can be bought.
-  * Consider min cost of buying controlling share of governance vs max profit from doing so.
-* Ideally, any changes made via governance would require users to opt-in to the change.
-  * If not, users should at least have an opportunity to opt-out before the changes take effect. The more notice given, then better.
-  * A minimum of two weeks notice IMO. Else you have to worry about the “holiday season” attack.
+When all collateral has been removed, denominator of LTV Ratio is zero. Must be handled correctly. This can occur when liquidating during \(or very near\) the “underwater” state, it can also occur when borrower pulls out remaining collateral after paying back entirety of the loan, or if a malicious/compromised/buggy price oracle reports the collateral token price as zero.
 
 ## “Undercollateralized Loan” Pattern \(DeFi primitive\)
 
