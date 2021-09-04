@@ -1,6 +1,6 @@
 # Price Oracle Manipulation
 
-## **Introduction**
+## **What Are Price Oracles**
 
 On Ethereum, where everything is a smart contract, so too are price oracles. As such, it’s more useful to distinguish between how the price oracle gets its price information. In one approach, you can simply take the existing off-chain price data from price APIs or exchanges and bring it on-chain. In the other, you can calculate the instantaneous price by consulting on-chain decentralized exchanges.
 
@@ -16,11 +16,11 @@ This type of oracle simply accepts new prices from an off-chain source, typicall
 
 #### Off-chain Decentralized Oracle
 
-This type of oracle accepts new prices from multiple off-chain sources and merges the values through a mathematical function, such as an average. In this model, a multisig wallet is typically used to manage the list of authorized sources. [Maker](https://makerdao.com/feeds/) uses this type of oracle for ETH and other assets
+This type of oracle accepts new prices from multiple off-chain sources and merges the values through a mathematical function, such as an average. In this model, a multisig wallet is typically used to manage the list of authorized sources. [Maker](https://makerdao.com/feeds/)  and [Chainlink](https://chain.link/) use this type of oracle for ETH and other assets.
 
 #### On-chain Centralized Oracle
 
-This type of oracle determines the price of assets using an on-chain source, such as a DEX. However, only a central authority can trigger the oracle to read from the on-chain source. Like an off-chain centralized oracle, this type of oracle requires rapid updates and as such the triggering account is likely an EOA and not a multisig. [dYdX](https://dydx.exchange/) and [Nuo](https://nuo.network/) use this type of oracle for certain assets
+This type of oracle determines the price of assets using an on-chain source, such as a **DEX**. However, only a central authority can trigger the oracle to read from the on-chain source. Like an off-chain centralized oracle, this type of oracle requires rapid updates and as such the triggering account is likely an EOA and not a multisig. [dYdX](https://dydx.exchange/) and [Nuo](https://nuo.network/) use this type of oracle for certain assets
 
 #### On-chain Decentralized Oracle
 
@@ -28,7 +28,13 @@ This type of oracle determines the price of assets using an on-chain source, but
 
 ## “Overcollateralized Loan” Pattern \(DeFi primitive\). **AKA the “nonrecourse loan”.**
 
-This is a very common DeFi primitive used in all kinds of projects: Maker/DAI, Compound, Synthetix, etc. It’s used for decentralized loans, derivatives projects, stable coins, and more.
+This is a very common DeFi primitive used in all kinds of projects: Maker/DAI, Compound, Synthetix, etc. It’s used for decentralized loans, derivatives projects, stable coins, and more. May not be obvious because they use different/custom terminology, e.g.:
+
+* Collateralization ratio
+* Collateralized Debt Position \(CDP\)
+* Liquidation discount
+* Stability fee
+* Collateral factor
 
 It is a useful, flexible, and powerful pattern, and it has become quite common. It’s worth learning about if you aren’t already familiar with it.
 
@@ -95,11 +101,103 @@ Basically, the TVL increases when the numerator part of the fraction grows propo
 
 ## Security considerations
 
-In decentralized lending, the same process occurs as in the "real world" except now the lender is a smart contract that is isolated from the outside world. This means that it can't simply "know" the fair market value \(FMV\) of whatever collateral you're trying to provide, i.e. the market value of the token borrowed or the collateral token. 
+In decentralized lending, the same process occurs as in the "real world" except now the lender is a smart contract that is isolated from the outside world. This means that it can't simply "know" the fair market value \(FMV\) of whatever collateral you're trying to provide, i.e. the FMV of the market value of the token borrowed and the collateral token.
 
-* If an attacker can control the price oracle, they can steal all the money. Simply adjust borrow token price up \(or the collateral price down\), which puts borrower in default, then liquidate the collateral for approximately $0.
-* Alternatively, if they can censor or DoS the price oracle they can steal money although with less of a discount.
-* Anyone who can mint collateral token can steal all funds. \(Borrow against the new, diluted collateral tokens before the oracle can reflect the new price\)Latest reported price is, on average, at least several seconds behind the current “public knowledge” price, which can open up arbitrage opportunities.
+### Getting Fair Market Value of Borrow and Collateral Tokens
+
+![](../../.gitbook/assets/image%20%2815%29.png)
+
+#### Manipulated Token's Price Risk
+
+If an attacker can control the price oracle, they can steal all the money. Simply adjust borrow token price up \(or the collateral price down\), which puts borrower in default, then liquidate the collateral for approximately $0. This is usually the case fo on-chain centralized oracles, ie. DEXs, whereby an attacker can use flashloans to manipulate the price of AMMs in order to change the spot price of a token just before the lender smart contract looks it up.
+
+Alternatively, if they can censor or DoS the price oracle they can they can steal money although with less of a discount. This happens in off-chain centralized oracles.
+
+#### Centralization Risk
+
+Should a private key from a privileged account get compromised, the attacker could simply mint collateral token can steal all funds. \(Borrow against the new, diluted collateral tokens before the oracle can reflect the new price\).
+
+#### Arbitrage Risk
+
+Latest reported price is, on average, at least several seconds behind the current “public knowledge” price, which can open up arbitrage opportunities.
+
+#### Speed VS. Security
+
+Currently, there isn't really a known decentralized method of getting trustworthy price info on-chain in a way that is both fast and prohibitively expensive to manipulate. For example. Augur is decentralized and prohibitively expensive to manipulate, but too slow for price updates. Chainlink/Provable are fast, but cheap to manipulate \(simply attack the websites they query\). Therefore, the median of multiple trusted third parties is the de facto “standard”.
+
+Additionally, no two projects using this pattern should ever share a price oracle \(of the “median of trusted parties” variety\); this increases the benefit of exploiting the price oracle without increasing the cost of doing so, reducing economic security.
+
+### Calculating Interest on Borrowed Tokens
+
+![](../../.gitbook/assets/image%20%2814%29.png)
+
+#### Fixed-Point Libraries
+
+Calculating interest requires a fixed-point library. Most projects seem to be rolling their own.
+
+Truncation Issues \(Division\)
+
+Inherent truncation issues. Must be careful how they’re handled. Can result in truncating away interest owed by borrower over short time frames. Can result in “interest free loans” for certain classes of attackers.
+
+* Computing interest requires measuring time
+
+  * Measure by block.timestamp?
+    * manipulable , but barely
+    * Best option IMO
+  * Measure by block.number?
+    * Requires assumptions about block time
+      * Difficulty bomb
+      * ETH2.0 blocktimes unknown
+
+### Division by Zero in TVL
+
+![](../../.gitbook/assets/image%20%2813%29.png)
+
+* When all collateral has been removed, denominator of LTV Ratio is zero. Must be handled correctly.
+  * Can occur when liquidating during \(or very near\) the “underwater” state
+  * Can also occur when borrower pulls out remaining collateral after paying back entirety of the loan.
+* If malicious/compromised/buggy price oracle reports the collateral token price as zero.
+
+### Liquidation Mechanism
+
+![](../../.gitbook/assets/image%20%2816%29.png)
+
+Liquidation mechanism requires censorship resistance and available/affordable block space
+
+* Must be able to get liquidation txn mined during “recoverable default” state. Else borrower can end up underwater \(total failure\).
+  * Full blocks!
+  * Miners mining empty blocks
+  * Explicit miner censorship \(perhaps mining pool is the borrower, etc\)
+* The liquidator’s profit \(from the liquidation penalty\) must be enough to cover gas costs.
+
+Liquidation mechanism requires arbitrageurs \(liquidators\). So need users with capital.
+
+* Most commonly, liquidators are required to provide the borrow token before they receive the collateral token.
+  * Makes sense for security reasons but...
+  * Requires liquidators to already have up-front cash.
+* We could allow liquidators to take collateral token first, sell them on a DEX, and then repay the borrow tokens -- as long as it happens all in the same txn.
+  * Just a modified flash loan
+  * Greatly increases the number of liquidators \(no capital required to be a liquidator\)
+  * Could allow both options.
+
+Ability to do partial liquidation is crucial.
+
+* In some variations \(e.g.: pooled loans\) some of the collateral for loan X may be lent out in loan Y.
+  * Means liquidators may not be able to fully liquidate loan X.
+  * Should have incentive mechanisms in place to encourage depositing collateral for X when it is running low \(e.g. high interest rates\)
+* Even in the p2p case, allowing partial liquidation is good idea:
+  * Smaller liquidators can participate
+  * Less slippage
+
+### Governance
+
+* Changing of any of these parameters can result in theft of funds. 
+* Governance is often a weighted vote by token holders.
+  * Therefore governance can be bought.
+  * Consider min cost of buying controlling share of governance vs max profit from doing so.
+* Ideally, any changes made via governance would require users to opt-in to the change.
+  * If not, users should at least have an opportunity to opt-out before the changes take effect. The more notice given, then better.
+  * A minimum of two weeks notice IMO. Else you have to worry about the “holiday season” attack.
 
 ## “Undercollateralized Loan” Pattern \(DeFi primitive\)
 
