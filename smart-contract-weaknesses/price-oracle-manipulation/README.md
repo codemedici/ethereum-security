@@ -151,6 +151,8 @@ Additionally, no two projects using this pattern should ever share a price oracl
 
 ![](../../.gitbook/assets/image%20%2814%29.png)
 
+For an advanced lecture on this topic, see [Computing and Accumulating Interest On-chain](https://docs.google.com/presentation/d/1c_HXwpuzFYRLb8gU7YgWvnNFE2eQIAcbJ7Pc8dPq9_0/edit#slide=id.g6e2e91890e_0_873)
+
 #### Fixed-Point Libraries
 
 Calculating interest requires a fixed-point library. Most projects seem to be rolling their own.
