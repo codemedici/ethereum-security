@@ -12,7 +12,6 @@
   * [bZx and Fulcrum \(Bug Bounty\)](smart-contract-weaknesses/price-oracle-manipulation/bzx-and-fulcrum-bug-bounty.md)
   * [yVault \(Bug Bounty\)](smart-contract-weaknesses/price-oracle-manipulation/yvault-bug.md)
   * [Harvest Finance Hack](smart-contract-weaknesses/price-oracle-manipulation/harvest-finance-hack.md)
-  * [Rekt](smart-contract-weaknesses/price-oracle-manipulation/rekt.md)
   * [DDEX \(Bug Bounty\)](smart-contract-weaknesses/price-oracle-manipulation/ddex-hydro-protocol.md)
 * [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Assembly Attacks](smart-contract-weaknesses/assembly-attacks.md)
