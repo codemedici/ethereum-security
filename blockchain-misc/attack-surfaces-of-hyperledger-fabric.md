@@ -1,6 +1,10 @@
 # Attack Surfaces of Hyperledger Fabric
 
+Article from Extropy Research:
+
+{% hint style="success" %}
 **Source:** [**https://docs.google.com/document/d/1vKYcMCG1AUjNxwZC6JJSYLixoPZNKtRIeGhy1ZxcZ0g/edit**](https://docs.google.com/document/d/1vKYcMCG1AUjNxwZC6JJSYLixoPZNKtRIeGhy1ZxcZ0g/edit)\*\*\*\*
+{% endhint %}
 
 ## **Introduction**
 
