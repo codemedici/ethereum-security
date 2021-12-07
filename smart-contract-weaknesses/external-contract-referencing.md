@@ -12,7 +12,7 @@ Consider a piece of code like Rot13Encryption.sol, which rudimentarily implement
 
 Example 8. Rot13Encryption.sol
 
-```text
+```
 // encryption contract
 contract Rot13Encryption {
  event Result(string convertedString);
@@ -55,11 +55,11 @@ contract Rot13Encryption {
 }
 ```
 
-This code simply takes a string \(letters a–z, without validation\) and encrypts it by shifting each character 13 places to the right \(wrapping around z\); i.e., a shifts to n and x shifts to k. The assembly in the preceding contract does not need to be understood to appreciate the issue being discussed, so readers unfamiliar with assembly can safely ignore it.
+This code simply takes a string (letters a–z, without validation) and encrypts it by shifting each character 13 places to the right (wrapping around z); i.e., a shifts to n and x shifts to k. The assembly in the preceding contract does not need to be understood to appreciate the issue being discussed, so readers unfamiliar with assembly can safely ignore it.
 
 Now consider the following contract, which uses this code for its encryption:
 
-```text
+```
 import "Rot13Encryption.sol";
 // encrypt your top-secret info
 contract EncryptionContract {
@@ -78,7 +78,7 @@ contract EncryptionContract {
 
 The issue with this contract is that the encryptionLibrary address is not public or constant. Thus, the deployer of the contract could give an address in the constructor that points to this contract:
 
-```text
+```
 // encryption contract
 contract Rot26Encryption {
  event Result(string convertedString);
@@ -122,10 +122,10 @@ contract Rot26Encryption {
 }
 ```
 
-  
-This contract implements the ROT26 cipher, which shifts each character by 26 places \(i.e., does nothing\). Again, there is no need to understand the assembly in this contract. More simply, the attacker could have linked the following contract to the same effect:
+\
+This contract implements the ROT26 cipher, which shifts each character by 26 places (i.e., does nothing). Again, there is no need to understand the assembly in this contract. More simply, the attacker could have linked the following contract to the same effect:
 
-```text
+```
 contract Print{
  event Print(string text);
  function rot13Encrypt(string text) public {
@@ -134,108 +134,107 @@ contract Print{
  }
 ```
 
-  
+\
 If the address of either of these contracts were given in the constructor, the encryptPrivateData function would simply produce an event that prints the unencrypted private data.
 
-Although in this example a library-like contract was set in the constructor, it is often the case that a privileged user \(such as an owner\) can change library contract addresses. If a linked contract doesn’t contain the function being called, the fallback function will execute. For example, with the line encryptionLibrary.rot13​Encrypt\(\), if the contract specified by encryptionLibrary was:
+Although in this example a library-like contract was set in the constructor, it is often the case that a privileged user (such as an owner) can change library contract addresses. If a linked contract doesn’t contain the function being called, the fallback function will execute. For example, with the line encryptionLibrary.rot13​Encrypt(), if the contract specified by encryptionLibrary was:
 
- contract Blank {  
- event Print\(string text\);  
- function \(\) {  
- emit Print\("Here"\);  
- // put malicious code here and it will run  
- }  
- }  
+&#x20;contract Blank {\
+&#x20;event Print(string text);\
+&#x20;function () {\
+&#x20;emit Print("Here");\
+&#x20;// put malicious code here and it will run\
+&#x20;}\
+&#x20;}\
 then an event with the text Here would be emitted. Thus, if users can alter contract libraries, they can in principle get other users to unknowingly run arbitrary code.
 
-Warning  
+Warning\
 The contracts represented here are for demonstrative purposes only and do not represent proper encryption. They should not be used for encryption.
 
-Preventative Techniques  
-As demonstrated previously, safe contracts can \(in some cases\) be deployed in such a way that they behave maliciously. An auditor could publicly verify a contract and have its owner deploy it in a malicious way, resulting in a publicly audited contract that has vulnerabilities or malicious intent.
+Preventative Techniques\
+As demonstrated previously, safe contracts can (in some cases) be deployed in such a way that they behave maliciously. An auditor could publicly verify a contract and have its owner deploy it in a malicious way, resulting in a publicly audited contract that has vulnerabilities or malicious intent.
 
 There are a number of techniques that prevent these scenarios.
 
 One technique is to use the new keyword to create contracts. In the preceding example, the constructor could be written as:
 
-constructor\(\) {  
- encryptionLibrary = new Rot13Encryption\(\);  
-}  
+constructor() {\
+&#x20;encryptionLibrary = new Rot13Encryption();\
+}\
 This way an instance of the referenced contract is created at deployment time, and the deployer cannot replace the Rot13Encryption contract without changing it.
 
 Another solution is to hardcode external contract addresses.
 
-In general, code that calls external contracts should always be audited carefully. As a developer, when defining external contracts, it can be a good idea to make the contract addresses public \(which is not the case in the honey-pot example in the following section\) to allow users to easily examine code referenced by the contract. Conversely, if a contract has a private variable contract address it can be a sign of someone behaving maliciously \(as shown in the real-world example\). If a user can change a contract address that is used to call external functions, it can be important \(in a decentralized system context\) to implement a time-lock and/or voting mechanism to allow users to see what code is being changed, or to give participants a chance to opt in/out with the new contract address.
+In general, code that calls external contracts should always be audited carefully. As a developer, when defining external contracts, it can be a good idea to make the contract addresses public (which is not the case in the honey-pot example in the following section) to allow users to easily examine code referenced by the contract. Conversely, if a contract has a private variable contract address it can be a sign of someone behaving maliciously (as shown in the real-world example). If a user can change a contract address that is used to call external functions, it can be important (in a decentralized system context) to implement a time-lock and/or voting mechanism to allow users to see what code is being changed, or to give participants a chance to opt in/out with the new contract address.
 
-Real-World Example: Reentrancy Honey Pot  
+Real-World Example: Reentrancy Honey Pot\
 A number of recent honey pots have been released on the mainnet. These contracts try to outsmart Ethereum hackers who try to exploit the contracts, but who in turn end up losing ether to the contract they expect to exploit. One example employs this attack by replacing an expected contract with a malicious one in the constructor. The code can be found here:
 
 pragma solidity ^0.4.19;
 
-contract Private\_Bank  
-{  
- mapping \(address =&gt; uint\) public balances;  
- uint public MinDeposit = 1 ether;  
- Log TransferLog;
+contract Private\_Bank\
+{\
+&#x20;mapping (address => uint) public balances;\
+&#x20;uint public MinDeposit = 1 ether;\
+&#x20;Log TransferLog;
 
- function Private\_Bank\(address \_log\)  
- {  
- TransferLog = Log\(\_log\);  
- }
+&#x20;function Private\_Bank(address \_log)\
+&#x20;{\
+&#x20;TransferLog = Log(\_log);\
+&#x20;}
 
- function Deposit\(\)  
- public  
- payable  
- {  
- if\(msg.value &gt;= MinDeposit\)  
- {  
- balances\[msg.sender\]+=msg.value;  
- TransferLog.AddMessage\(msg.sender,msg.value,"Deposit"\);  
- }  
- }
+&#x20;function Deposit()\
+&#x20;public\
+&#x20;payable\
+&#x20;{\
+&#x20;if(msg.value >= MinDeposit)\
+&#x20;{\
+&#x20;balances\[msg.sender]+=msg.value;\
+&#x20;TransferLog.AddMessage(msg.sender,msg.value,"Deposit");\
+&#x20;}\
+&#x20;}
 
- function CashOut\(uint \_am\)  
- {  
- if\(\_am&lt;=balances\[msg.sender\]\)  
- {  
- if\(msg.sender.call.value\(\_am\)\(\)\)  
- {  
- balances\[msg.sender\]-=\_am;  
- TransferLog.AddMessage\(msg.sender,\_am,"CashOut"\);  
- }  
- }  
- }
+&#x20;function CashOut(uint \_am)\
+&#x20;{\
+&#x20;if(\_am<=balances\[msg.sender])\
+&#x20;{\
+&#x20;if(msg.sender.call.value(\_am)())\
+&#x20;{\
+&#x20;balances\[msg.sender]-=\_am;\
+&#x20;TransferLog.AddMessage(msg.sender,\_am,"CashOut");\
+&#x20;}\
+&#x20;}\
+&#x20;}
 
- function\(\) public payable{}
+&#x20;function() public payable{}
 
 }
 
-contract Log  
-{  
- struct Message  
- {  
- address Sender;  
- string Data;  
- uint Val;  
- uint Time;  
- }
+contract Log\
+{\
+&#x20;struct Message\
+&#x20;{\
+&#x20;address Sender;\
+&#x20;string Data;\
+&#x20;uint Val;\
+&#x20;uint Time;\
+&#x20;}
 
- Message\[\] public History;  
- Message LastMsg;
+&#x20;Message\[] public History;\
+&#x20;Message LastMsg;
 
- function AddMessage\(address \_adr,uint \_val,string \_data\)  
- public  
- {  
- LastMsg.Sender = \_adr;  
- LastMsg.Time = now;  
- LastMsg.Val = \_val;  
- LastMsg.Data = \_data;  
- History.push\(LastMsg\);  
- }  
-}  
+&#x20;function AddMessage(address \_adr,uint \_val,string \_data)\
+&#x20;public\
+&#x20;{\
+&#x20;LastMsg.Sender = \_adr;\
+&#x20;LastMsg.Time = now;\
+&#x20;LastMsg.Val = \_val;\
+&#x20;LastMsg.Data = \_data;\
+&#x20;History.push(LastMsg);\
+&#x20;}\
+}\
 This post by one reddit user explains how they lost 1 ether to this contract by trying to exploit the reentrancy bug they expected to be present in the contract.
 
 ## Resources
 
-* [https://blog.sigmaprime.io/solidity-security.html\#contract-reference](https://blog.sigmaprime.io/solidity-security.html#contract-reference)
-
+* [https://blog.sigmaprime.io/solidity-security.html#contract-reference](https://blog.sigmaprime.io/solidity-security.html#contract-reference)
