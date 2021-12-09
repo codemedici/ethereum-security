@@ -2,16 +2,16 @@
 
 ## Floating Point and Precision
 
-As of this writing (v0.4.24), Solidity does not support fixed-point and floating-point numbers. This means that floating-point representations must be constructed with integer types in Solidity. This can lead to errors and vulnerabilities if not implemented correctly.
+As of this writing (v0.4.24), **Solidity does not support fixed-point and floating-point numbers**. This means that floating-point representations must be constructed with integer types in Solidity. This can lead to errors and vulnerabilities if not implemented correctly.
 
-Note: For further reading, see the [Ethereum Contract Security Techniques and Tips wiki](http://bit.ly/2Ogp2Ia).
+> Note: For further reading, see the [Ethereum Contract Security Techniques and Tips wiki](http://bit.ly/2Ogp2Ia).
 
-### The Vulnerability
+## The Vulnerability
 
 As there is no fixed-point type in Solidity, developers are required to implement their own using the standard integer data types. There are a number of pitfalls developers can run into during this process. We will try to highlight some of these in this section.\
 Let’s begin with a code example (we’ll ignore over/underflow issues, discussed earlier in this chapter, for simplicity):
 
-```
+```solidity
 contract FunWithNumbers {
     uint constant public tokensPerEth = 10;
     uint constant public weiPerEth = 1e18;
@@ -30,13 +30,44 @@ contract FunWithNumbers {
 }
 ```
 
-This simple token buying/selling contract has some obvious problems. Although the mathematical calculations for buying and selling tokens are correct, the lack of floating-point numbers will give erroneous results. For example, when buying tokens on line 8, if the value is less than 1 ether the initial division will result in 0, leaving the result of the final multiplication as 0 (e.g., 200 wei divided by 1e18 weiPerEth equals 0). Similarly, when selling tokens, any number of tokens less than 10 will also result in 0 ether. In fact, rounding here is always down, so selling 29 tokens will result in 2 ether.
+This simple token buying/selling contract has some obvious problems. Although the mathematical calculations for buying and selling tokens are correct, the lack of floating-point numbers will give erroneous results. For example, **when buying tokens on line 7, if the value is less than 1 ether the initial division will result in 0**, leaving the result of the final multiplication as 0 (e.g., 200 wei divided by 1e18 weiPerEth equals 0). Similarly, when selling tokens, any number of tokens less than 10 will also result in 0 ether. In fact, rounding here is always down, so selling 29 tokens will result in 2 ether.
 
 The issue with this contract is that the precision is only to the nearest ether (i.e., 1e18 wei). This can get tricky when dealing with decimals in ERC20 tokens when you need higher precision.
 
-#### Real-World Example: Ethstick
+## Rounding Division Error
+
+> See Solidity [Rounding with Integer Division](../best-practices/solidity-specific-recommendations.md#beware-rounding-with-integer-division) section.&#x20;
+
+All integer division rounds down to the nearest integer. If you need more precision, consider using a multiplier, or store both the numerator and denominator.
+
+(In the future, Solidity will have a [fixed-point](https://solidity.readthedocs.io/en/develop/types.html#fixed-point-numbers) type, which will make this easier.)
+
+```
+// bad
+uint x = 5 / 2; // Result is 2, all integer divison rounds DOWN to the nearest integer
+```
+
+Using a multiplier prevents rounding down, this multiplier needs to be accounted for when working with x in the future:
+
+```
+// good
+uint multiplier = 10;
+uint x = (5 * multiplier) / 2;
+```
+
+Storing the numerator and denominator means you can calculate the result of `numerator/denominator` off-chain:
+
+```
+// good
+uint numerator = 5;
+uint denominator = 2;
+```
+
+## Real-World Example: Ethstick
 
 The Ethstick contract does not use extended precision; however, it deals with wei. So, this contract will have issues of rounding, but only at the wei level of precision. It has some more serious flaws, but these relate back to the difficulty in getting entropy on the blockchain (see Entropy Illusion). For a further discussion of the Ethstick contract, we’ll refer you to another post by Peter Vessenes, “Ethereum Contracts Are Going to Be Candy for Hackers”.
+
+
 
 ## Preventative Techniques
 
@@ -47,6 +78,12 @@ You should ensure that any ratios or rates you are using allow for large numerat
 Another tactic to keep in mind is to be mindful of order of operations. In our example, the calculation to purchase tokens was msg.value/weiPerEth\*tokenPerEth. Notice that the division occurs before the multiplication. (Solidity, unlike some languages, guarantees to perform operations in the order in which they are written.) This example would have achieved a greater precision if the calculation performed the multiplication first and then the division; i.e., msg.value\*tokenPerEth/weiPerEth.
 
 Finally, when defining arbitrary precision for numbers it can be a good idea to convert values to higher precision, perform all mathematical operations, then finally convert back down to the precision required for output. Typically uint256s are used (as they are optimal for gas usage); these give approximately 60 orders of magnitude in their range, some of which can be dedicated to the precision of mathematical operations. It may be the case that it is better to keep all variables in high precision in Solidity and convert back to lower precisions in external apps (this is essentially how the decimals variable works in ERC20 token contracts). To see an example of how this can be done, we recommend looking at [DS-Math](https://github.com/dapphub/ds-math). It uses some funky naming (“wads” and “rays”), but the concept is useful.
+
+### Minimize Division Errors
+
+see [Develpment: Minimize Division Errors](floating-point-and-precision.md#undefined).
+
+> TLDR; to minimize division errors, refactor your arithmetic to perform division last.
 
 ## Real-world Example
 

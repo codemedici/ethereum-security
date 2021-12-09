@@ -20,8 +20,8 @@ Functions can be specified as being `external`, `public`, `internal` or `private
 
 #### visibility\_not\_set.sol
 
-```text
-123456789101112131415161718192021/*
+```
+/*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime 
  * Modified by Gerhard Wagner
@@ -46,7 +46,7 @@ contract HashForEther {
 
 **visibility\_not\_set.yaml**
 
-```text
+```
 123456789101112description: Default function visibility
 issues:
 - id: SWC-100
@@ -63,7 +63,7 @@ issues:
 
 #### visibility\_not\_set\_fixed.sol
 
-```text
+```
 123456789101112131415161718192021/*
  * @source: https://github.com/sigp/solidity-security-blog#visibility
  * @author: SigmaPrime
@@ -89,7 +89,7 @@ contract HashForEther {
 
 **visibility\_not\_set\_fixed.yaml**
 
-```text
+```
 123456description: Default function visibility
 issues:
 - id: SWC-100
@@ -102,9 +102,8 @@ issues:
 
 * [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/function-default-visibility.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/function-default-visibility.md)
 * [https://swcregistry.io/docs/SWC-100](https://swcregistry.io/docs/SWC-100)
-* [https://consensys.github.io/smart-contract-best-practices/recommendations/\#explicitly-mark-visibility-in-functions-and-state-variables](https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables](https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables)
 * [https://swcregistry.io/docs/SWC-108](https://swcregistry.io/docs/SWC-108)
-* [https://consensys.github.io/smart-contract-best-practices/recommendations/\#explicitly-mark-visibility-in-functions-and-state-variables](https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables)
+* [https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables](https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables)
 * [Ethereum Smart Contract Best Practices - Explicitly mark visibility in functions and state variables](https://consensys.github.io/smart-contract-best-practices/recommendations/#explicitly-mark-visibility-in-functions-and-state-variables)
 * [SigmaPrime - Visibility](https://github.com/sigp/solidity-security-blog#visibility)
-

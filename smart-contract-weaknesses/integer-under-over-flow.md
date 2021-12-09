@@ -22,19 +22,17 @@ The issue would be resolved with `uint i`.
 
 See what happens when you decrement from 0? The result is the biggest possible value in a uint256. Now just imagine if that happened to a user balance.
 
-contract Overflow {\
-&#x20;   uint public value = 0;
-
-&#x20;   function increment () public {\
-&#x20;       value++;\
-&#x20;   }
-
-&#x20;   function decrement () public {\
-&#x20;       value--;\
-&#x20;   }
-
-}\
-Check all math operations, especially if a parameter is given by the user. For contracts that perform several arithmetic operations the use of OpenZeppelin's SafeMath4 is encouraged.
+```solidity
+contract Overflow {
+    uint public value = 0;
+    function increment () public {
+        value++;
+    }
+    function decrement () public {
+        value--;
+    }
+}soliCheck all math operations, especially if a parameter is given by the user. For contracts that perform several arithmetic operations the use of OpenZeppelin's SafeMath4 is encouraged.
+```
 
 ## Preventative Techniques
 
