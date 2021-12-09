@@ -21,8 +21,7 @@
   * [Harvest Finance Hack](smart-contract-weaknesses/price-oracle-manipulation/harvest-finance-hack.md)
   * [DDEX (Bug Bounty)](smart-contract-weaknesses/price-oracle-manipulation/ddex-hydro-protocol.md)
 * [Timestamp Dependence](smart-contract-weaknesses/timestamp-dependence.md)
-* [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards/README.md)
-  * [Entropy Illusion](smart-contract-weaknesses/inadherence-to-standards/entropy-illusion.md)
+* [Inadherence to Standards](smart-contract-weaknesses/inadherence-to-standards.md)
 * [Access Control](smart-contract-weaknesses/access-control/README.md)
   * [Initialize()](smart-contract-weaknesses/access-control/initialize.md)
   * [delegatecall](smart-contract-weaknesses/access-control/delegatecall.md)
@@ -57,6 +56,7 @@
     * [Sandwiching](smart-contract-weaknesses/mev/mev-exploits/sandwiching.md)
   * [MEV Mitigation](smart-contract-weaknesses/mev/mev-mitigation/README.md)
     * [Flashbots](smart-contract-weaknesses/mev/mev-mitigation/flashbots.md)
+* [Entropy Illusion](smart-contract-weaknesses/entropy-illusion.md)
 
 ## Auditing
 

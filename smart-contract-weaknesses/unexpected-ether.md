@@ -1,4 +1,12 @@
+---
+description: https://swcregistry.io/docs/SWC-132
+---
+
 # Unexpected Ether
+
+## Description
+
+Contracts can behave erroneously when they strictly assume a specific Ether balance. It is always possible to forcibly send ether to a contract (without triggering its fallback function), using `selfdestruct`, or by mining to the account. In the worst case scenario this could lead to DOS conditions that might render the contract unusable.
 
 ## Forcibly Sending Ether to a Contract¶
 

@@ -254,7 +254,7 @@ Slither includes a utility, [slither-check-erc](https://github.com/crytic/slithe
 * [ ] &#x20;**Transfer and transferFrom return a boolean.** Several tokens do not return a boolean on these functions. As a result, their calls in the contract might fail.
 * [ ] &#x20;**The name, decimals, and symbol functions are present if used.** These functions are optional in the ERC20 standard and might not be present.
 * [ ] &#x20;**Decimals returns a uint8.** Several tokens incorrectly return a uint256. If this is the case, ensure the value returned is below 255.
-* [ ] &#x20;**The token mitigates the known **[**ERC20 race condition**](https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729)**.** The ERC20 standard has a known ERC20 race condition that must be mitigated to prevent attackers from stealing tokens.
+* [ ] &#x20;**The token mitigates the known** [**ERC20 race condition**](https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729)**.** The ERC20 standard has a known ERC20 race condition that must be mitigated to prevent attackers from stealing tokens.
 
 Slither includes a utility, [slither-prop](https://github.com/crytic/slither/wiki/Property-generation), that generates unit tests and security properties that can discover many common ERC flaws. Use slither-prop to review that:
 
@@ -299,7 +299,7 @@ Tokens have long been a part of the history of blockchain and cryptocurrencies. 
 
 Today’s ecosystem is a highly composable, vast expanse of tokens with a practically endless list of use cases. Although several token standards have been constructed, the very first token standard, [ERC-20](https://eips.ethereum.org/EIPS/eip-20), remains the most used as a result of the high degree of confidence in its security and simplicity. However, with its unparalleled level of security, the standard has its limitations, thereby inviting the creation of new token standards to increase the range of ever-growing use cases.
 
-### Attempted Solutions <a href="attempted-solutions" id="attempted-solutions"></a>
+### Attempted Solutions <a href="#attempted-solutions" id="attempted-solutions"></a>
 
 In order to fix ERC-20 limitations, some other token standards were created focused on making small, fundamental changes to the standard. For example, [ERC-621](https://github.com/ethereum/EIPs/pull/621) was created to allow for a variable totalSupply such that tokens can be minted and/or burned. Another significant early token standard was [ERC-721](https://eips.ethereum.org/EIPS/eip-721) which introduced non-fungible tokens (NFTs). Though these standards were different from ERC-20, they all tried to be backward compatible with ERC20, and they didn’t actually reinvent the wheel, instead they simply added features. The main reason for backward compatibility was the fact that many DApps (DeX, etc) already had ERC20 support in place, which required the standard token interface to interact with those DApps, especially the allowance approval process.
 
@@ -307,7 +307,7 @@ In order to fix ERC-20 limitations, some other token standards were created focu
 
 Seeing as ERC-20 is so limited, [ERC-777](https://eips.ethereum.org/EIPS/eip-777) was created as a sort of ERC-20 2.0. It was crafted to be backwards compatible with ERC-20 while improving user experience and simplifying smart contract development. Among others, the standard included changes to support functionality for simpler transfers and authorization. However, ERC-777 added extra complexity to the token implementation and raised issues with some of the assumptions DApps had regarding how a token should function.
 
-### The Security Implications <a href="the-security-implications" id="the-security-implications"></a>
+### The Security Implications <a href="#the-security-implications" id="the-security-implications"></a>
 
 Introducing features to a highly composable, base-layer contract is far from a trivial matter. When there are hundreds, if not thousands, of different uses for tokens, one small change can introduce many vulnerabilities. Countless exploits have occurred as a result of developers deviating, even only slightly, from the ERC-20 token standard assumptions. Let’s take a look at some past exploits relating to non-standard token contracts.
 
@@ -354,7 +354,7 @@ The rest of this section's text was copied from the original [blog post](https:/
 |        ERC884       |         **Cancel and Reissue**        | Token implementers have the ability to cancel an address and move its tokens to a new address |                                                                                                                                                                                                                                               |                                                                                                 |
 |                     |            **Whitelisting**           |                        Tokens can only be sent to whitelisted addresses                       |                                                                                                                                                                                                                                               |                                                                                                 |
 
-### Conclusion <a href="conclusion" id="conclusion"></a>
+### Conclusion <a href="#conclusion" id="conclusion"></a>
 
 Although tokens are integral to this ecosystem, they are imperfect, and as such, engineers should carefully consider their flaws and features when working with them. As with all smart contract development, your work can carry significant amounts of real world value, so it’s crucial that you proceed carefully. We believe DApp developers need to count in all token behaviours, and as the result code their DApp in a way that cannot be exploited with different token implementations, at least for the well known token behaviours.
 
@@ -366,7 +366,7 @@ Last checked: **20 August 2021**. Remember to check the [Github page](https://co
 
 Implementing Tokens should comply with other best practices, but also have some unique considerations.
 
-### Comply with the latest standard[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#comply-with-the-latest-standard) <a href="comply-with-the-latest-standard" id="comply-with-the-latest-standard"></a>
+### Comply with the latest standard[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#comply-with-the-latest-standard) <a href="#comply-with-the-latest-standard" id="comply-with-the-latest-standard"></a>
 
 Generally speaking, smart contracts of tokens should follow an accepted and stable standard.
 
@@ -376,21 +376,21 @@ Examples of currently accepted standards include:
 * [EIP721](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md) (non-fungible token)
 * More at [eips.ethereum.org](https://eips.ethereum.org/erc#final)
 
-### Be aware of front running attacks on EIP-20[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#be-aware-of-front-running-attacks-on-eip-20) <a href="be-aware-of-front-running-attacks-on-eip-20" id="be-aware-of-front-running-attacks-on-eip-20"></a>
+### Be aware of front running attacks on EIP-20[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#be-aware-of-front-running-attacks-on-eip-20) <a href="#be-aware-of-front-running-attacks-on-eip-20" id="be-aware-of-front-running-attacks-on-eip-20"></a>
 
 The EIP-20 token's `approve()` function creates the potential for an approved spender to spend more than the intended amount. A [front running attack](https://consensys.github.io/smart-contract-best-practices/known\_attacks/#transaction-ordering-dependence-tod-front-running) can be used, enabling an approved spender to call `transferFrom()` both before and after the call to `approve()` is processed. More details are available on the [EIP](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md#approve), and in [this document](https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA\_jp-RLM/edit).
 
-### Prevent transferring tokens to the 0x0 address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-0x0-address) <a href="prevent-transferring-tokens-to-the-0x0-address" id="prevent-transferring-tokens-to-the-0x0-address"></a>
+### Prevent transferring tokens to the 0x0 address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-0x0-address) <a href="#prevent-transferring-tokens-to-the-0x0-address" id="prevent-transferring-tokens-to-the-0x0-address"></a>
 
 At the time of writing, the "zero" address ([0x0000000000000000000000000000000000000000](https://etherscan.io/address/0x0000000000000000000000000000000000000000)) holds tokens with a value of more than 80$ million.
 
-### Prevent transferring tokens to the contract address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-contract-address) <a href="prevent-transferring-tokens-to-the-contract-address" id="prevent-transferring-tokens-to-the-contract-address"></a>
+### Prevent transferring tokens to the contract address[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#prevent-transferring-tokens-to-the-contract-address) <a href="#prevent-transferring-tokens-to-the-contract-address" id="prevent-transferring-tokens-to-the-contract-address"></a>
 
 Consider also preventing the transfer of tokens to the same address of the smart contract.
 
 An example of the potential for loss by leaving this open is the [EOS token smart contract](https://etherscan.io/address/0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0) where more than 90,000 tokens are stuck at the contract address.
 
-#### Example[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#example) <a href="example" id="example"></a>
+#### Example[¶](https://consensys.github.io/smart-contract-best-practices/tokens/#example) <a href="#example" id="example"></a>
 
 An example of implementing both the above recommendations would be to create the following modifier; validating that the "to" address is neither 0x0 nor the smart contract's own address:
 
@@ -429,3 +429,4 @@ The modifier should then be applied to the "transfer" and "transferFrom" methods
 * [Inadherence to Standards Vulnerability](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/inadherence-to-standards.md)
 * [Binance Isn’t ERC-20](https://blog.goodaudience.com/binance-isnt-erc-20-7645909069a4)
 * [Is BNB really an ERC20?](https://coinrivet.com/is-bnb-really-an-erc-20-token/)
+* [Awesome Buggy ERC20 Tokens](https://github.com/sec-bit/awesome-buggy-erc20-tokens) - List of real world erc20 buggy contracts
