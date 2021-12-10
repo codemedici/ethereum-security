@@ -129,6 +129,7 @@
 * [Do Not Track Time With Block Numbers](development/do-not-track-time-with-block-numbers.md)
 * [Use Indexed Event Parameters](development/use-indexed-event-parameters.md)
 * [Emit Events on All State Changes](development/emit-events-on-all-state-changes.md)
+* [EIP-1884 Stop Using transfer()](development/eip-1884-stop-using-transfer.md)
 
 ## DeFi
 
