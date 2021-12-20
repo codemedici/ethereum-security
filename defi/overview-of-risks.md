@@ -34,7 +34,7 @@ DeFi is an immature area, being only about one year old and yet over the past fe
 * Jun 2020:
   * Balancer --- $500k ETH
 * Jun 2020:
-  * Liquid network --- $16m BTC \(avoided\)
+  * Liquid network --- $16m BTC (avoided)
 
 One likely reason for this recent explosion in the number of hacks is due to the rise of flashloans; most of these exploits would not have been possible without flashloans as they require large amounts of capital which attackers need in advance, for example, in order to manipulate price oracles of pump and dump the value of a cryptocurrency.
 
@@ -46,13 +46,13 @@ With the expansion of the DeFi space and the enormous volume of liquidity being 
 
 #### Code Security
 
-Smart Contract Risk is the main contributor to counterparty risk in DeFi. The Uniswap and Lendf.me incidents are recent examples of DeFi platforms that were hacked due to poor code security; the hacker\(s\) exploited a reentrancy vulnerability that arose from the incompatibility between the ERC-777 token standard and the DeFi protocols. Broadly speaking, the reentrancy vulnerability allowed the hacker to essentially re-spend initial deposits of imBTC, effectively providing them with unlimited capital to enact trades or borrows.
+Smart Contract Risk is the main contributor to counterparty risk in DeFi. The Uniswap and Lendf.me incidents are recent examples of DeFi platforms that were hacked due to poor code security; the hacker(s) exploited a reentrancy vulnerability that arose from the incompatibility between the ERC-777 token standard and the DeFi protocols. Broadly speaking, the reentrancy vulnerability allowed the hacker to essentially re-spend initial deposits of imBTC, effectively providing them with unlimited capital to enact trades or borrows.
 
 **Uniswap**
 
 One recent example happened to the well-known DEX Uniswap, which was hacked via an attack vector already known to Uniswap and to the crypto community at large. Almost exactly a year before the Uniswap attack, ConsenSys Diligence - the security audit service offered by ConsenSys - [identified and published](https://medium.com/consensys-diligence/uniswap-audit-b90335ac007) the ERC-777 reentrancy attack vector.
 
-The attack was made possible because Uniswap V1 does not have measures in place to guard against this type of reentrancy attack when interacting with the ERC-777 standard. In total, the hacker made away with ~$300k USD in imBTC and ETH.
+The attack was made possible because Uniswap V1 does not have measures in place to guard against this type of reentrancy attack when interacting with the ERC-777 standard. In total, the hacker made away with \~$300k USD in imBTC and ETH.
 
 **Lendf.me**
 
@@ -72,11 +72,11 @@ One of the biggest contributors to centralization risk in DeFi protocols is the 
 
 **Compound**
 
-For example, the lending platform Compound is a CUSTODIAL system, all lending pools can be trivially drained if their admin private key is compromised; during a security review in 2019 of the Compund smart contracts, [samczsun](https://samczsun.com/) found that Compound v2 has four different administrative positions which are set to three distinct addresses, if any of those keys would have been compromised, an attacker could have drained all of the cTokens from the Compound lending tool, among other attacks such as preventing minting and transfering of cTokens.
+For example, the lending platform Compound is a CUSTODIAL system, all lending pools can be trivially drained if their admin private key is compromised; during a security review in 2019 of the Compund smart contracts, [samczsun](https://samczsun.com) found that Compound v2 has four different administrative positions which are set to three distinct addresses, if any of those keys would have been compromised, an attacker could have drained all of the cTokens from the Compound lending tool, among other attacks such as preventing minting and transfering of cTokens.
 
 **Liquid Network**
 
-Another recent example involves the Liquid network, which as pointed out [on Twitter](https://twitter.com/_prestwich/status/1276300994989572096) by James Prestwich, for just under and hour, three administrative private keys controlled 870 Bitcoin due to a timelock issue; this violates liquid's security model.
+Another recent example involves the Liquid network, which as pointed out [on Twitter](https://twitter.com/\_prestwich/status/1276300994989572096) by James Prestwich, for just under and hour, three administrative private keys controlled 870 Bitcoin due to a timelock issue; this violates liquid's security model.
 
 #### Oracle risk
 
@@ -96,7 +96,7 @@ With the flashloan, the exploit swaps 900 ETH in two batches for sUSD through Ky
 
 The attacker this time takes the approach of first collateralizing the collected sUSD back into bZx and then borrowing from it 6,796 ETH. As bZx relies on Kyber for the price feed, with the spiked sUSD/ETH price, the collection of sUSD allows for the borrow of 6796 ETH, which indicates that this loan is now underwater with insufficient collateralization.
 
-With the borrowed 6,796 ETH \(3,082 ETH leftover\), the attacker is able to repay the 7,500 ETH flashloan back to bZx with the profit of 2,378 ETH.
+With the borrowed 6,796 ETH (3,082 ETH leftover), the attacker is able to repay the 7,500 ETH flashloan back to bZx with the profit of 2,378 ETH.
 
 ### Financial Risk
 
@@ -128,7 +128,7 @@ Although this was a black swan event, it shows how a cascade failure of multiple
 
 The first step to establishing DeFi as a safe haven versus centralized financial systems is to make sure that DeFi systems are secure, resilient and robust. That means they must be ready to withstand attacks and hackers, but also external market pressures and high-volume activity spikes that might occur during times of stress.
 
-[DeFi Score](https://defiscore.io/), a model developed by ConsenSys for assessing risk levels in various permissionless lending protocols, assesses code security by looking at three pieces of off-chain but public data:
+[DeFi Score](https://defiscore.io), a model developed by ConsenSys for assessing risk levels in various permissionless lending protocols, assesses code security by looking at three pieces of off-chain but public data:
 
 1. Smart Contract Risk
    * Time on Mainnet: Normalized time since the protocol first launched on mainnet
@@ -147,11 +147,7 @@ The first step to establishing DeFi as a safe haven versus centralized financial
 
 Users can easily make a security assessment of the risk involved in staking their tokens in a liquidity pool by comparing scores on a 1-10 scale, scores are given to each currency for every lending pool they are listed on:
 
-![](defiscore.png)
-
-The following screenshot shows an overview of the Compound protocol overview as shown on the [DefiScore website](https://defiscore.io/), showing a final weighted score of 8.6 out of 10.
-
-![](codefi.png)
+The following screenshot shows an overview of the Compound protocol overview as shown on the [DefiScore website](https://defiscore.io), showing a final weighted score of 8.6 out of 10.
 
 ### Mitigating Smart Contract Risks
 
@@ -191,7 +187,7 @@ Improvement in the understanding and execution of security testing to identify k
 
 Investigating insurance and other risk hedging options which might provide financial coverage in the case of system or user losses incurred from any scenario.
 
-Blockchain-based insurance has been around for a while, but has been brought sharply into focus these past few months. Nexus Mutual - an blockchain insurance veteran who acted as the first respondent for victims in bZx exploit - and more recently Opyn have \(re\)emerged as top players in this adjacent DeFi industry, serving as hedge options against the protected assets.
+Blockchain-based insurance has been around for a while, but has been brought sharply into focus these past few months. Nexus Mutual - an blockchain insurance veteran who acted as the first respondent for victims in bZx exploit - and more recently Opyn have (re)emerged as top players in this adjacent DeFi industry, serving as hedge options against the protected assets.
 
 ### Mitigating Centralization Risks
 
@@ -202,4 +198,3 @@ Measures like timelocks and multi-signature wallets help mitigate the risk of fi
 security audits, focusing on live security monitoring, increased transparency, and insurance will be the way forward to increasing DeFi’s potential.
 
 As DeFi protocols grow in number, complexity, and interconnectedness, more security vulnerabilities and compromises are likely to occur. Though regrettable, these incidents are crucial to the secure development of any emerging technology. The more we can use the services and tools available to us to identify and protect against these attack vectors, the more confidently people will interact with the emerging open financial ecosystem.
-
