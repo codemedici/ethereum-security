@@ -68,7 +68,7 @@
   * [Mythril](auditing/program-analysis/mythril.md)
   * [Slither](auditing/program-analysis/slither.md)
 * [Example Audits](auditing/example-audits.md)
-* [Rekt](auditing/rekt.md)
+* [Auditing Career](auditing/auditing-career.md)
 
 ## Best Practices
 
