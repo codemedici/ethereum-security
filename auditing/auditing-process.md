@@ -15,6 +15,28 @@ An audit can not:\
 • Overcome excessive complexity or poor architecture\
 • Guarantee no bugs or vulnerabilities
 
+
+
+## Auditing Techniques <a href="#auditing-techniques" id="auditing-techniques"></a>
+
+It isn't a rule book to follow religiously but it's good to have these things in mind when you feel stuck in a particular project. The actual process of auditing is somewhat personal and you'll probably develop your own as you get more experienced, but here are a few guidelines:
+
+### High-Level Understanding <a href="#1.-high-level-understanding" id="1.-high-level-understanding"></a>
+
+The first time you look into code, you don't necessarily need to be analytically looking for bugs or wrong implementations. You should aim to build a good mental model of how the whole system fits together. Unless some particular vulnerability jumps in front of you, don't focus too much on bugs on your first pass, just try and understand the system as a whole.
+
+For this, a good practice is to skim over each file and read functions names and signatures. In most cases, although not always, the interface alone provides a good representation of functionality as well as the entry points of an application. Pay close attention to the inheritance scheme as it helps clarify the relationship between contracts.
+
+### Read the specification. Or not. <a href="#2.-read-the-specification.-or-not." id="2.-read-the-specification.-or-not."></a>
+
+This topic is somewhat controversial. Some auditors do read the provided specification as a first step in an audit, as it helps to understand the intended behavior and save some time reasoning about the contracts. The counter argument is that most specifications are written by the developers themselves, and when you read their intentions, you will develop bias which might blind you to the objective facts of the code.
+
+### The detailed inspection <a href="#3.-the-detailed-inspection" id="3.-the-detailed-inspection"></a>
+
+There is a multitude of approaches to this. For example, you could look through each `.sol` file individually or you could pick a functionality, say a deposit, and follow its flow, doing a kind of a mental transaction graph. Ideally, you should do both as each provides different kinds of insights.
+
+A good practice is to take some time to actually run the code. Compile it if you can, run tests if they are present or even throw it on remix and use it a little just to get yourself familiar with it.
+
 ## Preparing for an Audit
 
 
@@ -215,6 +237,10 @@ For emphasis, auditors should apply care to all forms of communication to avoid 
 
 We will explore bug bounties later in this chapter, and we will go a lot deeper in the auditor career chapter. Let us return to the audit process itself, starting with the first step.
 
+
+
+
+
 ## Code freeze
 
 From a software engineering perspective, a Freeze is a period when the rules that govern changes become more strict. Freezes are used for a variety of reasons. For example a team might implement a Feature Freeze to prevent any new features being added so they can focus on testing, issue resolution, even documentation and marketing collateral. A Specifications Freeze might block further design changes so that implementation of the specification can proceed.
@@ -312,7 +338,9 @@ We Got Spanked: What We Know So Far
 
 ## Engagement
 
-The Engagement\
+The Engagement
+
+\
 We will discuss the technical process in the following modules. Let's first explore high-level processes we know companies utilize so you are prepared to participate in processes used anywhere.
 
 The Solidified Process
