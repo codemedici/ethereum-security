@@ -223,7 +223,33 @@ An emerging solution to this dilemma is one or more smart contract audits by res
 
 For emphasis, auditors should apply care to all forms of communication to avoid a situation in which the auditor appears to take on, perhaps unwittingly, liability for the project.
 
-We will explore bug bounties later in this chapter, and we will go a lot deeper in the auditor career chapter. Let us return to the audit process itself, starting with the first step.
+You are most likely familiar with bug bounties by now. Basically, they are business processes in which companies pay for bugs found in their codebase. Bugs have different rewards, with critical bugs typically paying large amounts in order to attract bug hunters to explore into the code.
+
+Each such platform has unique quirks, so always take a look before reporting a bug you found. For example, publicizing a critical bug before submitting a confidential disclosure can make you ineligible to receive the reward. This is sensible because public disclosure of software defects can cause unnecessary damage by denying the bounty sponsor the opportunity to fix the bug. Always review what they want you to do. Your aim should be to establish that you have followed the correct process.
+
+Some programs require an issue open at the company's github. Some are just emails. At Solidified, all you have to do is post the bug.
+
+#### Formal Verification <a href="#formal-verification" id="formal-verification"></a>
+
+Formal verification is the process by which one proves properties of a system mathematically. In order to do that one writes a formal specification of the application behavior. The formal specification is analogous to our Statement of Intended Behavior, but it is written in a machine-readable language. The formal specification is later proved (or not) using one of the available tools.
+
+The process is widely used by the hardware industry, and also by industries that produce systems in fields such as flight controls, space flight and life-support where they routinely deal with high risk (non-trivial Likelihood of a defect in a complex system \* catastrophic Impact). Think about the operating system for a nuclear power station.
+
+Formal verification is out of the scope of this course (there are large books on the subject), but we should understand what it is, how it works, and its limitations, at a high level.
+
+Formal verification is a trendy topic in the blockchain world. It is natural that the community would relate smart contracts to the aforementioned industries. Formal verification is not, however, a silver bullet, or a substitute for a good audit. Also in the aforementioned industries, an audit is frequently conducted, including not only on the code base, but also on the formal verification specification itself. Flaws in this specification will mean that some of the properties of the application are not actually proven in the end, with bugs possibly going unnoticed.
+
+Formal verification requires segregation of duties, in order to be effective. If the writer of the specifications is the coder of the application, the effectiveness of formal verification is greatly reduced.
+
+Lastly, in our industry, due to the rough state of the tooling, formal verification processes are costly and lengthy. That is likely to change as more people include it in their development processes.
+
+#### How Will They all Fit Together? <a href="#how-will-they-all-fit-together" id="how-will-they-all-fit-together"></a>
+
+The best processes will mix and layer all everything discussed above. A multifaceted approach greatly increases the probability of finding a bug, if one exists.
+
+A recent example is MakerDAO's Multi Collateral DAI set of smart contracts. Most of the smart contracts were formally verified and an audit was conducted. This was the start of an excellent process. Even so, a USD $50,000 critical bug was awarded by their Bug Bounty program, demonstrating the value of a Bug Bounty even after audits and formal verification.
+
+The process we recommend is an audit, or audits (three independent auditors), followed by a well-funded bug bounty that is open for sufficient time to build confidence in the project and with significant rewards for finding critical bugs.
 
 ### Code freeze
 
@@ -526,36 +552,6 @@ It is important to observe the classification standards of the organization or p
 #### Reading List
 
 [OWASP Risk Rating Template](https://www.owasp.org/index.php/File:OWASP\_Risk\_Rating\_Template\_Example.xlsx)
-
-## Conclusion <a href="#bug-bounties" id="bug-bounties"></a>
-
-You are most likely familiar with bug bounties by now. Basically, they are business processes in which companies pay for bugs found in their codebase. Bugs have different rewards, with critical bugs typically paying large amounts in order to attract bug hunters to explore into the code.
-
-Each such platform has unique quirks, so always take a look before reporting a bug you found. For example, publicizing a critical bug before submitting a confidential disclosure can make you ineligible to receive the reward. This is sensible because public disclosure of software defects can cause unnecessary damage by denying the bounty sponsor the opportunity to fix the bug. Always review what they want you to do. Your aim should be to establish that you have followed the correct process.
-
-Some programs require an issue open at the company's github. Some are just emails. At Solidified, all you have to do is post the bug.
-
-### Formal Verification <a href="#formal-verification" id="formal-verification"></a>
-
-Formal verification is the process by which one proves properties of a system mathematically. In order to do that one writes a formal specification of the application behavior. The formal specification is analogous to our Statement of Intended Behavior, but it is written in a machine-readable language. The formal specification is later proved (or not) using one of the available tools.
-
-The process is widely used by the hardware industry, and also by industries that produce systems in fields such as flight controls, space flight and life-support where they routinely deal with high risk (non-trivial Likelihood of a defect in a complex system \* catastrophic Impact). Think about the operating system for a nuclear power station.
-
-Formal verification is out of the scope of this course (there are large books on the subject), but we should understand what it is, how it works, and its limitations, at a high level.
-
-Formal verification is a trendy topic in the blockchain world. It is natural that the community would relate smart contracts to the aforementioned industries. Formal verification is not, however, a silver bullet, or a substitute for a good audit. Also in the aforementioned industries, an audit is frequently conducted, including not only on the code base, but also on the formal verification specification itself. Flaws in this specification will mean that some of the properties of the application are not actually proven in the end, with bugs possibly going unnoticed.
-
-Formal verification requires segregation of duties, in order to be effective. If the writer of the specifications is the coder of the application, the effectiveness of formal verification is greatly reduced.
-
-Lastly, in our industry, due to the rough state of the tooling, formal verification processes are costly and lengthy. That is likely to change as more people include it in their development processes.
-
-### How Will They all Fit Together? <a href="#how-will-they-all-fit-together" id="how-will-they-all-fit-together"></a>
-
-The best processes will mix and layer all everything discussed above. A multifaceted approach greatly increases the probability of finding a bug, if one exists.
-
-A recent example is MakerDAO's Multi Collateral DAI set of smart contracts. Most of the smart contracts were formally verified and an audit was conducted. This was the start of an excellent process. Even so, a USD $50,000 critical bug was awarded by their Bug Bounty program, demonstrating the value of a Bug Bounty even after audits and formal verification.
-
-The process we recommend is an audit, or audits (three independent auditors), followed by a well-funded bug bounty that is open for sufficient time to build confidence in the project and with significant rewards for finding critical bugs.
 
 ## Summary <a href="#summary" id="summary"></a>
 
