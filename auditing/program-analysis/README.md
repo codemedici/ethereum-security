@@ -2,9 +2,7 @@
 
 We are going use three distinctive testing and program analysis techniques:
 
-* **Static analysis with** [**Slither**](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/slither)**.** All the paths of the program are appr
-*
-* oximated and analyzed at the same time, through different program presentations (e.g. control-flow-graph)
+* **Static analysis with** [**Slither**](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/slither)**.** All the paths of the program are approximated and analyzed at the same time, through different program presentations (e.g. control-flow-graph)
 * **Fuzzing with** [**Echidna**](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna)**.** The code is executed with a pseudo-random generation of transactions. The fuzzer will try to find a sequence of transactions to violate a given property.
 * **Symbolic execution with** [**Manticore**](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/manticore)**.** A formal verification technique, which translates each execution path to a mathematical formula, on which on top constraints can be checked.
 
