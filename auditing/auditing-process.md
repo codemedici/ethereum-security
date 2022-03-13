@@ -535,7 +535,7 @@ The factors below are common areas for many businesses, but this area is even mo
 
 We combine Severity and Impact to get to the severity of the Risk:
 
-![](<../.gitbook/assets/image (17).png>)
+![](<../.gitbook/assets/image (17) (1).png>)
 
 Using the example tables above, the issue would fall into High risk bug. Keep in mind that business impact is hard to measure without knowing details about the client, so technical factors usually prevail. OWASP provides a [nice spreadsheet](https://www.owasp.org/index.php/File:OWASP\_Risk\_Rating\_Template\_Example.xlsx) so we don't have to reinvent the wheel.
 
