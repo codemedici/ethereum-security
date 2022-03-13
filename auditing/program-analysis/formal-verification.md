@@ -2,7 +2,7 @@
 
 ## Introduction
 
-[Formal Verification](../../auditing-process.md#formal-verification) is the process by which one proves properties of a system mathematically. In order to do that one writes a formal specification of the application behavior. The formal specification is analogous to our Statement of Intended Behavior, but it is written in a machine-readable language. The formal specification is later proved (or not) using one of the available tools.
+[Formal Verification](../auditing-process.md#formal-verification) is the process by which one proves properties of a system mathematically. In order to do that one writes a formal specification of the application behavior. The formal specification is analogous to our Statement of Intended Behavior, but it is written in a machine-readable language. The formal specification is later proved (or not) using one of the available tools.
 
 The correctness verification is about respecting the specifications that determine how users can interact with the smart contracts and how the smart contracts should behave when used correctly. There are two approaches used to verify the correctness: the formal verification and the programming correctness. The formal verification methods are based on formal methods (mathematical methods), while the programming correctness methods are based on ensuring the programming as code is correct, which means the program runs without entering the loop and gives correct outputs for correct inputs. We mainly focus on the formal verification approaches that is because formal verification is more rigorous and reliable.
 
@@ -14,7 +14,7 @@ We may distinguish three major verification approaches :
 * (II) : intermediate representations may be specifically designed as targets for verification tools such as proof assistants. This can offer a very suitable environment for code optimisation and dynamic verification according to specifications. The intermediate code representation may come both from compilation of a high-level contract or decompilation of low-level code.
 * (III) : some tools also reason directly on high-level languages. This approach offers a precious direct feedback to developers at verification time.
 
-![Different methods of verification based on the comparison object with the specification.](<../../../.gitbook/assets/image (17).png>)
+![Different methods of verification based on the comparison object with the specification.](<../../.gitbook/assets/image (17).png>)
 
 Contrary to Tezos and Cardano for instance, a [formal semantics of the EVM](https://ieeexplore.ieee.org/document/8429306) was only described ex-post. And as the Solidity compiler changes rapidly, in the absence of formal semantics of the language that would allow correct-by-construction automatic generation of verification tools, the latter would need to follow the rate of change as well. These reasons make formal verification of smart contracts way harder on Ethereum than on other blockchains despite tremendous work initiated by several teams.
 
@@ -65,7 +65,7 @@ However, static analyzers are limited in the range of vulnerabilities they can d
 
 ## Tools
 
-![Taxonomy of the smart contract verification’s Tools. Source: Verification of smart contracts: A survey](<../../../.gitbook/assets/image (21).png>)
+![Taxonomy of the smart contract verification’s Tools. Source: Verification of smart contracts: A survey](<../../.gitbook/assets/image (21).png>)
 
 ### Manticore
 
@@ -84,7 +84,7 @@ This approach produces no false positives in the sense that all identified progr
 
 [Solc-verify](https://arxiv.org/abs/1907.04262v1) is a source-level formal verification tool for Soldity smart contracts, developed in collaboration with SRI International. Solc-verify takes smart contracts written in Solidity and discharges verification conditions using modular program analysis and SMT solvers. Built on top of the Solidity compiler, solc-verify reasons at the level of the contract source code. This enables solc-verify to effectively reason about high-level functional properties while modeling low-level language semantics (e.g., the memory model) precisely. The contract properties, such as contract invariants, loop invariants, function pre- and post-conditions and fine grained access control can be provided as in-code annotations by the developer. This enables automated, yet user-friendly formal verification for smart contracts.
 
-![Overview of the solc-verify modules. The extended compiler creates a Boogie program from the Solidity contract, which is checked by the boogie verifier using SMT solvers. Finally, results are mapped back and presented at the Solidity code level.](<../../../.gitbook/assets/image (22).png>)
+![Overview of the solc-verify modules. The extended compiler creates a Boogie program from the Solidity contract, which is checked by the boogie verifier using SMT solvers. Finally, results are mapped back and presented at the Solidity code level.](<../../.gitbook/assets/image (22).png>)
 
 ### VeriSol
 
@@ -107,7 +107,7 @@ function transfer(address recipient, uint256 amount) public returns (bool) {
 
 The spec is straightforward. We expect the balance of the `recipient` to be increased by `amount`, and that amount of tokens should be decreased from the balance of `msg.sender`.
 
-![Schematic workflow of VERISOL](<../../../.gitbook/assets/image (20).png>)
+![Schematic workflow of VERISOL](<../../.gitbook/assets/image (20).png>)
 
 ### K Framework
 
@@ -117,7 +117,7 @@ The K Framework provides a user-friendly, modular, and mathematically rigorous m
 
 The K-Framework is composed of 8 components listed in the following figure:
 
-![Workflow of K-Framework](<../../../.gitbook/assets/image (18).png>)
+![Workflow of K-Framework](<../../.gitbook/assets/image (18).png>)
 
 The [KEVM](https://github.com/kframework/evm-semantics#readme) provides the first machine-executable, mathematically formal, human readable and complete semantics for the EVM. The KEVM implements both the stack-based execution environment, with all of the EVM’s opcodes, as well as the network’s state, gas simulation, and even high-level aspects such as ABI call data.
 
@@ -129,7 +129,7 @@ In cooperation between Microsoft Research and Harvard University, a framework is
 
 Two prototype tools based on F\* are presented and a smart contract verification architecture is proposed and illustrated:
 
-![F\* Architecture](<../../../.gitbook/assets/image (23).png>)
+![F\* Architecture](<../../.gitbook/assets/image (23).png>)
 
 ## Conclusion
 

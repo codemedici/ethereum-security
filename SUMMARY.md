@@ -66,8 +66,7 @@
   * [Echidna](auditing/program-analysis/echidna.md)
   * [Mythril](auditing/program-analysis/mythril.md)
   * [Slither](auditing/program-analysis/slither.md)
-  * [Formal Verification](auditing/program-analysis/formal-verification/README.md)
-    * [Manticore](auditing/program-analysis/formal-verification/manticore.md)
+  * [Formal Verification](auditing/program-analysis/formal-verification.md)
 * [Example Audits](auditing/example-audits.md)
 * [Auditing Career](auditing/auditing-career.md)
 
