@@ -61,7 +61,7 @@ While no smart contract can be guaranteed as safe and free of bugs, a thorough c
 
 Static analysis tools are used to achieve the same goal as formal verification. During static analysis, a dedicated program (the static analyzer) scans the smart contract or its bytecode in order to understand its behavior and check for unexpected cases such as overflows and reentrancy vulnerabilities.
 
-However, static analyzers are limited in the range of vulnerabilities they can detect. In a sense, a static analyzer attempts to perform the same formal verification with a one-fits-all specification that simply states, a smart contract shouldn’t have any known vulnerabilities. Obviously, a custom specification is much better, as it will detect each and every possible vulnerability within a given smart contract.It was originally published on https://www.apriorit.com/
+However, static analyzers are limited in the range of vulnerabilities they can detect. In a sense, a static analyzer attempts to perform the same formal verification with a one-fits-all specification that simply states, a smart contract shouldn’t have any known vulnerabilities. Obviously, a custom specification is much better, as it will detect each and every possible vulnerability within a given smart contract.
 
 ## Tools
 
