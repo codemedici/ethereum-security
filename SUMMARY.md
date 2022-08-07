@@ -76,6 +76,7 @@
 * [Protocol specific recommendations](best-practices/protocol-specific-recommendations.md)
 * [Solidity specific recommendations](best-practices/solidity-specific-recommendations.md)
 * [Token Specific Recommendations](best-practices/token-specific-recommendations.md)
+* [Gas Optimization](best-practices/gas-optimization.md)
 
 ## Operations
 
