@@ -12,19 +12,19 @@ A further distinction can be made between off-chain and on-chain oracles, that i
 
 #### Off-chain Centralized Oracle
 
-This type of oracle simply accepts new prices from an off-chain source, typically an account controlled by the project. Due to the need to quickly update the oracle with new exchange rates, the account is typically an EOA and not a multisig. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [Compound Finance](https://compound.finance) and [Synthetix](https://www.synthetix.io) mainly use this type of oracle for most assets
+This type of oracle simply accepts new prices from an off-chain source, typically an account controlled by the project. Due to the need to quickly update the oracle with new exchange rates, the account is typically an EOA and not a multisig. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [Compound Finance](https://compound.finance/) and [Synthetix](https://www.synthetix.io/) mainly use this type of oracle for most assets
 
 #### Off-chain Decentralized Oracle
 
-This type of oracle accepts new prices from multiple off-chain sources and merges the values through a mathematical function, such as an average. In this model, a multisig wallet is typically used to manage the list of authorized sources. [Maker](https://makerdao.com/feeds/)  and [Chainlink](https://chain.link) use this type of oracle for ETH and other assets.
+This type of oracle accepts new prices from multiple off-chain sources and merges the values through a mathematical function, such as an average. In this model, a multisig wallet is typically used to manage the list of authorized sources. [Maker](https://makerdao.com/feeds/)  and [Chainlink](https://chain.link/) use this type of oracle for ETH and other assets.
 
 #### On-chain Centralized Oracle
 
-This type of oracle determines the price of assets using an on-chain source, such as a **DEX**. However, only a central authority can trigger the oracle to read from the on-chain source. Like an off-chain centralized oracle, this type of oracle requires rapid updates and as such the triggering account is likely an EOA and not a multisig. [dYdX](https://dydx.exchange) and [Nuo](https://nuo.network) use this type of oracle for certain assets
+This type of oracle determines the price of assets using an on-chain source, such as a **DEX**. However, only a central authority can trigger the oracle to read from the on-chain source. Like an off-chain centralized oracle, this type of oracle requires rapid updates and as such the triggering account is likely an EOA and not a multisig. [dYdX](https://dydx.exchange/) and [Nuo](https://nuo.network/) use this type of oracle for certain assets
 
 #### On-chain Decentralized Oracle
 
-This type of oracle determines the price of assets using an on-chain source, but can be updated by anyone. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [DDEX](https://margin.ddex.io) uses this type oracle for DAI, while [bZx](https://bzx.network) uses this type of oracle for all assets.
+This type of oracle determines the price of assets using an on-chain source, but can be updated by anyone. There may be some sanity checking to ensure that prices don't fluctuate too wildly. [DDEX](https://margin.ddex.io/) uses this type oracle for DAI, while [bZx](https://bzx.network/) uses this type of oracle for all assets.
 
 ## “Overcollateralized Loan” Pattern (DeFi primitive). **AKA the “nonrecourse loan”.**
 
@@ -57,7 +57,7 @@ Almost all loans in the open blockchain space are nonrecourse loans, therefore t
 
 In DeFi, smart contracts calculate the LTV value using the following LTV formula:
 
-****$$((# of borrowed tokens) * (borrow token price))  /  ((# of collateral tokens) * (collateral token price))$$
+$$((# of borrowed tokens) * (borrow token price))  /  ((# of collateral tokens) * (collateral token price))$$
 
 The following table compares the factors responsible for increasing or decreasing the TVL:&#x20;
 
@@ -215,7 +215,7 @@ For Uniswap V2, see [GitHub](https://github.com/Uniswap/uniswap-v2-periphery/blo
 For Uniswap V3, see [GitHub](https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/libraries/OracleLibrary.sol) for a library which you can integrate into your project.
 
 {% hint style="info" %}
-Related: [https://shouldiusespotpriceasmyoracle.com/](https://shouldiusespotpriceasmyoracle.com)
+Related: [https://shouldiusespotpriceasmyoracle.com/](https://shouldiusespotpriceasmyoracle.com/)
 {% endhint %}
 
 ### Curve Virtual Price
@@ -278,7 +278,7 @@ Refer to the [Chainlink documentation](https://docs.chain.link/docs/get-the-late
 
 ### **A stricter configuration of the existing deposit arb check in the strategies**
 
-A stricter threshold **** that sets a maximum price fluctuation can make such an attack economically infeasible, however, it may be limiting deposits in the case of a natural impermanent loss effects.&#x20;
+A stricter threshold that sets a maximum price fluctuation can make such an attack economically infeasible, however, it may be limiting deposits in the case of a natural impermanent loss effects.&#x20;
 
 ### **Withdrawals in an underlying asset**
 
@@ -308,7 +308,7 @@ That seems fairly straightforward, but what if you actually want to calculate th
 
 * [https://samczsun.com/so-you-want-to-use-a-price-oracle/](https://samczsun.com/so-you-want-to-use-a-price-oracle/)
 * [https://samczsun.com/taking-undercollateralized-loans-for-fun-and-for-profit/](https://samczsun.com/taking-undercollateralized-loans-for-fun-and-for-profit/)
-* [https://shouldiusespotpriceasmyoracle.com/](https://shouldiusespotpriceasmyoracle.com)
+* [https://shouldiusespotpriceasmyoracle.com/](https://shouldiusespotpriceasmyoracle.com/)
 * [https://ethereum.org/en/developers/docs/oracles/](https://ethereum.org/en/developers/docs/oracles/)
 * [https://docs.uniswap.org/protocol/concepts/V3-overview/oracle](https://docs.uniswap.org/protocol/concepts/V3-overview/oracle)
 * [https://blog.trailofbits.com/2020/08/05/accidentally-stepping-on-a-defi-lego/](https://blog.trailofbits.com/2020/08/05/accidentally-stepping-on-a-defi-lego/)

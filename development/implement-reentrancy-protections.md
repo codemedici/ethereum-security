@@ -180,7 +180,7 @@ contract LendingPool is ReentrancyGuard {
 
 Contracts that execute governance actions most likely execute external calls to other, potentially malicious, contracts. These actions are usually approved by the governance mechanism, so the likelihood of a reentrancy vulnerability being exploited is usually lower than in other scenarios, but can still be considered a valid attack vector.
 
-A real example was found in [UMA](https://umaproject.org)'s governance during OpenZeppelin's [phase 1 audit](https://blog.openzeppelin.com/uma-audit-phase-1/) of their system, reported in "\[H03] Any governance action could be executed multiple times". The fix for the vulnerability consists of following the Checks-Effects-Interactions pattern so as to delete a governance proposal _before_ its execution. This prevents malicious contracts from re-entering the governance contract and unexpectedly executing an action several times.
+A real example was found in [UMA](https://umaproject.org/)'s governance during OpenZeppelin's [phase 1 audit](https://blog.openzeppelin.com/uma-audit-phase-1/) of their system, reported in "\[H03] Any governance action could be executed multiple times". The fix for the vulnerability consists of following the Checks-Effects-Interactions pattern so as to delete a governance proposal _before_ its execution. This prevents malicious contracts from re-entering the governance contract and unexpectedly executing an action several times.
 
 Based on findings, UMA replaced this code:
 

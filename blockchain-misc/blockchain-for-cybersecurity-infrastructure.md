@@ -349,7 +349,7 @@ DNSChain lets you access traditional DNS records over HTTP! Note that DNS, unlik
 
 Still, if for some reason you need it, it's there:
 
-`GET` [https://api.example.com/v1/icann/key/okturtles.com](https://api.example.com/v1/icann/key/okturtles.com)``\
+`GET` [https://api.example.com/v1/icann/key/okturtles.com](https://api.example.com/v1/icann/key/okturtles.com)\
 `=> {"version":"0.0.1","header":{"datastore":"icann"},"data":{"edns_options":[],"answer":[{"name":"okturtles.com","type":1,"class":1,"ttl":299,"address":"192.184.93.146"}],"authority":[],"additional":[]}}`
 
 📄 See complete details: [Openname Resolver Specification](https://github.com/okTurtles/openname-specifications/blob/resolvers/resolvers.md)
@@ -364,9 +364,9 @@ Together, DNSChain and the blockchains it works with replace CAs by providing a 
 
 ### Prevents DDoS attacks
 
-****\
-****\
-****Unlike traditional DNS servers, DNSChain encourages widespread deployment of the server (ideally, "one for every group of friends", similar to how people rely on personal routers today). This distributed, flat topology eliminates the need for open resolvers by making it practical to limit clients to a small, trusted set. Additionally, whereas traditional DNS resolvers must query other DNS servers to answer queries, blockchain-based DNS resolvers have no such requirement because all of the data necessary to answer queries is stored locally on the server.
+\
+\
+Unlike traditional DNS servers, DNSChain encourages widespread deployment of the server (ideally, "one for every group of friends", similar to how people rely on personal routers today). This distributed, flat topology eliminates the need for open resolvers by making it practical to limit clients to a small, trusted set. Additionally, whereas traditional DNS resolvers must query other DNS servers to answer queries, blockchain-based DNS resolvers have no such requirement because all of the data necessary to answer queries is stored locally on the server.
 
 Another DoS attack relates to the centralized manner in which today's SSL certificates are checked for revocation:
 
@@ -437,7 +437,7 @@ By default, it will place the private key in \~/.dnschain/key.pem and \~/.dnscha
 If you want, you can generate the key and certificate yourself using a command similar to this:
 
 openssl req -new -newkey rsa:4096 -days 730 -nodes -sha256 -x509 \\\
-&#x20;\-subj "/C=US/ST=Florida/L=Miami/O=Company/CN=[www.example.com"](http://www.example.com) \\\
+&#x20;\-subj "/C=US/ST=Florida/L=Miami/O=Company/CN=[www.example.com"](http://www.example.com/) \\\
 &#x20;\-keyout key.pem \\\
 &#x20;\-out cert.pem\
 The autogen'd certificate uses the hostnameof your machine for the CN ("Common Name").

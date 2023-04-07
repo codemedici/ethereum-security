@@ -72,10 +72,17 @@
 
 ## Best Practices
 
-* [Development Guidelines](best-practices/development-guidelines.md)
+* [Development Guidelines](best-practices/development-guidelines/README.md)
+  * [Secure development workflow](best-practices/development-guidelines/secure-development-workflow.md)
+  * [General Philosophy](best-practices/development-guidelines/general-philosophy.md)
 * [Protocol specific recommendations](best-practices/protocol-specific-recommendations.md)
-* [Solidity specific recommendations](best-practices/solidity-specific-recommendations.md)
-* [Token Specific Recommendations](best-practices/token-specific-recommendations.md)
+* [Solidity specific recommendations](best-practices/solidity-specific-recommendations/README.md)
+  * [Common Design Patterns](best-practices/solidity-specific-recommendations/common-design-patterns.md)
+* [Token Specific Recommendations](best-practices/token-specific-recommendations/README.md)
+  * [Token integration checklist](best-practices/token-specific-recommendations/token-integration-checklist.md)
+  * [Token Interaction Checklist](best-practices/token-specific-recommendations/token-interaction-checklist.md)
+  * [Token Implementation Best Practice](best-practices/token-specific-recommendations/token-implementation-best-practice.md)
+  * [Weird ERC20 Tokens](best-practices/token-specific-recommendations/weird-erc20-tokens.md)
 * [Gas Optimization](best-practices/gas-optimization.md)
 
 ## Operations
@@ -86,6 +93,7 @@
   * [Secure All Administrative Keys](operations/key-management/secure-all-administrative-keys.md)
 * [Post-Mortem Analysis](operations/post-mortem-analysis.md)
 * [Emergency Response Plan](operations/emergency-response-plan.md)
+* [Incident Response Recommendations](operations/incident-response-recommendations.md)
 
 ## Monitoring
 

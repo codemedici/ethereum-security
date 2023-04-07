@@ -245,8 +245,8 @@ These are the tools that help to comprehend a program by displaying its visual i
 
 ### Linters
 
-* [Remix](https://remix.ethereum.org) - Browser-based Solidity IDE with linting features
-* [SmarrtCheck](https://tool.smartdec.net) - A linter for Solidity and Vyper that checks code for security issues and bad practices.
+* [Remix](https://remix.ethereum.org/) - Browser-based Solidity IDE with linting features
+* [SmarrtCheck](https://tool.smartdec.net/) - A linter for Solidity and Vyper that checks code for security issues and bad practices.
 * [Solhint](https://github.com/protofire/solhint) - Linter for both security and style-guide validations. It strictly adheres to the [Solidity Style Guide](https://solidity.readthedocs.io/en/latest/style-guide.html).
 * [Solium](https://github.com/duaraghav8/Solium) - Linter for both security and style-guide validations. Does not strictly adhere to the Solidity Style Guide.
 
@@ -262,7 +262,7 @@ These tools will inspect the source code for known vulnerabilities, much like yo
 * [ethereum/sourcify](https://github.com/ethereum/sourcify) - Re-compiler that can be used to verify that bytecode corresponds to certain source code.
 * [eth-sri/securify2](https://github.com/eth-sri/securify2) - Tool for analyzing smart contracts for vulnerabilities and insecure coding.
 * [Slither](https://github.com/crytic/slither) - Static analyzer with support for many common bug types, including visualization tools for security-relevant information.
-* [MythX](https://mythx.io) - Detection for security vulnerabilities in Ethereum smart contracts throughout the development life cycle
+* [MythX](https://mythx.io/) - Detection for security vulnerabilities in Ethereum smart contracts throughout the development life cycle
 * Oyente
 * Maian
 * Zeus

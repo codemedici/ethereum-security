@@ -29,7 +29,7 @@ We also include the follow up of the fixes within the price of the audit, so the
 
 #### How do you become part of this group? <a href="#how-do-you-become-part-of-this-group" id="how-do-you-become-part-of-this-group"></a>
 
-The easiest way is to apply in [our website](http://solidified.io). We will schedule a chat with you, and if everything goes well and you have the required experience we will invite you for an internship audit, much like the one from the course (at 50% rate). Keep in mind this depends on the demand for audits at a given time: only low complexity audits are used.
+The easiest way is to apply in [our website](http://solidified.io/). We will schedule a chat with you, and if everything goes well and you have the required experience we will invite you for an internship audit, much like the one from the course (at 50% rate). Keep in mind this depends on the demand for audits at a given time: only low complexity audits are used.
 
 We also talk to colleagues and developers at conferences, and have drafted users from our bug bounty platform a number of times.
 
@@ -45,12 +45,12 @@ Other reasons are not to be overlooked:
 
 ### Places to find them <a href="#places-to-find-them" id="places-to-find-them"></a>
 
-* Solidified [web.solidified.io](https://web.solidified.io): On Solidified, all bug bounties are smart-contract specific, so all you'll find are smart contracts. We encourage you to join, you will be informed of new bug bounties posted, and keep an eye on our social media. While at it, join our Slack if you haven't yet.
+* Solidified [web.solidified.io](https://web.solidified.io/): On Solidified, all bug bounties are smart-contract specific, so all you'll find are smart contracts. We encourage you to join, you will be informed of new bug bounties posted, and keep an eye on our social media. While at it, join our Slack if you haven't yet.
 * [Consensys Smart Contract Security Best Practices](https://consensys.github.io/smart-contract-best-practices/bug\_bounty\_list/): Maintained by our friends from Diligence, you will find a list of bug bounties. Always check if they are still active before digging in the source code.
 * Legacy Bug Bounty platforms: Platforms like Bugcrowd and HackerOne also have Ethereum smart contracts every now and then. They are usually within larger scoped bug bounties, including web, infrastructure and other bits, so looking for the familiar names from the Ethereum community is a good first step.
 * Continuous bug bounties: All larger companies in the space conduct one, though they are not as well advertised. A couple of good things about them are that you won't be facing as much competition as in the regular temporary bug bounty and also that their scope is often much larger than that of the average bug bounty. You also have to keep in mind that the code is usually in production, and we know well that a very good indicator of the existence of bugs is the time the contracts remained unhacked while holding significant value. But this does not mean all contracts are bug free, as several bugs are found and reported sometimes years after deployment of the contracts. Check out this [amazing catch](https://samczsun.com/the-0x-vulnerability-explained) by Samczsun.
 * [Ethdev Reddit](https://www.reddit.com/r/ethdev): Once the place where all bug bounties were posted. Nowadays they will still show up every now and then, worth to take a look when hunting for bounties.
-* Set web filters: Web filters like [IFTTT](https://ifttt.com) are a great way of finding bug bounties. Though the channels above will cover most of the Ethereum bug bounties, they can be published anywhere, so looking elsewhere can be fruitful. Remember that your knowledge also applies for blockchains other than Ethereum (as long as they run the EVM, like Ethereum Classic, Hyperledger Burrow, Quorum and others).
+* Set web filters: Web filters like [IFTTT](https://ifttt.com/) are a great way of finding bug bounties. Though the channels above will cover most of the Ethereum bug bounties, they can be published anywhere, so looking elsewhere can be fruitful. Remember that your knowledge also applies for blockchains other than Ethereum (as long as they run the EVM, like Ethereum Classic, Hyperledger Burrow, Quorum and others).
 
 Lastly, remember to always look for reputable companies behind the bug bounties. Any company with a good reputation in the space will honor their commitment to pay the bounty. Avoid shady and unknown players and unknown tokens unless they are run out of a platform that values its reputation. If the bug bounty has been ongoing for a while, check previously reported bugs, and how they were handled by the organization.
 
@@ -68,7 +68,7 @@ Generally, staking works as follows:
 
 One interesting aspect is Nexus effectively allows you to earn rewards if you don’t find any bugs. So the time you spent diving deeply into a bug bounty or production smart contract that didn’t result in any findings can now be used to earn rewards.
 
-To begin staking you need to join [Nexus Mutual](https://www.nexusmutual.io) as a member, which involves KYC and a small membership fee of 0.002 ETH. After that, you will need to purchase some of the native token, NXM, for staking purposes and then choose which systems to stake against.
+To begin staking you need to join [Nexus Mutual](https://www.nexusmutual.io/) as a member, which involves KYC and a small membership fee of 0.002 ETH. After that, you will need to purchase some of the native token, NXM, for staking purposes and then choose which systems to stake against.
 
 The main benefit of Nexus is that you don’t need to secure a client to get started. You may also use any tools or techniques you wish to gain comfort that the smart contract is secure before staking.
 

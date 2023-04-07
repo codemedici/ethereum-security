@@ -21,7 +21,7 @@ Following are a set of guidelines and recommendations to take into account when 
 * Require a higher number of signatures for roles higher in the hierarchy.
 * Use independent multisignatures for every role.
 * Give ownership of every private key to a different individual.
-* Train every key-holder on the secure handling of their devices and communications. The [Electronic Frontier Foundation published good resources for safe online communications](https://ssd.eff.org).
+* Train every key-holder on the secure handling of their devices and communications. The [Electronic Frontier Foundation published good resources for safe online communications](https://ssd.eff.org/).
 * Distribute the keys to individuals that guarantee diversity of geographic locations, hardware manufacturers, and software applications.
 * Do not use a 1 of N multisignature because losing control of a single private key means the system is immediately compromised.
 * Do not use an N of N multisignature because it does not provide any redundancy in case some of the private keys are lost.
@@ -38,7 +38,7 @@ Note that multisignatures are part of permissioned systems. While they can be im
 
 See the [Defender Advisor](https://docs.openzeppelin.com/defender/advisor) article "Secure All Administrative Keys" for best practices related to the individual private keys.
 
-[Gnosis Safe](https://gnosis-safe.io) provides a graphical user interface to set up multisignature wallets for the Ethereum blockchain.
+[Gnosis Safe](https://gnosis-safe.io/) provides a graphical user interface to set up multisignature wallets for the Ethereum blockchain.
 
 The [Defender Admin](https://docs.openzeppelin.com/defender/admin) service acts as an interface to manage your smart contract project through one or more secure multi-signature contracts.
 

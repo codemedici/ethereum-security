@@ -92,7 +92,7 @@ Example from [Polymath](https://github.com/PolymathNetwork/polymath-core):
 
 Polished, well-formatted code is easier to read, which reduces the cognitive overhead needed to review it. A little bit of cleanup will go a long way towards allowing us to focus our energy on finding bugs.
 
-1. Run a linter on your code. Fix any errors or warnings unless you have a good reason not to. For Solidity, we like [Ethlint](https://www.ethlint.com). [Remix](https://remix.ethereum.org) also has a linter integrated at compile time.
+1. Run a linter on your code. Fix any errors or warnings unless you have a good reason not to. For Solidity, we like [Ethlint](https://www.ethlint.com/). [Remix](https://remix.ethereum.org/) also has a linter integrated at compile time.
 2. If the compiler outputs any warnings, address them.
 3. Remove any comments that indicate unfinished work (ie. `TODO` or `FIXME`). _(This is assuming it’s your final audit before deploying to mainnet. If not, exercise your judgement about what makes sense to leave in.)_
 4. Remove any code that has been commented out.
@@ -121,7 +121,7 @@ Review the list of test cases for gaps. Are your tests mostly focused on making 
 
 Ethereum has many good security analysis tools to help find some of the most common issues. We use some of these during our audits, though you can also run them in advance, which will allow us to spend our time looking for trickier bugs.
 
-The [MythX](https://mythx.io) suite, which runs several kinds of analysis at once, is a great place to start. There are many ways to submit your contracts for analysis, including CLI tools for JavaScript and Python as well as plugins for Remix and Truffle. You can find more security tools listed in our [Smart Contract Best Practices](https://consensys.github.io/smart-contract-best-practices/security\_tools/).
+The [MythX](https://mythx.io/) suite, which runs several kinds of analysis at once, is a great place to start. There are many ways to submit your contracts for analysis, including CLI tools for JavaScript and Python as well as plugins for Remix and Truffle. You can find more security tools listed in our [Smart Contract Best Practices](https://consensys.github.io/smart-contract-best-practices/security\_tools/).
 
 It’s not essential to do this, but it helps. A caveat is that you will often get warnings about issues that don’t actually exist.
 
@@ -149,7 +149,7 @@ I’ve summarized these steps in a [markdown checklist](https://gist.github.com/
   * [ ] For the overall system
   * [ ] For each unique contract within the system
 * [ ] Clean code
-  * [ ] Run a linter (like [EthLint](https://www.ethlint.com))
+  * [ ] Run a linter (like [EthLint](https://www.ethlint.com/))
   * [ ] Fix compiler warnings
   * [ ] Remove TODO and FIXME comments
   * [ ] Delete unused code
@@ -157,7 +157,7 @@ I’ve summarized these steps in a [markdown checklist](https://gist.github.com/
   * [ ] README gives clear instructions for running tests
   * [ ] Testing dependencies are packaged with the code OR are listed including versions
 * [ ] Automated Analysis
-  * [ ] Analysis with [MythX](https://mythx.io)
+  * [ ] Analysis with [MythX](https://mythx.io/)
   * [ ] [Other tools](https://consensys.github.io/smart-contract-best-practices/security\_tools/)
 * [ ] Frozen code
   * [ ] Halt development of the contract code
@@ -317,7 +317,7 @@ In our experience, good indicators to note include:
   Even simple implementations such as an ERC20 token can have an impact on a calling smart contract: [USDT and OMG tokens do not return true for successful transfers](https://medium.com/coinmonks/missing-return-value-bug-at-least-130-tokens-affected-d67bf08521ca), for example, and are known for not functioning well (usually not being accepted at all) in defi applications. Contracts can be maliciously altered too, so if you are calling untrusted contracts, this has to be accounted for. Recently [SpankChain was hacked and the attacker used a rogue ERC20 token implementation](https://medium.com/spankchain/we-got-spanked-what-we-know-so-far-d5ed3a0f38fe). The rogue contract implemented the ERC20 standard interface, but when called for a transfer would re-enter SpankChain's contract.
 * **The count of public / external functions**: These are the points of entry. Execution starts here. They will determine the number of paths possible during execution.
 * **Use of Solidity Assembly**: Solidity Assembly takes a lot longer to audit. Code is harder to read, several opcodes that are not accessible via Solidity are at the developer’s disposal and none of Solidity’s usual safeguards apply.
-* ****[**Code Smell**](program-analysis/#looking-for-code-smells): (More on this later)
+* [**Code Smell**](program-analysis/#looking-for-code-smells): (More on this later)
 * **Other signs of cleverness, novel solutions**: Anything not idiomatic
 
 Your first estimates will probably be the most challenging for you. It will do you well to review estimated time commitments and actual time spent. This will help you improve your instincts and develop indicators of your own.

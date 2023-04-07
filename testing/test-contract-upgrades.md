@@ -24,7 +24,7 @@ We recommend using the [OpenZeppelin upgrades plugins](https://docs.openzeppelin
 
 ## How to test
 
-The most immediate way to test an upgrade is to set up a suite of unit tests on a local development node, using the testing framework of your choice \(see below for an example using [Hardhat](https://hardhat.org/)\). Note that this requires keeping both the old and new implementations of your contract in your repository. Tests should deploy the original contract instance, set its state, run the upgrade, and assert that all state was correctly preserved and that the new implementation behaves as expected.
+The most immediate way to test an upgrade is to set up a suite of unit tests on a local development node, using the testing framework of your choice (see below for an example using [Hardhat](https://hardhat.org/)). Note that this requires keeping both the old and new implementations of your contract in your repository. Tests should deploy the original contract instance, set its state, run the upgrade, and assert that all state was correctly preserved and that the new implementation behaves as expected.
 
 However, since live mainnet state is usually more complex than what can be set up in a unit test, it's recommended to test the upgrade by _forking_ mainnet. If using [ganache](https://github.com/trufflesuite/ganache-cli), you can spin up a new instance out of a mainnet block by starting it with the [`--fork` option](https://github.com/trufflesuite/ganache-cli#options). You can also _unlock_ the account with admin rights to execute the upgrade via another `--unlock ADDRESS` option, so you don't include the keys for upgrading the live contract in your tests. When testing the upgrade this way, your tests should upgrade the mainnet instance in the ganache fork, and run assertions to verify the state and behavior of the upgraded instance.
 
@@ -89,9 +89,8 @@ describe("Upgrade test", function() {
 
 ## Resources
 
-* [https://defender.openzeppelin.com/\#/advisor/docs/test-contract-upgrades](https://defender.openzeppelin.com/#/advisor/docs/test-contract-upgrades)
+* [https://defender.openzeppelin.com/#/advisor/docs/test-contract-upgrades](https://defender.openzeppelin.com/#/advisor/docs/test-contract-upgrades)
 * [https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/](https://blog.trailofbits.com/2018/09/05/contract-upgrade-anti-patterns/)
-* [Proxy Delegate](https://github.com/fravoll/solidity-patterns/blob/master/docs/proxy_delegate.md)\*\*\*\*
-* [Eternal Storage](https://github.com/fravoll/solidity-patterns/blob/master/docs/eternal_storage.md) - separate storage and logic between two contracts.
+* [Proxy Delegate](https://github.com/fravoll/solidity-patterns/blob/master/docs/proxy\_delegate.md)
+* [Eternal Storage](https://github.com/fravoll/solidity-patterns/blob/master/docs/eternal\_storage.md) - separate storage and logic between two contracts.
 * [https://consensys.net/diligence/blog/2019/01/upgradeability-is-a-bug/](https://consensys.net/diligence/blog/2019/01/upgradeability-is-a-bug/)
-

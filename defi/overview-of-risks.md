@@ -72,7 +72,7 @@ One of the biggest contributors to centralization risk in DeFi protocols is the 
 
 **Compound**
 
-For example, the lending platform Compound is a CUSTODIAL system, all lending pools can be trivially drained if their admin private key is compromised; during a security review in 2019 of the Compund smart contracts, [samczsun](https://samczsun.com) found that Compound v2 has four different administrative positions which are set to three distinct addresses, if any of those keys would have been compromised, an attacker could have drained all of the cTokens from the Compound lending tool, among other attacks such as preventing minting and transfering of cTokens.
+For example, the lending platform Compound is a CUSTODIAL system, all lending pools can be trivially drained if their admin private key is compromised; during a security review in 2019 of the Compund smart contracts, [samczsun](https://samczsun.com/) found that Compound v2 has four different administrative positions which are set to three distinct addresses, if any of those keys would have been compromised, an attacker could have drained all of the cTokens from the Compound lending tool, among other attacks such as preventing minting and transfering of cTokens.
 
 **Liquid Network**
 
@@ -128,7 +128,7 @@ Although this was a black swan event, it shows how a cascade failure of multiple
 
 The first step to establishing DeFi as a safe haven versus centralized financial systems is to make sure that DeFi systems are secure, resilient and robust. That means they must be ready to withstand attacks and hackers, but also external market pressures and high-volume activity spikes that might occur during times of stress.
 
-[DeFi Score](https://defiscore.io), a model developed by ConsenSys for assessing risk levels in various permissionless lending protocols, assesses code security by looking at three pieces of off-chain but public data:
+[DeFi Score](https://defiscore.io/), a model developed by ConsenSys for assessing risk levels in various permissionless lending protocols, assesses code security by looking at three pieces of off-chain but public data:
 
 1. Smart Contract Risk
    * Time on Mainnet: Normalized time since the protocol first launched on mainnet
@@ -147,7 +147,7 @@ The first step to establishing DeFi as a safe haven versus centralized financial
 
 Users can easily make a security assessment of the risk involved in staking their tokens in a liquidity pool by comparing scores on a 1-10 scale, scores are given to each currency for every lending pool they are listed on:
 
-The following screenshot shows an overview of the Compound protocol overview as shown on the [DefiScore website](https://defiscore.io), showing a final weighted score of 8.6 out of 10.
+The following screenshot shows an overview of the Compound protocol overview as shown on the [DefiScore website](https://defiscore.io/), showing a final weighted score of 8.6 out of 10.
 
 ### Mitigating Smart Contract Risks
 

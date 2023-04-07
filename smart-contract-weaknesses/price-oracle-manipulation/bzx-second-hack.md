@@ -2,7 +2,7 @@
 
 ## Introduction
 
-> By relying on an on-chain decentralized price oracle without validating the rates returned, [DDEX](https://margin.ddex.io) and [bZx](https://bzx.network) were susceptible to atomic price manipulation. This would have resulted in the loss of liquid ETH in the ETH/DAI market for DDEX, and loss of all liquid funds in bZx. Fortunately, no funds were actually lost.
+> By relying on an on-chain decentralized price oracle without validating the rates returned, [DDEX](https://margin.ddex.io/) and [bZx](https://bzx.network/) were susceptible to atomic price manipulation. This would have resulted in the loss of liquid ETH in the ETH/DAI market for DDEX, and loss of all liquid funds in bZx. Fortunately, no funds were actually lost.
 
 In February 2020, bZx was hacked twice over the span of several days for approximately 1MM USD. You can find an excellent technical analysis of both hacks written by palkeo [here](https://www.palkeo.com/en/projets/ethereum/bzx.html), but we will only be looking at the second hack.
 

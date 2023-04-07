@@ -1,6 +1,6 @@
 # Flashbots
 
-Flashbots is an MEV-focused company that has synthesized live on-chain data to categorize and sort rogue MEV transactions for the community, on their [**MEV Explore page**](https://explore.flashbots.net)
+Flashbots is an MEV-focused company that has synthesized live on-chain data to categorize and sort rogue MEV transactions for the community, on their [**MEV Explore page**](https://explore.flashbots.net/)
 
 
 

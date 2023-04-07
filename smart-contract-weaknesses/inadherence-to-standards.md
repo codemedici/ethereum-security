@@ -1,7 +1,7 @@
 # Inadherence to Standards
 
 {% hint style="info" %}
-See the Wiki page on [Token Specific Recommendation](../best-practices/token-specific-recommendations.md) for the complete checklist on ERC20 weirdness.
+See the Wiki page on [Token Specific Recommendation](../best-practices/token-specific-recommendations/) for the complete checklist on ERC20 weirdness.
 {% endhint %}
 
 In terms of smart contract development, it's important to follow standards. Standards are set to prevent vulnerabilities, and ignoring them can lead to unexpected effects.
@@ -21,4 +21,3 @@ Although standards aren't always perfect, and may someday become antiquated, the
 * [https://finance.yahoo.com/news/bnb-really-erc-20-token-160013314.html](https://finance.yahoo.com/news/bnb-really-erc-20-token-160013314.html)
 * [https://blog.goodaudience.com/binance-isnt-erc-20-7645909069a4](https://blog.goodaudience.com/binance-isnt-erc-20-7645909069a4)
 * [https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/inadherence-to-standards.md](https://github.com/KadenZipfel/smart-contract-attack-vectors/blob/master/vulnerabilities/inadherence-to-standards.md)
-

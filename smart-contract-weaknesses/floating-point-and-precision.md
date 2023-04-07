@@ -36,7 +36,7 @@ The issue with this contract is that the precision is only to the nearest ether 
 
 ## Rounding Division Error
 
-> See Solidity [Rounding with Integer Division](../best-practices/solidity-specific-recommendations.md#beware-rounding-with-integer-division) section.&#x20;
+> See Solidity [Rounding with Integer Division](../best-practices/solidity-specific-recommendations/#beware-rounding-with-integer-division) section.&#x20;
 
 All integer division rounds down to the nearest integer. If you need more precision, consider using a multiplier, or store both the numerator and denominator.
 
